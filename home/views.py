@@ -11,6 +11,7 @@ import uuid
 from django.conf import settings
 
 #ritik_testing
+#remote
 current_dir = os.path.dirname(os.path.abspath(__file__))
 service_account_path = os.path.join(current_dir, 'matchinghearts-44d68-firebase-adminsdk-1siaw-f0a3f4a837.json')
 config={
