@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accepted Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .orders-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .order {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 300px;
+        }
+        
+        .order h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .order p {
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .order ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .order li {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .order li a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .order li a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-button {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .back-button a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Orders</h1>
+    <div class="orders-container">
+        {% for order_id, order_data in orders.items %}
+            {% if order_data.order_placed %}
+                <div class="order">
+                    <h2>order id: {{ order_id }}</h2>
+                    <p>Order Type: {{ order_data.order_type|title }}</p>
+                    <p>Order Cost: {{ order_data.cost|title }}</p>
+                    <p>Order Accepted: {{ order_data.order_accepted }}</p>
+                    <p>Delivery Date: {{ order_data.delivery_date }}</p>
+                    <p>Delivered: {{ order_data.delivered }}</p>
+                    <h3>PDF Files</h3>
+                    {% if order_data.pdf_files %}
+                        <ul>
+                            {% for file in order_data.pdf_files %}
+                                <li>{{ file.name }} - <a href="{{ file.url }}">Download</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No PDF files found for this order.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="back-button">
+        <a href="/home/">Back to Main Page</a>
+    </div>
+</body>
+</html>    
