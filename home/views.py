@@ -10,6 +10,8 @@ import datetime
 import uuid
 from django.conf import settings
 
+#ritik_testing
+#remote
 current_dir = os.path.dirname(os.path.abspath(__file__))
 service_account_path = os.path.join(current_dir, 'matchinghearts-44d68-firebase-adminsdk-1siaw-f0a3f4a837.json')
 config={
@@ -114,7 +116,7 @@ def admin_home(request):
         return render(request, "admin_home.html", {'users': user_data})
 
     else:
-        if 'uid' in request.session:
+        if 'uid' in request.session and request.session['uid']=='yLWR0bmUj3e4KeGnQDDqGBFzjt92':
             users_ref = db.collection('users')
             users = users_ref.get()
             user_data = []
