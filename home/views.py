@@ -115,7 +115,7 @@ def admin_home(request):
         return render(request, "admin_home.html", {'users': user_data})
 
     else:
-        if 'uid' in request.session:
+        if 'uid' in request.session and request.session['uid']=='yLWR0bmUj3e4KeGnQDDqGBFzjt92':
             users_ref = db.collection('users')
             users = users_ref.get()
             user_data = []
