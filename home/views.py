@@ -143,35 +143,43 @@ def home(request):
                 print(type(pdf_file))
                 reader = PyPDF2.PdfReader(pdf_file)
                 number_of_pages = len(reader.pages)
-                user_ref = db.collection('users').document(uid)
-                user_data = user_ref.get().to_dict()
-                
-                current_orders = user_data.get('orders', {})
-                order_id = str(uuid.uuid4())
-                order = {
-                    'order_type': order_type,
-                    'pdf_files': [],
-                    'order_placed': False,
-                    'cost': 0,
-                    'order_accepted': False,
-                    'delivery_date': "",
-                    'delivered': False
-                }
-                current_orders[order_id] = order
+                if(not request.POST.get('cost')):
+                    user_ref = db.collection('users').document(uid)
+                    user_data = user_ref.get().to_dict()
+                    current_orders = user_data.get('orders', {})
+                    order_id = str(uuid.uuid4())
+                    order = {
+                        'order_type': order_type,
+                        'pdf_files': [],
+                        'order_placed': False,
+                        'cost': 0,
+                        'order_accepted': False,
+                        'delivery_date': "",
+                        'delivered': False
+                    }
+                    current_orders[order_id] = order
 
-                current_files = order.get('pdf_files', [])
-                current_files.append({'name': pdf_file.name, 'url': file_url})
-                order['pdf_files'] = current_files
-                order['order_placed'] = True
+                    current_files = order.get('pdf_files', [])
+                    current_files.append({'name': pdf_file.name, 'url': file_url})
+                    order['pdf_files'] = current_files
+                    order['order_placed'] = True
 
-                if order_type == 'spiral':
-                    order['cost'] = (number_of_pages * 1.5) + 30
+                    if order_type == 'spiral':
+                        order['cost'] = (number_of_pages * 1.5) + 30
+                    else:
+                        order['cost'] = (number_of_pages * 1.5) + 80
+
+                    user_ref.update({'orders': current_orders})
+
+                    return render(request, "Home.html", {'user_data': user_data})
                 else:
-                    order['cost'] = (number_of_pages * 1.5) + 80
-
-                user_ref.update({'orders': current_orders})
-
-                return render(request, "Home.html", {'user_data': user_data})
+                    if order_type == 'spiral':
+                       cost = (number_of_pages * 1.5) + 30
+                    else:
+                       cost = (number_of_pages * 1.5) + 80
+                    
+                    return render(request, "Home.html", {'cost': cost})
+                    
             else:
                 error_message = "No file selected. Please choose a PDF file to upload."
                 return render(request, "Home.html", {'error_message': error_message})

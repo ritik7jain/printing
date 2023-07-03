@@ -179,15 +179,32 @@
                     <form id="order-form" action="/home/" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input type="file" name="pdf_file" accept=".pdf">
-                        <button type="submit">Place Order</button>
+                        <button type="submit" onclick="return validateForm()" >Place Order</button>
+                        <button type="submit" onclick="return calculatecost()">Check Cost</button>
                     </form>
                 </div>
                 <button onclick="mainscreen()">Back</button>
+                <div id="cost-info" style="display: none;">
+                    {% if cost %}
+                        <h3>Cost: {{ cost }}</h3>
+                    {% endif %}
+                </div>
             </div>
+            
         </div>
     </div>
+    
 
     <script>
+        
+        function validateForm() {
+            var fileInput = document.querySelector('input[type="file"]');
+            if (fileInput.files.length === 0) {
+                alert("Please upload a PDF file.");
+                return false;
+            }
+            return true; 
+        }
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
@@ -196,18 +213,41 @@
         function openUploadScreen(type) {
             var form = document.querySelector('#order-form');
             var input = document.createElement('input');
+            var input_cost=document.createElement('input');
+            input_cost.type='hidden';
+            input_cost.name='cost';
+            input_cost.value=''
             input.type = 'hidden';
             input.name = 'order_type';
             input.value = type;
-            console.log(type)
             form.appendChild(input);
             document.getElementById('upload-screen').style.display = 'flex';
             document.querySelector('.container').style.display = 'none';
         }
         function mainscreen()
-        {
+        {   
+            var costInfo = document.querySelector('#cost-info');
+            costInfo.style.display = 'none';
             document.getElementById('upload-screen').style.display = 'none';
             document.querySelector('.container').style.display = 'flex';
+        }
+
+        function calculatecost()
+        {
+            var fileInput = document.querySelector('input[type="file"]');
+            if (fileInput.files.length === 0) {
+                alert("Please upload a PDF file.");
+                return false; 
+            }
+            var form = document.querySelector('#order-form');
+            var input_cost=document.createElement('input');
+            input_cost.type='hidden';
+            input_cost.name='cost';
+            input_cost.value='cost'
+            form.appendChild(input_cost)
+            var costInfo = document.querySelector('#cost-info');
+            costInfo.style.display = 'block';
+            return true;
         }
         
     </script>

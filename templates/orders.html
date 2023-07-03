@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Accepted Orders</title>
+    <title>My Orders</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,11 +20,25 @@
             justify-content: center;
         }
         
+        .section {
+            margin: 20px;
+        }
+        
+        .section-header {
+            background-color: #ff9800;
+            color: #fff;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
         .order {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 10px;
+            margin-bottom: 10px;
             padding: 20px;
             width: 300px;
         }
@@ -75,13 +89,37 @@
 <body>
     <h1>My Orders</h1>
     <div class="orders-container">
+        {% if orders%}
         {% for order_id, order_data in orders.items %}
-            {% if order_data.order_placed %}
+        {% if order_data.order_placed%}
+            <div class="section">
+                <div class="section-header">Placed Orders</div>
+                    <div class="order">
+                        <h2>Order ID: {{ order_id }}</h2>
+                        <p>Order Type: {{ order_data.order_type|title }}</p>
+                        <p>Order Cost: {{ order_data.cost|title }}</p>
+                        <p>Delivery Date: {{ order_data.delivery_date }}</p>
+                        <p>Delivered: {{ order_data.delivered }}</p>
+                        <h3>PDF Files</h3>
+                        {% if order_data.pdf_files %}
+                            <ul>
+                                {% for file in order_data.pdf_files %}
+                                    <li>{{ file.name }} - <a href="{{ file.url }}">Download</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No PDF files found for this order.</p>
+                        {% endif %}
+                    </div>
+            </div>
+        {% endif %}
+        {% if order_data.order_accepted %}
+        <div class="section">
+            <div class="section-header">Accepted Orders</div>
                 <div class="order">
-                    <h2>order id: {{ order_id }}</h2>
+                    <h2>Order ID: {{ order_id }}</h2>
                     <p>Order Type: {{ order_data.order_type|title }}</p>
                     <p>Order Cost: {{ order_data.cost|title }}</p>
-                    <p>Order Accepted: {{ order_data.order_accepted }}</p>
                     <p>Delivery Date: {{ order_data.delivery_date }}</p>
                     <p>Delivered: {{ order_data.delivered }}</p>
                     <h3>PDF Files</h3>
@@ -95,12 +133,15 @@
                         <p>No PDF files found for this order.</p>
                     {% endif %}
                 </div>
-            {% endif %}
+        </div>
+        {%endif%}
         {% endfor %}
+        
+        
+        {% endif %}
     </div>
-    
     <div class="back-button">
         <a href="/home/">Back to Main Page</a>
     </div>
 </body>
-</html>    
+</html>
