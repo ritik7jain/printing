@@ -10,6 +10,8 @@ import datetime
 import uuid
 from django.conf import settings
 
+#ritik_testing
+#remote
 current_dir = os.path.dirname(os.path.abspath(__file__))
 service_account_path = os.path.join(current_dir, 'matchinghearts-44d68-firebase-adminsdk-1siaw-f0a3f4a837.json')
 config={
@@ -114,7 +116,7 @@ def admin_home(request):
         return render(request, "admin_home.html", {'users': user_data})
 
     else:
-        if 'uid' in request.session:
+        if 'uid' in request.session and request.session['uid']=='yLWR0bmUj3e4KeGnQDDqGBFzjt92':
             users_ref = db.collection('users')
             users = users_ref.get()
             user_data = []
@@ -141,35 +143,43 @@ def home(request):
                 print(type(pdf_file))
                 reader = PyPDF2.PdfReader(pdf_file)
                 number_of_pages = len(reader.pages)
-                user_ref = db.collection('users').document(uid)
-                user_data = user_ref.get().to_dict()
-                
-                current_orders = user_data.get('orders', {})
-                order_id = str(uuid.uuid4())
-                order = {
-                    'order_type': order_type,
-                    'pdf_files': [],
-                    'order_placed': False,
-                    'cost': 0,
-                    'order_accepted': False,
-                    'delivery_date': "",
-                    'delivered': False
-                }
-                current_orders[order_id] = order
+                if(not request.POST.get('cost')):
+                    user_ref = db.collection('users').document(uid)
+                    user_data = user_ref.get().to_dict()
+                    current_orders = user_data.get('orders', {})
+                    order_id = str(uuid.uuid4())
+                    order = {
+                        'order_type': order_type,
+                        'pdf_files': [],
+                        'order_placed': False,
+                        'cost': 0,
+                        'order_accepted': False,
+                        'delivery_date': "",
+                        'delivered': False
+                    }
+                    current_orders[order_id] = order
 
-                current_files = order.get('pdf_files', [])
-                current_files.append({'name': pdf_file.name, 'url': file_url})
-                order['pdf_files'] = current_files
-                order['order_placed'] = True
+                    current_files = order.get('pdf_files', [])
+                    current_files.append({'name': pdf_file.name, 'url': file_url})
+                    order['pdf_files'] = current_files
+                    order['order_placed'] = True
 
-                if order_type == 'spiral':
-                    order['cost'] = (number_of_pages * 1.5) + 30
+                    if order_type == 'spiral':
+                        order['cost'] = (number_of_pages * 1.5) + 30
+                    else:
+                        order['cost'] = (number_of_pages * 1.5) + 80
+
+                    user_ref.update({'orders': current_orders})
+
+                    return render(request, "Home.html", {'user_data': user_data})
                 else:
-                    order['cost'] = (number_of_pages * 1.5) + 80
-
-                user_ref.update({'orders': current_orders})
-
-                return render(request, "Home.html", {'user_data': user_data})
+                    if order_type == 'spiral':
+                       cost = (number_of_pages * 1.5) + 30
+                    else:
+                       cost = (number_of_pages * 1.5) + 80
+                    
+                    return render(request, "Home.html", {'cost': cost})
+                    
             else:
                 error_message = "No file selected. Please choose a PDF file to upload."
                 return render(request, "Home.html", {'error_message': error_message})
