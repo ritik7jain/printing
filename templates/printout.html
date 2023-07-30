@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_printout.css' %}">
+
+  <link rel="stylesheet" href=
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+   
+      <!-- Bootstrap Font Icon CSS -->
+      <link rel="stylesheet" href=
+  "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+  <!--font awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+<body>
+  <div class="whole-webpage">
+    <div class="navigation-bar">
+      <h1 class="logo-tag">
+        <a>SMART EARNINGS</a></h1>
+    <div class="navbar" id="mynavbar">
+      <ul class="navbar-ul">
+        <li><a class="nav-li" href="/index/">Home</a></li>
+        <li><a class="nav-li" href="">Services</a></li>
+        <li><a class="nav-li"  href="">Your Orders</a></li>
+        <li><a class="nav-li"  href="">FAQ's</a></li>
+        <li><a class="nav-li"  href="">Contact</a></li>
+      </ul>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+      <a href="javascript:void(0);" class="icon-exit-icon" onclick="toggleNavbar()">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+  </div>
+  <div class="main-content-printout-page" id="main-content-printout-page">
+    <div class="icon-box-printoutpage">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+                <i class="bi-layers-fill"></i>
+              </div>
+              <h4 class="icon-box-title">Loose Printing</h4>
+              <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 1.5</a></p>
+              <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p>
+              <p class="icon-box-description"> <a class="icon-box-description-price"></a></p>
+              <button class="upload-pdf-button" onclick="openuploadpage('loose')">Upload Pdf</button>
+      </div>
+      <div class="icon-box-printoutpage">
+        <div class="icon">
+          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+          </svg>
+          <i class="bi-palette-fill"></i>
+        </div>
+        <h4 class="icon-box-title">Color Printing</h4>
+        <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 10</a></p>
+        <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p>
+        <button class="upload-pdf-button" onclick="openuploadpage('color')">Upload Pdf</button>
+      </div>
+      <div class="icon-box-printoutpage">
+        <div class="icon">
+          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+          </svg>
+          <i class="bi-image-fill"></i>
+        </div>
+        <h4 class="icon-box-title">Photo Printing</h4>
+        <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 50</a></p>
+        <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p>
+        <button class="upload-pdf-button" onclick="openuploadpage('photo')">Upload Pdf</button>
+      </div>
+      <div class="icon-box-printoutpage">
+        <div class="icon">
+          <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+          </svg>
+          <i class="bi-book-fill"></i>
+        </div>
+        <h4 class="icon-box-title">Spiral Binding</h4>
+        <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 1.5</a></p>
+        <p class="icon-box-description">spiral Binding-    <a class="icon-box-description-price">Rs 20</a></p>
+        <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p>
+        <button class="upload-pdf-button" onclick="openuploadpage('spiral')">Upload Pdf</button>
+      </div>
+<div class="icon-box-printoutpage">
+  <div class="icon">
+    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+    </svg>
+    <i class="bi-book-fill"></i>
+  </div>
+  <h4 class="icon-box-title">Hard Binding</h4>
+  <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 5</a></p>
+  <p class="icon-box-description">Hard Binding-    <a class="icon-box-description-price">Rs 50</a></p>
+  <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p>
+  <button class="upload-pdf-button" onclick="openuploadpage('hard_binding')">Upload Pdf</button>
+</div>
+<div class="icon-box-printoutpage">
+  <div class="icon">
+    <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+    </svg>
+    <i class="bi-tablet-landscape-fill"></i>
+  </div>
+  <h4 class="icon-box-title">Scrap Book Printing</h4>
+  <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 30</a></p>
+  <p class="icon-box-description"> Binding-    <a class="icon-box-description-price">Rs 50</a></p>
+  <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p> 
+  <button type="submit" class="upload-pdf-button" onclick="openuploadpage('scrap_book')">Upload Pdf</button>
+  
+</div>
+      </div>
+      <form id="get-type-form" action="/upload_pdf/" method="POST" enctype="multipart/form-data" style="display:none">
+        {% csrf_token %}
+        <input type="text" name="type_of_print" id="type_input" >   
+        <button type="submit" >Place Order</button>
+    </form>
+      
+     
+     
+    </div>
+      
+  
+    
+  
+ 
+  <script>
+    function myFunction() {
+      var x = document.getElementById("mynavbar");
+      if (x.className === "navbar") {
+        x.className += " responsive";
+        document.getElementById("main-content-printout-page").style.opacity=0;
+      } else {
+        x.className = "navbar";
+      }
+
+    }
+    function toggleNavbar()
+    {
+      document.getElementById("main-content-printout-page").style.opacity=1;
+      var x = document.getElementById("mynavbar");
+      if (x.className === "navbar") {
+        x.className += " close";
+      } else {
+        x.className = "navbar";
+      }
+    }
+    function openuploadpage(type)
+    {
+      console.log("type is ",type);
+      //window.location.href = `/upload_pdf.html? =${encodeURIComponent(type)}`;
+      var type_of_print=document.getElementById('type_input');
+      type_of_print.value=type;
+      console.log("type of print va;ue is",type_of_print.value);
+      
+      localStorage.setItem('type_of_print', type);
+     // document.getElementById('get-type-form').submit();
+      
+      window.location.href = `/upload_pdf/`;
+    
+    }
+ 
+
+
+    </script>
+ 
+  
+</body>
+</html>

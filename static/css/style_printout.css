@@ -1,0 +1,261 @@
+.whole-webpage {
+    position: relative;
+    height: 100%;
+    margin-top: 30px;
+  
+  
+  }
+  
+  .navigation-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .logo-tag {
+    color: #16507b;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    float: left;
+    margin-left: 12%;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    margin-right: 10%;
+  
+  }
+  
+  .navbar {
+    width: 35%;
+    margin-right: 30%;
+  }
+  
+  .navbar-ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .nav-li {
+    text-decoration: none;
+    color: #16507b;
+    padding: 10px 0 10px 30px;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+  
+  }
+  
+  .nav-li:hover {
+    color: #2487ce;
+  }
+  
+  .navbar .icon {
+    display: none;
+  }
+  
+  .navbar .icon-exit-icon {
+    display: none;
+  }
+  
+  .main-content-printout-page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 150%;
+    left: 10%;
+  }
+  
+  .icon-box-printoutpage {
+    width: 25%;
+    float: left;
+    border-color: #fff;
+    text-align: center;
+    padding: 70px 20px 0px 20px;
+    transition: all ease-in-out 0.3s;
+    background: #fff;
+    box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
+    margin: 20px;
+  }
+  
+  .icon-box-printoutpage>.icon {
+    margin-bottom: 20px;
+  
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    font-size: 36px;
+    line-height: 1;
+    color: #16507b;
+  }
+  
+  .icon-box-printoutpage>.icon-box-title {
+    color: #124265;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  .icon-box-printoutpage>.icon-box-description {
+    font-size: 15px;
+    line-height: 28px;
+    margin-bottom: 0px;
+    font-family: "Open Sans", sans-serif;
+    color: rgb(68, 68, 68);
+  }
+  
+  .icon-box-description-price {
+    text-decoration: none;
+    font-size: 18px;
+    color: #124265;
+    font-weight: 800;
+  }
+  
+  .upload-pdf-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 5px;
+    color: #fff;
+    background-color: #124265;
+    border: 1px solid #fff;
+  }
+  
+  .icon-box-printoutpage>.icon {
+    position: relative;
+  }
+  
+  .icon-box-printoutpage>.icon i {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+  }
+  
+  @media screen and (max-width:1300px) {
+    .navbar {
+      width: 70%;
+      margin-right: 7%;
+    }
+  
+    .logo-tag {
+      margin-left: 2%;
+    }
+  
+    .nav-li {
+      padding: 10px;
+    }
+  
+    .navbar-ul {
+      justify-content: unset;
+    }
+  
+  }
+  
+  @media screen and (max-width: 600px) {
+  
+  
+    .logo-tag {
+      position: absolute;
+      left: 20%;
+      font-size: 15px;
+      width: 80%;
+    }
+  
+    .navbar-ul {
+      display: none;
+    }
+  
+    .navbar a.icon {
+      float: left;
+      display: block;
+      color: #16507b;
+      font-size: 25px;
+      position: absolute;
+      top: 20px;
+      left: -20%;
+    }
+  
+    .navigation-bar {
+      flex-direction: row-reverse;
+    }
+  
+    .icon-exit-icon {
+      display: none;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .whole-webpage {
+      overflow-y: auto;
+      display: contents;
+      /* Enable vertical scrolling in mobile view */
+    }
+  
+    .navbar.responsive {
+      position: relative;
+    }
+  
+    .navbar.responsive .icon {
+      position: absolute;
+      display: none;
+      left: 0;
+      top: 0;
+    }
+  
+    .navbar.responsive .icon-exit-icon {
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: #16507b;
+      font-size: 15px;
+    }
+  
+    .navbar.responsive li {
+      margin: 15px;
+    }
+  
+    .navbar.responsive .navbar-ul {
+      top: 100px;
+      float: none;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      width: 80%;
+      height: 80%;
+      background-color: #16507b;
+      margin-left: 2%;
+  
+    }
+  
+    .navbar.responsive .nav-li {
+      color: white
+    }
+  
+    .navbar.responsive {
+      margin-right: 0px;
+      width: 100%;
+    }
+  
+    .logo-tag {
+      position: absolute;
+      top: 5%;
+      font-size: 16px;
+  
+    }
+  
+    .main-content-printout-page {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      top: 15%;
+    }
+  
+    .icon-box-printoutpage {
+      width: 70%;
+    }
+  
+  
+  
+  }

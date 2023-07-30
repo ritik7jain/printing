@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
+</head>
+<body>
+  <div class="whole-webpage">
+    <div class="navigation-bar">
+      <h1 class="logo-tag">
+        <a>SMART EARNINGS</a></h1>
+    <div class="navbar" id="mynavbar">
+      <ul class="navbar-ul">
+        <li><a class="nav-li"href="">Home</a></li>
+        <li><a class="nav-li" href="/printout/">Services</a></li>
+        <li><a class="nav-li"  href="/order/">Your Orders</a></li>
+        <li><a class="nav-li"  href="#">FAQ's</a></li>
+        <li><a class="nav-li"  href="#">Contact</a></li>
+      </ul>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+      <a href="javascript:void(0);" class="icon-exit-icon" onclick="toggleNavbar()">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+    
+  </div>
+  <div class="main-content" id="main-content">
+   
+    <h1 class="main-content-headlines"> One platform for your all printings </h1>
+    <button class="get-started-button">Get started</button>
+    <div class="four-cards-homepage">
+      <div class="icon-box">
+        <div class="icon"><i class="fa fa-solid fa-print"></i></i></div>
+        <h4 class="icon-box-title">Page printing</h4>
+        <p class="icon-box-description">Get your Loose paper printed at Rs 1.5 per page </p>
+      </div>
+      <div class="icon-box">
+        <div class="icon"><i class="fa fa-book"></i></div>
+        <h4 class="icon-box-title">Hard Binding</h4>
+        <p class="icon-box-description">Get your Loose paper printed at Rs 5 per page and Rs 100 for Binding </p>
+      </div>
+      <div class="icon-box">
+        <div class="icon"><i class="fa fa-paperclip"></i></div>
+        <h4 class="icon-box-title">Spiral Binding</h4>
+        <p class="icon-box-description">Get your Loose paper printed at Rs 1.5 per page and Rs  20 for spiral </p>
+      </div>
+      <div class="icon-box">
+        <div class="icon"><i class="fa fa-file-photo-o"></i></div>
+        <h4 class="icon-box-title">Color printing </h4>
+        <p class="icon-box-description">Get your Loose paper printed at Rs 10 per page </p>
+      </div>
+    </div>
+    </div>
+  </div>
+ 
+  <script>
+    function myFunction() {
+      var x = document.getElementById("mynavbar");
+      if (x.className === "navbar") {
+        x.className += " responsive";
+        document.getElementById("main-content").style.opacity=0;
+      } else {
+        x.className = "navbar";
+      }
+
+    }
+    function toggleNavbar()
+    {
+      document.getElementById("main-content").style.opacity=1;
+      var x = document.getElementById("mynavbar");
+      if (x.className === "navbar") {
+        x.className += " close";
+
+      } else {
+        x.className = "navbar";
+      }
+     
+
+    }
+    </script>
+ 
+  
+</body>
+</html>

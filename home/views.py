@@ -9,6 +9,7 @@ from firebase_admin import storage
 import datetime
 import uuid
 from django.conf import settings
+import re
 
 #ritik_testing
 #remote
@@ -57,7 +58,8 @@ def signIn(request):
         request.session['uid'] = uid 
         user_ref = db.collection('users').document(uid)
         user_data = user_ref.get().to_dict()
-        return render(request, "Home.html", {'user_data': user_data})    
+        return render(request,'index.html',{'user_data':user_data})
+        # return render(request, "Home.html", {'user_data': user_data})    
     return render(request,"login.html")
 
 
@@ -125,6 +127,73 @@ def admin_home(request):
             return render(request, "admin_home.html", {'users': user_data})
         return redirect('/admin_login/')
     
+def index(request):
+    if 'uid' in request.session:
+        uid = request.session['uid']
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        if user_data:
+            return render(request, "index.html", {'user_data': user_data})
+    return redirect('/')
+
+def upload_pdf(request):
+    if request.method == 'POST':
+        print("1")
+        if "pdf_file" in request.FILES:
+            order_type=request.POST.get('order_type')
+            pdf_file = request.FILES['pdf_file']
+            cost=request.POST.get('cost')
+            max_file_size = settings.MAX_FILE_SIZE
+            if pdf_file.size > max_file_size:
+                error_message = "File size exceeds the limit."
+                return render(request, "upload_pdf.html", {'message': error_message}) 
+            uid = request.session.get('uid')
+            file_name = f"user_{uid}/{pdf_file.name}"
+            blob = bucket.blob(file_name)
+            blob.upload_from_file(pdf_file)
+            file_url = blob.generate_signed_url(datetime.timedelta(days=7), method='GET')
+            user_ref = db.collection('users').document(uid)
+            user_data = user_ref.get().to_dict()
+            current_orders = user_data.get('orders', {})
+            order_id = str(uuid.uuid4())
+            order_id = re.sub(r'[^a-zA-Z0-9]', '', order_id)
+            order = {
+                'order_type': order_type,
+                'pdf_files': [],
+                'order_placed': False,
+                'cost': 0,
+                'order_accepted': False,
+                'delivery_date': "",
+                'delivered': False
+            }
+            current_orders[order_id] = order
+            current_files = order.get('pdf_files', [])
+            current_files.append({'name': pdf_file.name, 'url': file_url})
+            order['pdf_files'] = current_files
+            order['order_placed'] = True
+            order['cost']=cost
+            user_ref.update({'orders': current_orders})
+        return render(request, "index.html",{'user_data': user_data})
+    else:    
+        print("2")
+        if 'uid' in request.session:
+            uid = request.session['uid']
+            user_ref = db.collection('users').document(uid)
+            user_data = user_ref.get().to_dict()
+            if user_data:
+                return render(request, "upload_pdf.html", {'user_data': user_data})
+        return redirect('/')
+
+
+def services(request):
+    if 'uid' in request.session:
+        uid = request.session['uid']
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        if user_data:
+            return render(request, "printout.html", {'user_data': user_data})
+    return redirect('/')
+
 
 def home(request):
         if request.method == 'POST':
@@ -134,13 +203,12 @@ def home(request):
                 max_file_size = settings.MAX_FILE_SIZE
                 if pdf_file.size > max_file_size:
                     error_message = "File size exceeds the limit."
-                    return render(request, "Home.html", {'message': error_message}) 
+                    return render(request, "upload_pdf.html", {'message': error_message}) 
                 uid = request.session.get('uid')
                 file_name = f"user_{uid}/{pdf_file.name}"
                 blob = bucket.blob(file_name)
                 blob.upload_from_file(pdf_file)
                 file_url = blob.generate_signed_url(datetime.timedelta(days=7), method='GET')
-                print(type(pdf_file))
                 reader = PyPDF2.PdfReader(pdf_file)
                 number_of_pages = len(reader.pages)
                 if(not request.POST.get('cost')):

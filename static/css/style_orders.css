@@ -1,0 +1,177 @@
+.whole-webpage {
+    position: relative;
+    height: 100%;
+  }
+  
+  .navigation-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .logo-tag {
+    color: #16507b;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    float: left;
+    margin-left: 12%;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    margin-right: 10%;
+  
+  }
+  
+  .navbar {
+    width: 35%;
+    margin-right: 30%;
+  }
+  
+  .navbar-ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .nav-li {
+    text-decoration: none;
+    color: #16507b;
+    padding: 10px 0 10px 30px;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+  
+  }
+  
+  .nav-li:hover {
+    color: #2487ce;
+  }
+  
+  .navbar .icon {
+    display: none;
+  }
+  
+  .navbar .icon-exit-icon {
+    display: none;
+  }
+  .main_content_orders_page{
+    margin-left:100px;
+    margin-top:20px;
+    background: #f1f3f6;
+  }
+  .order_page_content{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  
+
+  .filter_sidebar{
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
+    width: 15vw;
+  }
+  .filter_sidebar>form>label{
+    font-family:"Raleway"sans-serif;
+    letter-spacing: 0;
+    margin-left: 10px;
+    color: #16507b;
+    font-size: 15px;
+    font-weight: 400;
+
+  }
+  .filter_sidebar>form>input{
+    margin-left: 20px;
+  }
+  .filter_sidebar>form>p{
+    font-family: "Raleway",sans-serif;
+    font-weight: 600;
+    margin-left: 20px;
+    color: #124265;
+
+  }
+.cards_order_page{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.column {
+  width:55vw;
+  padding: 0 10px;
+  margin:15px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  transition: box-shadow .1s linear;
+
+  
+}
+.card {
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  
+}
+.image_and_order_type {
+  display: flex;
+  flex-direction: column;
+  
+  width: 120px;
+  height: 160px; /* Set the desired height */
+  overflow: hidden; /* This will hide any content that goes beyond the fixed size */
+}
+
+.card_image{
+  width: 80px;
+  height: 80px;
+   min-width: 80px;
+   box-sizing: border-box;
+   margin-left: 15px;
+}
+.status_display_button{
+  background-color: yellow;
+  width: 100px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-bottom:5px;
+}
+.order_file_and_id{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10vw;
+}
+/* Add a CSS reset for <p> elements to remove default margins and padding */
+.p_order_file_and_id{
+  margin: 5px;
+  padding: 0;
+}
+.order_type_display{
+  margin-left: 5px;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-family: "Raleway",sans-serif;
+}
+.order_type_display span{
+font-weight: 600;
+color: #124265;
+
+}
+.span_in_p{
+  font-weight: 600;
+color: #124265;
+  
+}
+.price_in_card{
+  margin-left:9vw;
+}
+.order_file_and_id{
+  width: 350px;
+}

@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-<html>
+{% load static  %}
+<html lang="en">
+
 <head>
-    <title>My Orders</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Earnings</title>
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style_orders.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- adding google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+   {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +34,7 @@
         }
         
         .section-header {
-            background-color: #ff9800;
+            background-color: #16507b;
             color: #fff;
             padding: 10px;
             font-size: 20px;
@@ -44,7 +53,7 @@
         }
         
         .order h2 {
-            color: #333;
+            color:#2487ce;
             font-size: 20px;
             margin-bottom: 10px;
         }
@@ -85,9 +94,199 @@
             text-decoration: none;
         }
     </style>
+    
 </head>
 <body>
-    <h1>My Orders</h1>
+    <div class="whole_webpage">
+        <div class="navigation-bar">
+            <h1 class="logo-tag">
+              <a>SMART EARNINGS</a></h1>
+          <div class="navbar" id="mynavbar">
+            <ul class="navbar-ul">
+              <li><a class="nav-li"href="/index/">Home</a></li>
+              <li><a class="nav-li" href="/printout/">Services</a></li>
+              <li><a class="nav-li"  href="/order/">Your Orders</a></li>
+              <li><a class="nav-li"  href="#">FAQ's</a></li>
+              <li><a class="nav-li"  href="#">Contact</a></li>
+            </ul>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+            <a href="javascript:void(0);" class="icon-exit-icon" onclick="toggleNavbar()">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+          
+        </div>
+        <div class="main_content_orders_page">
+           <div class="order_page_content">
+            <div class="filter_sidebar">
+                <form >
+                    <p>ORDER STATUS</p>
+                    <input type="radio" id="delivered" name="order_status" value="delivered">
+                     <label for="delivered">Delivered</label><br>
+                      <input type="radio" id="Accepted" name="order_status" value="Accepted">
+                       <label for="Accepted">Accepted</label><br>
+                         <input type="radio" id="placed" name="order_status" value="placed">
+                        <label for="placed">Placed</label><br>
+                    
+                    <br>  
+                  
+                    <p>SORT BY </p>
+                    <input type="radio" id="date" name="order_status" value="">
+                    <label for="date">Date</label><br>
+                    <input type="radio" id="price" name="order_status" value="">
+                    <label for="price">Price</label>
+                    <br>
+                    <br>
+                  </form>
+                    
+            </div>
+            <div class="cards_order_page">
+                {% if orders%}
+                {% for order_id, order_data in orders.items %}
+                {% if order_data.order_placed%}
+                <div class="column">
+                    <div class="card">
+                        <div class="image_and_order_type">
+                            <button class="status_display_button">
+                                {% if order_data.delivered %}
+                                    <span>Delivered</span>
+                                {% elif order_data.order_accepted%}
+                                    <span>Accepted</span>
+                                {% elif order_data.order_placed%}
+                                    <span>Order Placed</span>
+
+
+                                {% endif %}
+                            </button>
+                            
+                            <img class="card_image"id="card_image_{{ order_id }}" src="..\static\Images\loose_paper.png">
+                            <p class="order_type_display" id="order_type_display">Order type:<span> {{ order_data.order_type|title }}</span></p>
+                        </div>
+                        <div class="price_in_card">
+                            <p> {{ order_data.cost|title }}</p>
+                        </div>
+                        <div class="order_file_and_id">
+                            <p class="p_order_file_and_id"><span class="span_in_p">Delivery Date:</span> {{ order_data.delivery_date }} </p>
+                            <p class="p_order_file_and_id"><span class="span_in_p">Selected File:</span>
+                                {% if order_data.pdf_files %}
+                                    {% for file in order_data.pdf_files %}
+                                        {% with file_name=file.name|slice:":18" %}
+                                            <span>{{ file_name }}{% if file.name|length > 18 %}...{% endif %} - <a href="{{ file.url }}">Download</a></span>
+                                        {% endwith %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No PDF files found for this order.</p>
+                                {% endif %}
+                            </p>
+                            <p class="p_order_file_and_id"><span class="span_in_p">Order id:</span> {{ order_id }}</p>
+                        </div>
+                        
+
+                       
+                      
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+              
+            </div>
+             
+        </div>
+
+    </div>
+
+    {% if orders %}
+    {% for order_id, order_data in orders.items %}
+    <script>
+        
+    
+        // Get the card image element by ID
+        var cardImage = document.getElementById("card_image_{{ order_id }}");
+        
+        // Update the image source based on the order_type
+        if ("{{ order_data.order_type }}" === "loose") {
+            cardImage.src = "../static/Images/loose.png";
+            document.getElementById(order_type_display).innerHtml += "printing";
+        } else if ("{{ order_data.order_type }}" === "color") {
+            cardImage.src = "../static/Images/color.jpg";
+        } 
+        else if ("{{ order_data.order_type }}" === "scrap_book") {
+            cardImage.src = "../static/Images/scrap_book.png";
+        } 
+        else if ("{{ order_data.order_type }}" === "photo") {
+            cardImage.src = "../static/Images/photo.png";
+        } 
+        else if ("{{ order_data.order_type }}" === "hard_binding") {
+            cardImage.src = "../static/Images/hard_binding.png";
+        } 
+        else if ("{{ order_data.order_type }}" === "spiral") {
+            cardImage.src = "../static/Images/spiral.png";
+        } 
+        else {
+            cardImage.src = "../static/Images/loose_paper.png";
+        }
+    </script>
+    {% endfor %}
+    {% endif %}
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% comment %} <h1>My Orders</h1>
     <div class="orders-container">
         {% if orders%}
         {% for order_id, order_data in orders.items %}
@@ -144,4 +343,4 @@
         <a href="/home/">Back to Main Page</a>
     </div>
 </body>
-</html>
+</html> {% endcomment %}

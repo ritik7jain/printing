@@ -1,0 +1,213 @@
+<!-- upload_pdf.html -->
+<!DOCTYPE html>
+{% load static  %}
+<html>
+<head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Earnings</title>
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style_upload_pdf.css' %}">
+
+    
+     
+        <!-- Bootstrap Font Icon CSS -->
+        <link rel="stylesheet" href=
+    "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- adding google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+  </head>
+</head>
+<body>
+  
+  <div class="upload_pdf"> 
+    <div class="back-button">
+      <a href="/printout/"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="upload_pdf_section">
+       <h1 class="upload_pdf_headline">
+          Upload Pdf File
+       </h1>
+       <h3 class="upload_pdf_sub_headline">Upload Your Pdf file here and get it printed next day.</h3>
+       <form id="order-form" action="../index.html" method="post" enctype="multipart/form-data">
+        <label for="pdf-file" class="select_Pdf_button">Select PDF File</label>
+        <input type="file" name="pdf_file" accept=".pdf" id="pdf-file" class="select_Pdf_button" style="display:none;">
+        <div id="file-name-display_upload_page"></div>
+        <button type="submit" class="placeorder" onclick="return placeOrderbutton()">Place Order</button>
+        {% comment %} <button type="button" class="calculate_cost" onclick="getNumberOfPages()">Calculate Cost</button> {% endcomment %}
+
+        {% comment %} <button type="submit" class="calculate_cost"onclick="return placeOrderbutton()" >Calculate Cost</button> {% endcomment %}
+      </form>
+     
+  </div>
+  
+  
+  
+  <div id="myModal" class="modal" style="display:none;">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h4 class="confirm_statement">Please confirm the following things</h4>
+     <div id="file-name-display"></div>
+     <h3 class="confirm_statement Cost">Cost-</h3>
+     <div id="Type_of_print_display"> </div>
+     <div id="printing_cost_display"> </div>
+     <div id="extra_charges_display"> </div>
+     <div id="delivery_charges"></div>
+     <div id="total_cost_display"></div>
+     <form id="confirm_button_form"  action="/upload_pdf/" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="submit_form" id="submit-form-input" style="display:none;">
+      <input type='text' name="order_type" id="type_of_file_form" style="display:none;">
+      <input type="file" name="pdf_file" accept=".pdf" id="pdf-file-copy" style="display:none;">
+      <input type="number" id="cost_confirm_button_form" name="cost" style="display:none">
+      <input type="text" name="pdf_file_name" id="pdf_file_name" style="display:none">
+      <button type="submit" class="confirm_button"onclick="submitForm()">Confirm</button>
+     </form>
+    </div>
+  </div>
+  </div>
+
+<script>
+  
+  let price_on_type = {
+    loose : 2,
+    color  : 10,
+    photo   :50,
+    spiral : 2,
+    hard_binding:5,
+    scrap_book:30
+    
+  };
+  let extra_prices_on_type={
+   
+    loose : 0,
+    color  : 0,
+    photo   :0,
+    spiral:20,
+    hard_binding:50,
+    scrap_book:50
+
+  }
+  let numPages;
+
+  const originalFileInput = document.getElementById('pdf-file');
+  const copyFileInput = document.getElementById('pdf-file-copy');
+
+  originalFileInput.addEventListener('change', function () {
+    // Check if a file is selected
+    console.log(originalFileInput.files.length)
+    if (originalFileInput.files.length > 0) {
+      // Copy the selected file from the original to the copy input
+      copyFileInput.files = originalFileInput.files;
+      document.getElementById('pdf_file_name').value=originalFileInput.files[0].name;
+      const fileNameDisplay_in_upload_file_page = document.getElementById('file-name-display_upload_page');
+      fileNameDisplay_in_upload_file_page.textContent = `Selected File: ${originalFileInput.files[0].name}`;
+    }
+  });
+
+  function placeOrderbutton() {
+    var fileInput = document.querySelector('input[type="file"]');
+    if (fileInput.files.length === 0) {
+      alert("Please upload a PDF file.");
+      return false; // Prevent form submission if no file is selected
+    }
+    
+    const file = fileInput.files[0];
+     const fileReader = new FileReader();
+
+    fileReader.onload = function () {
+      const typedArray = new Uint8Array(this.result);
+      pdfjsLib.getDocument(typedArray).promise.then(function (pdfDoc) {
+         numPages = pdfDoc.numPages;
+       var cost=   processNumPages();
+      });
+    };
+
+    fileReader.readAsArrayBuffer(file);
+    const typeofprint=localStorage.getItem('type_of_print');
+   
+    // Get the selected file name and display it in the 'file-name-display' div
+    const selectedFile = fileInput.files[0];
+    const fileNameDisplay = document.getElementById('file-name-display');
+    fileNameDisplay.textContent = `Selected File: ${selectedFile.name}`;
+
+    
+    
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+   var span = document.getElementsByClassName("close")[0];
+  span.onclick = function() {
+  modal.style.display = "none";
+ }
+  // When the user clicks anywhere outside of the modal, close it
+ window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+return false;
+    // Return false to prevent form submission
+    
+  }
+
+
+  function processNumPages() {
+    // Do something with the global 'numPages' value here, e.g., calculate cost, display it, etc.
+    const typeofprint = localStorage.getItem('type_of_print');
+
+    // Calculate the cost based on the number of pages and the selected type
+    const selectedPrice = price_on_type[typeofprint] || 0; // Default to 0 if the type is not found in the 'price_on_type' object
+    const cost = numPages * selectedPrice;
+
+    var type_of_print=document.getElementById('Type_of_print_display');
+    type_of_print.textContent = `Type Of Print: ${typeofprint} printing`;
+    
+    var printing_cost=document.getElementById('printing_cost_display');
+    printing_cost.textContent = `Printing Cost: Rs ${cost} `;
+    
+    var additional_charges=extra_prices_on_type[typeofprint]||0;
+
+    var extra_charges=document.getElementById('extra_charges_display');
+    extra_charges.textContent = `Extra Charges: Rs ${additional_charges} `;
+
+    var delivery_charges=document.getElementById('delivery_charges');
+    delivery_charges.textContent = `Delivery Charges: Rs 5 `;
+
+   var totalcost=cost+additional_charges+5;
+   
+   totalcost=Math.ceil(totalcost);
+   var Total_cost=document.getElementById('total_cost_display');
+   Total_cost.textContent = `Total cost: Rs ${totalcost} `;
+
+   document.getElementById('cost_confirm_button_form').value=totalcost;
+   document.getElementById('type_of_file_form').value=typeofprint;
+
+   console.log(document.getElementById('confirm_button_form'));
+   
+   
+
+   
+    return cost;
+
+    // Now you can use the 'cost' variable to display it in the modal or any other way you want.
+  }
+  
+  function submitForm() 
+  {
+    // Set the value of the hidden input field to "1" to indicate that the form should be submitted
+    document.getElementById("submit-form-input").value = "1";
+    // Submit the form
+    document.getElementById("order-form").submit();
+  }
+</script>
+
+  
+ 
+ 
+</body>
+</html>
