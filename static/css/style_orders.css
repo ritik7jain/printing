@@ -175,3 +175,159 @@ color: #124265;
 .order_file_and_id{
   width: 350px;
 }
+
+.icon_filter,.icon_exit_filter{
+  display:none
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+
+
+  .logo-tag {
+    position: absolute;
+    left: 20%;
+    font-size: 15px;
+    width: 80%;
+  }
+
+  .navbar-ul {
+    display: none;
+  }
+
+  .navbar a.icon {
+    float: left;
+    display: block;
+    color: #16507b;
+    font-size: 25px;
+    position: absolute;
+    top: 20px;
+    left: 5%;
+  }
+
+  .navigation-bar {
+    flex-direction: row-reverse;
+  }
+
+  .icon-exit-icon {
+    display: none;
+  }
+  .filter_sidebar{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .whole-webpage {
+    overflow-y: auto;
+    display: contents;
+    /* Enable vertical scrolling in mobile view */
+  }
+
+  .navbar.responsive {
+    position: relative;
+  }
+
+  .navbar.responsive .icon {
+    position: absolute;
+    display: none;
+    left: 0;
+    top: 0;
+  }
+
+  .navbar.responsive .icon-exit-icon {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #16507b;
+    font-size: 15px;
+  }
+
+  .navbar.responsive li {
+    margin: 15px;
+  }
+
+  .navbar.responsive .navbar-ul {
+    top: 100px;
+    float: none;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 80%;
+    height: 80%;
+    background-color: #16507b;
+    margin-left: 2%;
+
+  }
+
+  .navbar.responsive .nav-li {
+    color: white
+  }
+
+  .navbar.responsive {
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  .logo-tag {
+    position: absolute;
+    top: 2.5%;
+    font-size: 16px;
+    left:2%
+
+  }
+ 
+  .icon_filter{
+    display: block;
+  }
+  .filter_sidebar.responsive{
+       display: block;
+        width: 100%;
+    height: 300px;
+   margin-top: 20px;
+  }
+ 
+  .filter_sidebar.responsive .filter_form{
+    display: block;
+        width: 200px;
+        margin-top: 20px;
+   
+    
+  }
+
+  .cards_order_page{
+    position: absolute;
+    left: -10%;
+    width: 100%;
+    
+  }
+  .cards_order_page.responsive{
+    top:70%;
+  }
+
+  .column{
+    width:100%;
+
+  }
+  .card{
+    width:100%;
+  }
+  .image_and_order_type{
+    width: 160px;
+
+  }
+  .icon_filter{
+        position: absolute;
+    right: 10%;
+    font-size: 20px;
+  }
+}
