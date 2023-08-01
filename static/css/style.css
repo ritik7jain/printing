@@ -21,6 +21,7 @@
   line-height: 1;
   letter-spacing: 1.5px;
   margin-right: 10%;
+  width: 300px;
 
 }
 
@@ -40,10 +41,14 @@
 .nav-li {
   text-decoration: none;
   color: #16507b;
-  padding: 10px 0 10px 30px;
+  padding: 10px 0 10px 10px;
   font-size: 14px;
   font-family: "Open Sans", sans-serif;
 
+}
+#current{
+ 
+  border-bottom: 3px solid #124265;
 }
 
 .nav-li:hover {
@@ -59,15 +64,16 @@
 }
 
 .main-content {
-  width: 100%;
+  width: 63vw;
   height: 100%;
   position: absolute;
-  top: 150%;
+  /* top: 130%; */
   left: 35%;
+  margin-top: 100px;
 }
 
 .main-content-headlines {
-  width: 35%;
+  width: 60%;
   margin: 0;
   font-size: 56px;
   font-weight: 700;
@@ -78,7 +84,7 @@
 
 .get-started-button {
   position: absolute;
-  left: 7%;
+  left: 14%;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -96,15 +102,16 @@
 .four-cards-homepage {
   width: 100%;
   position: absolute;
-  top: 300%;
-  left: -20%;
+  /* top: 280%; */
+  left: -25%;
   display: flex;
   flex-direction: row;
+  top: 250px;
 }
 
 .icon-box {
-  width: 15%;
-  padding: 50px 30px;
+  width: 25%;	
+  padding: 40px 30px;
   position: relative;
   background: #fff;
   box-shadow: 0 0 29px 0 rgba(18, 66, 101, 0.08);
@@ -139,6 +146,19 @@
   font-family: "Open Sans", sans-serif;
   color: rgb(68, 68, 68);
 }
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Update the styles for the rest of the navigation bar as needed */
+
+
 
 @media screen and (max-width:1300px) {
   .navbar {
@@ -161,7 +181,16 @@
 }
 
 @media screen and (max-width: 600px) {
-
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 70px;
+  }
 
   .logo-tag {
     position: absolute;
@@ -214,7 +243,7 @@
   .navbar.responsive .icon-exit-icon {
     display: block;
     position: absolute;
-    right: 0;
+    right: 22px;
     top: 0;
     color: #16507b;
     font-size: 15px;
@@ -247,32 +276,33 @@
   }
 
   .logo-tag {
-    position: absolute;
-    top: 2.5%;
+    position: fixed;
+    top:2%;
     font-size: 16px;
 
   }
 
   .main-content {
     position: absolute;
-    top: 12%;
+    
     left: 22%;
+    width: 77vw;
   }
 
   .main-content-headlines {
     font-size: 23px;
     line-height: 36px;
-    width: 60%;
+    width: 80%;
   }
 
   .four-cards-homepage {
     flex-direction: column;
-    top: 35%;
+    top: 20%;
     left: -15%;
   }
 
   .icon-box {
-    width: 60%;
+    width: 80%;
   }
 
 

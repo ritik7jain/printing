@@ -2,6 +2,16 @@
     position: relative;
     height: 100%;
   }
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+  }
   
   .navigation-bar {
     display: flex;
@@ -21,6 +31,7 @@
     line-height: 1;
     letter-spacing: 1.5px;
     margin-right: 10%;
+    width: 300px;
   
   }
   
@@ -40,7 +51,7 @@
   .nav-li {
     text-decoration: none;
     color: #16507b;
-    padding: 10px 0 10px 30px;
+    padding: 10px 0 10px 10px;
     font-size: 14px;
     font-family: "Open Sans", sans-serif;
   
@@ -48,6 +59,9 @@
   
   .nav-li:hover {
     color: #2487ce;
+  }
+  #current{
+    border-bottom: 3px solid #124265;
   }
   
   .navbar .icon {
@@ -59,7 +73,7 @@
   }
   .main_content_orders_page{
     margin-left:100px;
-    margin-top:20px;
+    margin-top:30px;
     background: #f1f3f6;
   }
   .order_page_content{
@@ -74,6 +88,7 @@
     border-radius: 2px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
     width: 15vw;
+    margin-top: 53px;
   }
   .filter_sidebar>form>label{
     font-family:"Raleway"sans-serif;
@@ -98,6 +113,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  margin-top: 40px;
 }
 .column {
   width:55vw;
@@ -150,6 +166,7 @@
 .p_order_file_and_id{
   margin: 5px;
   padding: 0;
+  font-family: "Raleway",sans-serif;
 }
 .order_type_display{
   margin-left: 5px;
@@ -165,6 +182,7 @@ color: #124265;
 
 }
 .span_in_p{
+  font-family: "Raleway",sans-serif;
   font-weight: 600;
 color: #124265;
   
@@ -190,6 +208,16 @@ color: #124265;
 
 
 @media screen and (max-width: 600px) {
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 70px;
+  }
 
 
   .logo-tag {
@@ -223,6 +251,9 @@ color: #124265;
   .filter_sidebar{
     display: none;
   }
+  .icon_exit_filter{
+    display: none;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -246,7 +277,7 @@ color: #124265;
   .navbar.responsive .icon-exit-icon {
     display: block;
     position: absolute;
-    right: 0;
+    right: 50px;
     top: 0;
     color: #16507b;
     font-size: 15px;
@@ -262,7 +293,7 @@ color: #124265;
     display: flex;
     flex-direction: column;
     text-align: left;
-    width: 80%;
+    width: 70%;
     height: 80%;
     background-color: #16507b;
     margin-left: 2%;
@@ -279,8 +310,8 @@ color: #124265;
   }
 
   .logo-tag {
-    position: absolute;
-    top: 2.5%;
+    position: fixed;
+    top: 1.5%;
     font-size: 16px;
     left:2%
 
@@ -288,20 +319,30 @@ color: #124265;
  
   .icon_filter{
     display: block;
+    position: fixed;
+    top: 5%;
+    font-size: 16px;
   }
   .filter_sidebar.responsive{
        display: block;
         width: 100%;
     height: 300px;
-   margin-top: 20px;
+    margin-top: 100px;
+   background-color: #e8f4f8;
   }
  
   .filter_sidebar.responsive .filter_form{
     display: block;
-        width: 200px;
+        width: 220px;
         margin-top: 20px;
-   
-    
+       
+  }
+  .filter_sidebar.responsive .filter_form p{
+    padding-top: 20px;
+  }
+
+  .icon_exit_filter{
+    display: none;
   }
 
   .cards_order_page{
@@ -326,8 +367,14 @@ color: #124265;
 
   }
   .icon_filter{
-        position: absolute;
+    color: #124265;
+    
+    position: fixed;
+    top: 2%;
     right: 10%;
     font-size: 20px;
   }
+   .main_content_orders_page{
+    background-color: #fff;
+   }
 }

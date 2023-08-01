@@ -26,7 +26,7 @@
   
   <div class="upload_pdf"> 
     <div class="back-button">
-      <a href="/printout/"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+      <a href="/printout/" style="color:#16507b;"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
     </div>
     <div class="upload_pdf_section">
        <h1 class="upload_pdf_headline">
@@ -106,7 +106,8 @@
       copyFileInput.files = originalFileInput.files;
       document.getElementById('pdf_file_name').value=originalFileInput.files[0].name;
       const fileNameDisplay_in_upload_file_page = document.getElementById('file-name-display_upload_page');
-      fileNameDisplay_in_upload_file_page.textContent = `Selected File: ${originalFileInput.files[0].name}`;
+      const file_name_to_show = originalFileInput.files[0].name.substring(0, 18);
+      fileNameDisplay_in_upload_file_page.textContent = `Selected File: ${file_name_to_show}`;
     }
   });
 
@@ -133,8 +134,9 @@
    
     // Get the selected file name and display it in the 'file-name-display' div
     const selectedFile = fileInput.files[0];
+    const file_name_in_modal=selectedFile.name.substring(0,18);
     const fileNameDisplay = document.getElementById('file-name-display');
-    fileNameDisplay.textContent = `Selected File: ${selectedFile.name}`;
+    fileNameDisplay.textContent = `Selected File: ${file_name_in_modal}`;
 
     
     
