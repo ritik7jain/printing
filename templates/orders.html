@@ -22,6 +22,12 @@
               <a>SMART EARNINGS</a></h1>
           <div class="navbar" id="mynavbar">
             <ul class="navbar-ul">
+                <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
+                <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
+                <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> Username </li>
+                <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+                <hr>
+                
               <li><a class="nav-li"href="/index/">Home</a></li>
               <li><a class="nav-li" href="/printout/">Services</a></li>
               <li><a class="nav-li"  href="/order/" id="current">Your Orders</a></li>
@@ -38,9 +44,9 @@
               <i class="fa fa-times"></i>
               <a href="javascript:void(0);" id ="icon_exit_filter" class="icon_exit_filter" onclick="Close_responsive_filter()" style="left: 85%;
               position: absolute;
-              margin-top:110px;
+              margin-top:90px;
               font-size: 20px;
-              color:#124265;
+              color:white;
               ">
                 <i class="fa fa-times"></i>
               </a>
@@ -52,22 +58,23 @@
            <div class="order_page_content" id="order_page_content">
             <div class="filter_sidebar" id="filter_sidebar">
                 
-                    <form class="filter_form" id="filter_form">
-                        <p>ORDER STATUS</p>
-                        <input type="radio" id="delivered" name="order_status" value="delivered">
-                         <label for="delivered">Delivered</label><br>
-                          <input type="radio" id="Accepted" name="order_status" value="Accepted">
-                           <label for="Accepted">Accepted</label><br>
-                             <input type="radio" id="placed" name="order_status" value="placed">
-                            <label for="placed">Placed</label><br>
-                        <br>  
-                        <p>SORT BY </p>
-                        <input type="radio" id="date" name="order_status" value="">
-                        <label for="date">Date</label><br>
-                        <input type="radio" id="price" name="order_status" value="">
-                        <label for="price">Price</label>
-                        <br>
-                        <br>
+                <form class="filter_form" id="filter_form">
+                    <p class="order_status_p_tag">ORDER STATUS</p>
+                    <input type="radio" id="delivered" name="status" value="delivered">
+                    <label for="delivered">Delivered</label><br>
+                    <input type="radio" id="Accepted" name="status" value="Accepted">
+                    <label for="Accepted">Accepted</label><br>
+                    <input type="radio" id="placed" name="status" value="placed">
+                    <label for="placed">Placed</label><br>
+                    <br>  
+                    <p>SORT BY </p>
+                    <input type="radio" id="date" name="status" value="date">
+                    <label for="date">Date</label><br>
+                    <input type="radio" id="price" name="status" value="price">
+                    <label for="price">Price</label>
+                    
+                    <br>
+                    <br>
                       </form>
 
                 </div>
@@ -78,7 +85,7 @@
                 {% if orders%}
                 {% for order_id, order_data in orders.items %}
                 {% if order_data.order_placed%}
-                <div class="column">
+                <div class="column" id="order_{{ order_id }}">
                     <div class="card">
                         <div class="image_and_order_type">
                             <button class="status_display_button">
@@ -167,13 +174,64 @@
     {% endfor %}
     {% endif %}
     <script>
+        const form = document.getElementById('filter_form');
+    
+        form.addEventListener('change', () => {
+            const selectedValue = form.querySelector('input[name="status"]:checked').value;
+            console.log('Selected Status:', selectedValue);
+            filterfunctionality(selectedValue);
+            
+            
+        });
+    </script>
+    <script>
+        function filterfunctionality(selectedValue)
+        {
+             if(selectedValue==='Accepted')
+             {
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("order_{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
+                var isVisible = statusButton.textContent == "Accepted";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+             else
+             if(selectedValue==='placed')
+             {
+                console.log('selectedValue is ',selectedValue);
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("order_{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
+                var isVisible = statusButton.textContent == "Order Placed";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+             else
+             if(selectedValue==="delivered")
+             {
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("order_{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
+                var isVisible = statusButton.textContent == "Delivered";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+        }
         function myFunction() {
           var x = document.getElementById("mynavbar");
           if (x.className === "navbar") {
             x.className += " responsive";
             document.getElementById("main_content_orders_page").style.opacity=0;
             document.getElementById('icon_filter').style.display="none";
+            document.getElementById("smart_earnings_name_responsive").style.display="block";
+            document.getElementById("avatar_image").style.display="block";
+            document.getElementById("useremail_mobile_view").style.display="block";
+            document.getElementById("username_mobile_view").style.display="block";
+               // Add an event listener to the document to close the navbar when clicking outside
+               document.addEventListener("click", closeNavbarOutsideClick);
           } else {
+     
             x.className = "navbar";
           }
     
@@ -189,9 +247,13 @@
                 document.getElementById("cards_order_page").style.opacity=0;
                 document.getElementById('order_page_content').style.display="block";
                 document.getElementById("icon_filter").style.display="none";
-                document.getElementById("order_page_content").style.height="400px";
+                document.getElementById("order_page_content").style.height="900px";
                document.getElementById("order_page_content").style.overflowX ="clip";
                document.getElementById("order_page_content").style.overflowY ="clip";
+               document.getElementById("order_page_content").style.marginRight ="-20px";
+             
+         
+            
 
                var y=document.getElementById("cards_order_page");
                y.className += "responsive";
@@ -208,14 +270,39 @@
           if (x.className === "navbar") {
             x.className += " close";
             document.getElementById('icon_filter').style.display="block";
+               // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
             
           } else {
+            document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+      document.getElementById("useremail_mobile_view").style.display="none";
+      document.getElementById("username_mobile_view").style.display="none";
             document.getElementById('icon_filter').style.display="block";
             x.className = "navbar";
           }
          
     
         }
+        function closeNavbarOutsideClick(event) {
+            var navbar = document.getElementById("mynavbar");
+            var icon = document.querySelector(".icon");
+            var target = event.target;
+        
+            // Check if the clicked element is not part of the navbar and not the icon
+            if (!navbar.contains(target) && !icon.contains(target)) {
+              navbar.className = "navbar";
+              document.getElementById("main_content_orders_page").style.opacity=1;
+              document.getElementById("icon_filter").style.display="block";
+              document.getElementById("smart_earnings_name_responsive").style.display="none";
+              document.getElementById("avatar_image").style.display="none";
+              document.getElementById("useremail_mobile_view").style.display="none";
+              document.getElementById("username_mobile_view").style.display="none";
+              document.getElementById("main-content").style.opacity = 1;
+              // Remove the event listener since the navbar is closed
+              document.removeEventListener("click", closeNavbarOutsideClick);
+            }
+          }
         function Close_responsive_filter()
         {
             document.getElementById("cards_order_page").style.opacity=1;

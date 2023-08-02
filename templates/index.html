@@ -20,12 +20,19 @@
       </h1>
       <div class="navbar" id="mynavbar">
         <ul class="navbar-ul">
+          <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
+          <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
+          <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> Username </li>
+          <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+          <hr>
+          
           <li><a class="nav-li current" id="current" href="">Home</a></li>
           <li><a class="nav-li" href="/printout/">Services</a></li>
           <li><a class="nav-li" href="/order/">Your Orders</a></li>
-          <li><a class="nav-li" href="#">FAQ's</a></li>
+          <li><a class="nav-li" href="">FAQ's</a></li>
           <li><a class="nav-li" href="#">Contact</a></li>
         </ul>
+       
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
           <i class="fa fa-bars"></i>
         </a>
@@ -63,8 +70,67 @@
     </div>
     </div>
   </div>
+  <!-- Your HTML code with the navbar -->
+<!-- ... -->
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("mynavbar");
+    if (x.className === "navbar") {
+      x.className += " responsive";
+      document.getElementById("main-content").style.opacity = 0;
+      document.getElementById("smart_earnings_name_responsive").style.display="block";
+      document.getElementById("avatar_image").style.display="block";
+      document.getElementById("useremail_mobile_view").style.display="block";
+      document.getElementById("username_mobile_view").style.display="block";
+
+      // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
+    } else {
+      x.className = "navbar";
+    }
+  }
+
+  function toggleNavbar() {
+    document.getElementById("main-content").style.opacity = 1;
+    var x = document.getElementById("mynavbar");
+    if (x.className === "navbar") {
+      x.className += " close";
+   
+      // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
+    } else {
+      document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+      document.getElementById("useremail_mobile_view").style.display="none";
+      document.getElementById("username_mobile_view").style.display="none";
+      
+      x.className = "navbar";
+    }
+  }
+
+  // Function to close the navbar when clicking outside
+  function closeNavbarOutsideClick(event) {
+    var navbar = document.getElementById("mynavbar");
+    var icon = document.querySelector(".icon");
+    var target = event.target;
+
+    // Check if the clicked element is not part of the navbar and not the icon
+    if (!navbar.contains(target) && !icon.contains(target)) {
+      navbar.className = "navbar";
+      document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+      document.getElementById("useremail_mobile_view").style.display="none";
+      document.getElementById("username_mobile_view").style.display="none";
+      document.getElementById("main-content").style.opacity = 1;
+      // Remove the event listener since the navbar is closed
+      document.removeEventListener("click", closeNavbarOutsideClick);
+    }
+  }
+</script>
+
  
-  <script>
+  {% comment %} <script>
     function myFunction() {
       var x = document.getElementById("mynavbar");
       if (x.className === "navbar") {
@@ -88,7 +154,7 @@
      
 
     }
-    </script>
+    </script> {% endcomment %}
  
   
 </body>

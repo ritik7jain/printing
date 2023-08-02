@@ -160,7 +160,7 @@ button:hover {
 }
 #file-name-display_upload_page{
   position: absolute;
-  left:18%;
+  left:19%;
   font-size: 15px;
   font-weight: 600;
   font-family: "Raleway", sans-serif;
@@ -197,6 +197,10 @@ button:hover {
     width: 70%;
     height: 350px;
 
+  }
+  .confirm_button{
+    left: 35%;
+    margin-top: 8px;
   }
 }
 
