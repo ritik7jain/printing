@@ -31,9 +31,19 @@
               <li><a class="nav-li"href="/index/">Home</a></li>
               <li><a class="nav-li" href="/printout/">Services</a></li>
               <li><a class="nav-li"  href="/order/" id="current">Your Orders</a></li>
-              <li><a class="nav-li"  href="#">FAQ's</a></li>
-              <li><a class="nav-li"  href="#">Contact</a></li>
+              <li><a class="nav-li"  href="/faqs/">FAQ's</a></li>
+              <li><a class="nav-li"  href="/contact/">Contact</a></li>
             </ul>
+            <div class="dropdown" id="dropdown">
+                <button class="dropbtn" id="dropbtn"><img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg">
+                </button>
+                
+                <div class="dropdown-content">
+                  <a href="#">Username</a>
+                  <a href="#"> username_username@gmail.com</a>
+                  <a href="/logout/" class="logout_button">Logout</a>
+                </div>
+              </div>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
               <i class="fa fa-bars"></i>
             </a>
@@ -328,6 +338,38 @@
           }
         
         </script>
+        <script>
+            // Get a reference to the dropdown content element
+            var dropdownContent = document.querySelector('.dropdown-content');
+          
+            // Get a reference to the dropdown button (the image)
+            var dropdownButton = document.getElementById('dropbtn');
+          
+            // Add a click event listener to the dropdown button
+            dropdownButton.addEventListener('click', function (event) {
+              // Prevent the default behavior of the click event
+              event.preventDefault();
+              document.getElementById("main_content_orders_page").style.opacity ="0.1";
+          
+              // Toggle the display of the dropdown content
+              if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+              } else {
+                dropdownContent.style.display = 'block';
+              }
+            });
+          
+            // Add a click event listener to the document to close the dropdown when clicking outside
+            document.addEventListener('click', function (event) {
+              var target = event.target;
+          
+              // Check if the clicked element is not part of the dropdown button or the dropdown content
+              if (!dropdownButton.contains(target) && !dropdownContent.contains(target)) {
+                document.getElementById("main_content_orders_page").style.opacity ="1";
+                dropdownContent.style.display = 'none';
+              }
+            });
+          </script>
     
     </body>
     </html>   

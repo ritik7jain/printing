@@ -123,90 +123,6 @@
 
 
 
-.main-content {
-  width: 63vw;
-  height: 100%;
-  position: absolute;
-  /* top: 130%; */
-  left: 35%;
-  margin-top: 100px;
-}
-
-.main-content-headlines {
-  width: 60%;
-  margin: 0;
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 72px;
-  color: #124265;
-  font-family: "Poppins", sans-serif;
-}
-
-.get-started-button {
-  position: absolute;
-  left: 14%;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 7px;
-  transition: 0.5s;
-  margin-top: 30px;
-  color: #fff;
-  background: #2487ce;
-  border: 1px solid white;
-  text-decoration: none;
-}
-
-.four-cards-homepage {
-  width: 100%;
-  position: absolute;
-  /* top: 280%; */
-  left: -25%;
-  display: flex;
-  flex-direction: row;
-  top: 250px;
-}
-
-.icon-box {
-  width: 25%;	
-  padding: 40px 30px;
-  position: relative;
-  background: #fff;
-  box-shadow: 0 0 29px 0 rgba(18, 66, 101, 0.08);
-  transition: all 0.3s ease-in-out;
-  border-radius: 8px;
-  z-index: 1;
-  margin: 10px;
-
-}
-
-.icon-box>.icon {
-  margin-bottom: 20px;
-  padding-top: 10px;
-  display: inline-block;
-  transition: all 0.3s ease-in-out;
-  font-size: 36px;
-  line-height: 1;
-  color: #16507b;
-}
-
-.icon-box>.icon-box-title {
-  color: #124265;
-  font-family: "Raleway", sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.icon-box>.icon-box-description {
-  font-size: 15px;
-  line-height: 28px;
-  margin-bottom: 0px;
-  font-family: "Open Sans", sans-serif;
-  color: rgb(68, 68, 68);
-}
 #navbar {
   position: fixed;
   top: 0;
@@ -216,8 +132,63 @@
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+.main_content_faqs_page{
+  margin-top: 70px;
+  display: flex;
+  background-color: #FFFAFA;
+  align-items: center;
+  width: 100vw;
+  height: 95vh;
+}
+.faq-questions{
+  top: 15%;
+  position: fixed;
+  left: 30%;
+  width: 40%;
+ 
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* styles.css */
+.faq-item {
+  border-bottom: 1px solid #e6e6e6;
+  
+  padding: 10px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+}
 
-/* Update the styles for the rest of the navigation bar as needed */
+.faq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-button {
+  
+  color: black;
+  background-color: white;
+  padding: 5px 10px;
+  border: 1px solid white;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.question {
+  font-weight: 500;
+  font-size: 16px;
+  font-family: "Roboto",Roboto,"Helvetica",Helvetica,"Arial",Arial,sans-serif;
+  margin: 0;
+}
+
+.answer {
+  display: none;
+  font-size: 14px;
+  font-family: "Roboto",Roboto,"Helvetica",Helvetica,"Arial",Arial,sans-serif;
+  margin-top: 5px;
+  font-weight: 400;
+}
+
 
 
 
@@ -354,28 +325,7 @@
 
   }
 
-  .main-content {
-    position: absolute;
-    
-    left: 22%;
-    width: 77vw;
-  }
-
-  .main-content-headlines {
-    font-size: 23px;
-    line-height: 36px;
-    width: 80%;
-  }
-
-  .four-cards-homepage {
-    flex-direction: column;
-    top: 20%;
-    left: -15%;
-  }
-
-  .icon-box {
-    width: 80%;
-  }
+  
   .username_mobile_view,.useremail_mobile_view{
     color: white;
     font-family: "Raleway",sans-serif;
@@ -399,6 +349,10 @@
     font-family: "Raleway",sans-serif;
     font-weight: 500;
     margin-top: 23px;
+  }
+  .faq-questions{
+    width: 80%;
+    left:5%
   }
 
 

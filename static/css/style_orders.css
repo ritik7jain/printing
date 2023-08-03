@@ -12,6 +12,61 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     
   }
+  .dropdown{
+    position: fixed;
+    right:5%;
+    top: 0.5%;
+  }
+  .dropbtn{
+    border: 1px solid white;
+    border-radius: 60%;
+  }
+  .avatar_image{
+    height: 50px;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 60%;
+   
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #0f3857;
+    width: fit-content;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    position: fixed;
+      right: 0.1%;
+  }
+  
+  .dropdown-content a {
+    font-family: "Poppins",sans-serif;
+    float: none;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #2487ce;
+  }
+  
+  
+  .logout_button{
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    margin-left: 30%;
+    margin-top: 5px;
+    padding: 5px 10px;
+    margin-right: 30%;
+    text-align: center;
+    background-color: #2487ce;
+  }
+  
   
   .navigation-bar {
     display: flex;
@@ -220,7 +275,9 @@ color: #124265;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 70px;
   }
-
+  #dropdown{
+    display: none;
+  }
 
   .logo-tag {
     position: absolute;

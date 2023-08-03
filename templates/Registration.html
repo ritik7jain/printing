@@ -1,4 +1,135 @@
 <!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_signup.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
+</head>
+<body>
+  <div class="main">
+    <div class="container">
+      <div class="signup_content">
+		<div class="signup_form">
+            <h2 class="form_title">Sign Up</h2>
+            <p id="error_message" style="display:none;color:red">Please enter All fields!</p>
+            <form class="login_form" id="login_form">
+				<div class="form_group">
+					<label for="username">
+					 <i class="fa fa-user" aria-hidden="true"></i>
+					</label>
+					<input id="username_input" name="username" type="text" placeholder="Your Username" >
+				 </div>
+              <div class="form_group">
+                 <label for="email">
+					<i class="fa fa-envelope" aria-hidden="true"></i>
+                 </label>
+                 <input id="email_input" name="email" type="email" placeholder="Your Email" >
+              </div>
+			  <div class="form_group">
+				<label for="Phone_number">
+				   <i class="fa fa-phone" aria-hidden="true"></i>
+				</label>
+				<input id="Phone_number_input" name="phone_number" type="number" placeholder="Your contact number" >
+			 </div>
+              <div class="form_group">
+                <label for="password">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </label>
+                <input id="password_input" name="password" type="password" placeholder="Enter Password" >
+             </div>
+			 <div class="form_group">
+                <label for="reenter_password">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </label>
+                <input id="reenter_password_input" name="reenter_password" type="password" placeholder="Retype your Password" >
+             </div>
+             <div class="form-group">
+              <input type="checkbox" name="remember-me" id="remember-me" class="agree-term">
+              <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+              </div>
+              <div class="form-group form-button">
+                <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up">
+                </div>
+                <div class="form_group_forget_and_signup">
+               
+                <a href="/" class="signup-image-link">I am already member</a> 
+               </div> 
+            </form>
+
+          </div>
+        <div class="signup-image">
+          <figure><img src="..\static\Images\signup_image.jpg" alt="sing up image"></figure>
+        
+          </div>
+          
+
+      </div>
+
+    </div>
+  </div>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById("login_form");
+    const errorMessage = document.getElementById("error_message");
+    
+    loginForm.addEventListener("submit", function(event) {
+      const emailInput = document.getElementById("email_input");
+      const passwordInput = document.getElementById("password_input");
+	  const username_input=document.getElementById("username_input");
+	  const Phone_number_input=document.getElementById("Phone_number_input");
+	  const reenter_password_input=document.getElementById("reenter_password_input");
+      
+      if (emailInput.value.trim() === "" || passwordInput.value.trim() === ""||username_input.value.trim()===""||Phone_number_input.value.trim()===""||reenter_password_input.value.trim()==="") {
+        event.preventDefault();
+        errorMessage.style.display = "block";
+      } else {
+        errorMessage.style.display = "none";
+      }
+    });
+  });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
 {% load static %}
 {%if msg%}
 	<script>
@@ -101,4 +232,4 @@
 	<div class="pass"> <a href="/">SignIN</a></div>
 </form>
 </body>
-</html>
+</html> {% endcomment %}

@@ -12,5 +12,7 @@ urlpatterns = [
     path('printout/',views.services),
     path('admin_login/',views.admin_login),
     path('admin_home/',views.admin_home),
-    path('order/',views.orders)
+    path('order/',views.orders),
+    path('faqs/',views.faqs),
+    path('contact/',views.contact)
 ]

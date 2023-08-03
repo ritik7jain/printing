@@ -1,4 +1,111 @@
-{% if message %}
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_login.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
+</head>
+<body>
+  <div class="main">
+    <div class="container">
+      <div class="signin_content">
+        <div class="signin-image">
+          <figure><img src="..\static\Images\signin_image.jpg" alt="sing up image"></figure>
+        
+          </div>
+          <div class="sign_in_form">
+            <h2 class="form_title">Sign In</h2>
+            <p id="error_message" style="display:none;color:red">Please enter password and email!</p>
+            <form class="login_form" id="login_form" action=" " method="post">
+              {% csrf_token %}
+              <div class="form_group">
+                 <label for="email">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                 </label>
+                 <input id="email_input" name="email" type="email" placeholder="Your Email" >
+              </div>
+              <div class="form_group">
+                <label for="password">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </label>
+                <input id="password_input" name="pass" type="password" placeholder="Password" >
+             </div>
+             <div class="form-group">
+              <input type="checkbox" name="remember-me" id="remember-me" class="agree-term">
+              <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+              </div>
+              <div class="form-group form-button">
+                <input type="submit" name="signin" id="signin" class="form-submit" value="Log In">
+                </div>
+                <div class="form_group_forget_and_signup">
+               <a href="/reset/">Forgot Password?</a>
+                <a href="/signUp/" class="signup-image-link">Create an account</a> 
+               </div> 
+            </form>
+
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById("login_form");
+    const errorMessage = document.getElementById("error_message");
+    
+    loginForm.addEventListener("submit", function(event) {
+      const emailInput = document.getElementById("email_input");
+      const passwordInput = document.getElementById("password_input");
+      
+      if (emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
+        event.preventDefault();
+        errorMessage.style.display = "block";
+      } else {
+        errorMessage.style.display = "none";
+      }
+    });
+  });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% if message %}
 <script>
 	alert('{{ message }}');
 </script>
@@ -7,7 +114,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Matching Hearts</title>
+    <title>Smart Earnings </title>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
 *{
@@ -126,6 +233,7 @@ input[type="submit"]:hover{
     </style>
   </head>
   <body>
+   
     <div class="center">
       <h1>Login</h1>
       <form action="" method="post">
@@ -149,4 +257,4 @@ input[type="submit"]:hover{
     </div>
 
   </body>
-</html>
+</html> {% endcomment %}

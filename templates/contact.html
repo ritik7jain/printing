@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Earnings</title>
-  <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_contact.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- adding google fonts-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -26,11 +26,11 @@
           <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
           <hr>
           
-          <li><a class="nav-li current" id="current" href="">Home</a></li>
+          <li><a class="nav-li"  href="/index/">Home</a></li>
           <li><a class="nav-li" href="/printout/">Services</a></li>
           <li><a class="nav-li" href="/order/">Your Orders</a></li>
           <li><a class="nav-li" href="/faqs/">FAQ's</a></li>
-          <li><a class="nav-li" href="/contact/">Contact</a></li>
+          <li><a class="nav-li"id="current" href="/contact/">Contact</a></li>
       
         </ul>
         <div class="dropdown" id="dropdown">
@@ -38,8 +38,8 @@
           </button>
           
           <div class="dropdown-content">
-            <a href="#">{{user_data.username}}</a>
-            <a href="#"> {{user_data.email}}</a>
+            <a href="#">Username</a>
+            <a href="#"> username_username@gmail.com</a>
             <a href="/logout/" class="logout_button">Logout</a>
           </div>
         </div>
@@ -53,34 +53,38 @@
       </div>
     </div>
 
-  <div class="main-content" id="main-content">
-   
-    <h1 class="main-content-headlines"> One platform for your all printings </h1>
-    <a href="/printout/" class="get-started-button">Get started</a>
-    <div class="four-cards-homepage">
-      <div class="icon-box">
-        <div class="icon"><i class="fa fa-solid fa-print"></i></i></div>
-        <h4 class="icon-box-title">Page printing</h4>
-        <p class="icon-box-description">Get your Loose paper printed at Rs 1.5 per page </p>
-      </div>
-      <div class="icon-box">
-        <div class="icon"><i class="fa fa-book"></i></div>
-        <h4 class="icon-box-title">Hard Binding</h4>
-        <p class="icon-box-description">Get your Loose paper printed at Rs 5 per page and Rs 100 for Binding </p>
-      </div>
-      <div class="icon-box">
-        <div class="icon"><i class="fa fa-paperclip"></i></div>
-        <h4 class="icon-box-title">Spiral Binding</h4>
-        <p class="icon-box-description">Get your Loose paper printed at Rs 1.5 per page and Rs  20 for spiral </p>
-      </div>
-      <div class="icon-box">
-        <div class="icon"><i class="fa fa-file-photo-o"></i></div>
-        <h4 class="icon-box-title">Color printing </h4>
-        <p class="icon-box-description">Get your Loose paper printed at Rs 10 per page </p>
-      </div>
+ <div id="main_content_contacts_page"class="main_content_contacts_page">
+    <div class="image_at_back"> 
+        <img src="..\static\Images\contact_page_back.jpg">
+        <div  class="p_tag_in_image" >
+            <p>Get In Touch</p>
+            <p class="p_tag_in_image_small">Want to get in touch? We'd love to hear from you. Here's how you can reach us...</p>
+        </div>
+        
     </div>
+
+    <div class="two_cards">
+        <div class="card">
+            <div class="phone_icon">
+                <i class="fa fa-phone"></i>
+            </div>
+            <h1 class="heading_contact_card">Talk to delivery man </h1>
+            <p class="subheading_contact_card">Need to know about your delivery, just pick up your phone and contact our delivery person</p>
+            <p class="contact_info_contact_page">Call : +91 999999999999</p>
+        </div>
+        
+        <div class="card">
+            <div class="phone_icon">
+                <i class="fa fa-comments "></i>
+            </div>
+            <h1 class="heading_contact_card">Contact Us </h1>
+            <p class="subheading_contact_card">Need to know about your delivery, just pick up your phone and contact our delivery person</p>
+            <p class="contact_info_contact_page">Mail : jbhavesh324@gmail.com</p>
+
+        </div>
     </div>
-  </div>
+</div>
+ </div>
   <!-- Your HTML code with the navbar -->
 <!-- ... -->
 
@@ -89,7 +93,7 @@
     var x = document.getElementById("mynavbar");
     if (x.className === "navbar") {
       x.className += " responsive";
-      document.getElementById("main-content").style.opacity = 0;
+      document.getElementById("main_content_contacts_page").style.opacity = 0;
       document.getElementById("smart_earnings_name_responsive").style.display="block";
       document.getElementById("avatar_image").style.display="block";
       document.getElementById("useremail_mobile_view").style.display="block";
@@ -103,7 +107,7 @@
   }
 
   function toggleNavbar() {
-    document.getElementById("main-content").style.opacity = 1;
+    document.getElementById("main_content_contacts_page").style.opacity = 1;
     var x = document.getElementById("mynavbar");
     if (x.className === "navbar") {
       x.className += " close";
@@ -133,7 +137,7 @@
       document.getElementById("avatar_image").style.display="none";
       document.getElementById("useremail_mobile_view").style.display="none";
       document.getElementById("username_mobile_view").style.display="none";
-      document.getElementById("main-content").style.opacity = 1;
+      document.getElementById("main_content_contacts_page").style.opacity = 1;
       // Remove the event listener since the navbar is closed
       document.removeEventListener("click", closeNavbarOutsideClick);
     }
@@ -150,7 +154,7 @@
   dropdownButton.addEventListener('click', function (event) {
     // Prevent the default behavior of the click event
     event.preventDefault();
-    document.getElementById("main-content").style.opacity ="0.1";
+    document.getElementById("main_content_contacts_page").style.opacity ="0.1";
 
     // Toggle the display of the dropdown content
     if (dropdownContent.style.display === 'block') {
@@ -166,38 +170,13 @@
 
     // Check if the clicked element is not part of the dropdown button or the dropdown content
     if (!dropdownButton.contains(target) && !dropdownContent.contains(target)) {
-      document.getElementById("main-content").style.opacity ="1";
+      document.getElementById("main_content_contacts_page").style.opacity ="1";
       dropdownContent.style.display = 'none';
     }
   });
 </script>
 
- 
-  {% comment %} <script>
-    function myFunction() {
-      var x = document.getElementById("mynavbar");
-      if (x.className === "navbar") {
-        x.className += " responsive";
-        document.getElementById("main-content").style.opacity=0;
-      } else {
-        x.className = "navbar";
-      }
 
-    }
-    function toggleNavbar()
-    {
-      document.getElementById("main-content").style.opacity=1;
-      var x = document.getElementById("mynavbar");
-      if (x.className === "navbar") {
-        x.className += " close";
-
-      } else {
-        x.className = "navbar";
-      }
-     
-
-    }
-    </script> {% endcomment %}
  
   
 </body>

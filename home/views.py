@@ -49,6 +49,8 @@ def signIn(request):
     if request.method=='POST':
         email=request.POST.get('email')
         pasw=request.POST.get('pass')
+        print(email)
+        print(pasw)
         try:
             user=authe.sign_in_with_email_and_password(email,pasw)
         except:
@@ -272,7 +274,10 @@ def orders(request):
             return redirect('/')
     return redirect('/')
 
-
+def faqs(request):
+    if 'uid' in request.session:
+        return render(request,"faqs.html")
+    return redirect('/')
  
 def logout(request):
     try:
@@ -320,8 +325,10 @@ def reset(request):
     return render(request, "reset.html")
 
 
-
-
+def contact(request):
+    if 'uid' in request.session:
+        return render(request,"contact.html") 
+    return redirect('/') 
 
 
 
