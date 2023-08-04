@@ -77,11 +77,7 @@
                     <input type="radio" id="placed" name="status" value="placed">
                     <label for="placed">Placed</label><br>
                     <br>  
-                    <p>SORT BY </p>
-                    <input type="radio" id="date" name="status" value="date">
-                    <label for="date">Date</label><br>
-                    <input type="radio" id="price" name="status" value="price">
-                    <label for="price">Price</label>
+                   
                     
                     <br>
                     <br>
@@ -94,8 +90,12 @@
             <div class="cards_order_page" id="cards_order_page">
                 {% if orders%}
                 {% for order_id, order_data in orders.items %}
+                <script type="application/json" id="order-data-{{ order_id }}">
+                    {{ order_data|safe }}
+                </script>
                 {% if order_data.order_placed%}
-                <div class="column" id="order_{{ order_id }}">
+              
+                <div class="column order_card" data-order-id="{{ order_id }}" data-order-data="{{ order_data|safe }}">
                     <div class="card">
                         <div class="image_and_order_type">
                             <button class="status_display_button">
@@ -114,10 +114,12 @@
                             <p class="order_type_display" id="order_type_display">Order type:<span> {{ order_data.order_type|title }}</span></p>
                         </div>
                         <div class="price_in_card">
-                            <p> {{ order_data.cost|title }}</p>
+                            <p>₹ {{ order_data.cost|title }}</p>
                         </div>
                         <div class="order_file_and_id">
+                            {%if order_data.delivery_date%}
                             <p class="p_order_file_and_id"><span class="span_in_p">Delivery Date:</span> {{ order_data.delivery_date }} </p>
+                            {%endif%}
                             <p class="p_order_file_and_id"><span class="span_in_p">Selected File:</span>
                                 {% if order_data.pdf_files %}
                                     {% for file in order_data.pdf_files %}
@@ -137,6 +139,7 @@
                       
                     </div>
                 </div>
+           
                 {% endif %}
                 {% endfor %}
                 {% endif %}
@@ -146,6 +149,93 @@
         </div>
 
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderCards = document.querySelectorAll('.order_card');
+    
+            orderCards.forEach(function(orderCard) {
+                orderCard.addEventListener('click', function() {
+                    const orderId = orderCard.getAttribute('data-order-id');
+                    console.log("orderdata is",orderCard.getAttribute('data-order-data'));
+                    const orderDataString = orderCard.getAttribute('data-order-data');
+                    
+                    
+                    
+                    // Given orderDataString
+
+
+// Extract 'order_accepted' field
+const startIndexAccepted = orderDataString.indexOf("'order_accepted': ") + "'order_accepted': ".length;
+const endIndexAccepted = orderDataString.indexOf(",", startIndexAccepted);
+const orderAccepted = orderDataString.substring(startIndexAccepted, endIndexAccepted);
+
+// Extract 'delivered' field
+const startIndexDelivered = orderDataString.indexOf("'delivered': ") + "'delivered': ".length;
+const endIndexDelivered = orderDataString.indexOf(",", startIndexDelivered);
+const delivered = orderDataString.substring(startIndexDelivered, endIndexDelivered);
+
+// Extract 'cost' field
+const startIndexCost = orderDataString.indexOf("'cost': '") + "'cost': '".length;
+const endIndexCost = orderDataString.indexOf("'", startIndexCost);
+const cost = orderDataString.substring(startIndexCost, endIndexCost);
+
+// Extract 'pdf_files' url
+const startIndex = orderDataString.indexOf("url': ") + "'url': ".length;
+const endIndex = orderDataString.indexOf("'", startIndex) ;
+const pdf_file_url = orderDataString.substring(startIndex, endIndex);
+//extract 'pdf name'
+const startIndexfilename= orderDataString.indexOf("'name': '") + "'name': '".length;
+console.log(" start index is ",startIndexfilename);
+const endIndexfilename = orderDataString.indexOf("'", startIndexfilename);
+console.log(" end index is ",endIndexfilename);
+console.log("file name is ",orderDataString.substring(startIndexfilename, endIndexfilename));
+const filename = orderDataString.substring(startIndexfilename, endIndexfilename);
+
+// Extract 'order_placed' field
+const startIndexOrderPlaced = orderDataString.indexOf("'order_placed': ") + "'order_placed': ".length;
+const endIndexOrderPlaced = orderDataString.indexOf(",", startIndexOrderPlaced);
+const orderPlaced = orderDataString.substring(startIndexOrderPlaced, endIndexOrderPlaced);
+
+// Extract 'order_date' field
+const startIndexOrderDate = orderDataString.indexOf("'order_date': '") + "'order_date': '".length;
+const endIndexOrderDate = orderDataString.indexOf("'", startIndexOrderDate);
+const orderDate = orderDataString.substring(startIndexOrderDate, endIndexOrderDate);
+
+// Extract 'delivery_date' field
+const startIndexDeliveryDate = orderDataString.indexOf("'delivery_date': '") + "'delivery_date': '".length;
+const endIndexDeliveryDate = orderDataString.indexOf("'", startIndexDeliveryDate);
+const deliveryDate = orderDataString.substring(startIndexDeliveryDate, endIndexDeliveryDate);
+
+// Extract 'order_type' field
+const startIndexOrderType = orderDataString.indexOf("'order_type': '") + "'order_type': '".length;
+const endIndexOrderType = orderDataString.indexOf("'", startIndexOrderType);
+const orderType = orderDataString.substring(startIndexOrderType, endIndexOrderType);
+
+// Create a JSON-like object with extracted fields
+const extractedOrderData = {
+    order_accepted: orderAccepted,
+    delivered: delivered,
+    cost: cost,
+    pdf_file_url: pdf_file_url,
+    pdf_file_name:filename,
+    order_placed: orderPlaced,
+    order_date: orderDate,
+    delivery_date: deliveryDate,
+    order_type: orderType
+};
+
+console.log(extractedOrderData);
+
+
+localStorage.setItem('selectedOrder', JSON.stringify(extractedOrderData));
+ localStorage.setItem('orderId',orderId);   
+                     window.location.href = '/order_details/';
+                });
+            });
+        });
+    </script>
+    
+    
 
     {% if orders %}
     {% for order_id, order_data in orders.items %}
@@ -183,6 +273,10 @@
     </script>
     {% endfor %}
     {% endif %}
+
+    
+    
+    
     <script>
         const form = document.getElementById('filter_form');
     

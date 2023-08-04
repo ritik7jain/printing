@@ -19,7 +19,8 @@
 		<div class="signup_form">
             <h2 class="form_title">Sign Up</h2>
             <p id="error_message" style="display:none;color:red">Please enter All fields!</p>
-            <form class="login_form" id="login_form">
+            <form class="login_form" id="login_form" action="/signUp/" method="post" >
+				{% csrf_token %}
 				<div class="form_group">
 					<label for="username">
 					 <i class="fa fa-user" aria-hidden="true"></i>

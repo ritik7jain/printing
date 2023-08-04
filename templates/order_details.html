@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_order_details.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Retrieve the stored order data from localStorage
+        const storedOrderData = localStorage.getItem('selectedOrder');
+        const orderId=localStorage.getItem('orderId');
+        const extractedOrderData = JSON.parse(storedOrderData);
+
+        // Get the card image element by ID
+        var cardImage = document.getElementById("card_image");
+                
+        // Update the image source based on the order_type
+        if (extractedOrderData.order_type === "loose") {
+            cardImage.src = "../static/Images/loose.png";
+           
+        } else if (extractedOrderData.order_type === "color") {
+            cardImage.src = "../static/Images/color.jpg";
+        } 
+        else if (extractedOrderData.order_type === "scrap_book") {
+            cardImage.src = "../static/Images/scrap_book.png";
+        } 
+        else if (extractedOrderData.order_type === "photo") {
+            cardImage.src = "../static/Images/photo.png";
+        } 
+        else if (extractedOrderData.order_type === "hard_binding") {
+            cardImage.src = "../static/Images/hard_binding.png";
+        } 
+        else if (extractedOrderData.order_type === "spiral") {
+            cardImage.src = "../static/Images/spiral.png";
+        } 
+        else {
+            cardImage.src = "../static/Images/loose_paper.png";
+        }
+
+
+
+
+    // Now you can use the extractedOrderData object as needed
+    
+    document.getElementById("order_id_p_tag").textContent=orderId ;   
+    document.getElementById("download_button").href=extractedOrderData.pdf_file_url;
+    document.getElementById("file_name").textContent=extractedOrderData.pdf_file_name;
+    document.getElementById('print_type_diplay').textContent += extractedOrderData.order_type;
+    document.getElementById('order_date').textContent="Order Date : "+extractedOrderData.order_date;
+    if(extractedOrderData.order_accepted)
+    document.getElementById("order_accepted_date").textContent="Order Accepted Date:";
+    if(extractedOrderData.delivered)
+    document.getElementById('delivery_date').textContent="Delivery Date : "+extractedOrderData.delivery_date; 
+
+    });
+</script>
+
+</head>
+
+<body>
+    
+
+
+        <div class="whole-webpage">
+            <div class="navigation-bar" id="navbar">
+              <h1 class="logo-tag">
+                <a>SMART EARNINGS</a>
+              </h1>
+              <div class="navbar" id="mynavbar">
+                <ul class="navbar-ul">
+                  <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
+                  <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
+                  <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> Username </li>
+                  <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+                  <hr>
+                  
+                  <li><a class="nav-li current" id="current" href="">Home</a></li>
+                  <li><a class="nav-li" href="/printout/">Services</a></li>
+                  <li><a class="nav-li" href="/order/">Your Orders</a></li>
+                  <li><a class="nav-li" href="/faqs/">FAQ's</a></li>
+                  <li><a class="nav-li" href="/contact/">Contact</a></li>
+              
+                </ul>
+                <div class="dropdown" id="dropdown">
+                  <button class="dropbtn" id="dropbtn"><img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg">
+                  </button>
+                  
+                  <div class="dropdown-content">
+                    <a href="#">{{user_data.username}}</a>
+                    <a href="#"> {{user_data.email}}</a>
+                    <a href="/logout/" class="logout_button">Logout</a>
+                  </div>
+                </div>
+               
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                  <i class="fa fa-bars"></i>
+                </a>
+                <a href="javascript:void(0);" class="icon-exit-icon" onclick="toggleNavbar()">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+
+
+            <diV id="main_content_order_details_page" class="main_content_order_details_page">
+        
+                <div id="order-data" data-order-data='{"order_accepted": false, "delivered": false, "cost": "65", ...}' style="display: none;"></div>
+                 <div class="first_card">
+                  <div class="image_and_order_type">
+                    <img class="card_image"id="card_image" src="..\static\Images\loose_paper.png">
+                    <h4 id="print_type_diplay">Print Type  :  </h4>
+                   
+                  </div>
+                  <div class="file_name_download_button">
+                    <h3>File Name:</h3>
+                    <p id="file_name"></p>
+                    <a id="download_button">Download</a>
+                </div>
+                    <div class="delivery_address_and_contact_no ">
+                      <h3>Delivery Address</h3>
+                      <p>JECRC foundation,Shri Ram ki Nangal via RIICO, Tonk Rd, Sitapura, Jaipur, Rajasthan 302022 </p> 
+                      <h3>Order Id </h3>
+                      <p id="order_id_p_tag"></p>
+                     
+                    </div>
+                   
+                   
+        
+                 </div>
+                 <div class="second_card">
+                  
+                    <div class="order_dates">
+                      <h4 id="order_date"></h4>
+                      <h4 id="order_accepted_date">Order Accepted Date:</h4>
+                      <h4 id="delivery_date">Delivery Date:</h4>
+                     </div>
+
+                    <div class="wrapper">
+                        <div class="margin-area">
+                          <div class="dot one"><i class="fa fa-check" aria-hidden="true"></i></div>
+                          <div class="dot two"><i class="fa fa-check" aria-hidden="true"></i></div>
+                          <div class="dot three"><i class="fa fa-check" aria-hidden="true"></i></div>
+                          <div class="progress-bar first"></div>
+                          <div class="progress-bar second"></div>
+                          
+                          <div class="message message-1">
+                           Order Placed
+                          <div>
+                          <div class="message message-2">Order Accepted<div>
+                          <div class="message message-3"> Delivered<div>
+                          
+                          
+                    </div>
+                    
+                            
+                     
+                 </div>
+                 
+             <div>
+             </div>
+                    
+
+
+        
+        
+        <script>
+          function myFunction() {
+            var x = document.getElementById("mynavbar");
+            if (x.className === "navbar") {
+              x.className += " responsive";
+              document.getElementById("main_content_order_details_page").style.opacity = 0;
+              document.getElementById("smart_earnings_name_responsive").style.display="block";
+              document.getElementById("avatar_image").style.display="block";
+              document.getElementById("useremail_mobile_view").style.display="block";
+              document.getElementById("username_mobile_view").style.display="block";
+        
+              // Add an event listener to the document to close the navbar when clicking outside
+              document.addEventListener("click", closeNavbarOutsideClick);
+            } else {
+              x.className = "navbar";
+            }
+          }
+        
+          function toggleNavbar() {
+            document.getElementById("main_content_order_details_page").style.opacity = 1;
+            var x = document.getElementById("mynavbar");
+            if (x.className === "navbar") {
+              x.className += " close";
+           
+              // Add an event listener to the document to close the navbar when clicking outside
+              document.addEventListener("click", closeNavbarOutsideClick);
+            } else {
+              document.getElementById("smart_earnings_name_responsive").style.display="none";
+              document.getElementById("avatar_image").style.display="none";
+              document.getElementById("useremail_mobile_view").style.display="none";
+              document.getElementById("username_mobile_view").style.display="none";
+              
+              x.className = "navbar";
+            }
+          }
+        
+          // Function to close the navbar when clicking outside
+          function closeNavbarOutsideClick(event) {
+            var navbar = document.getElementById("mynavbar");
+            var icon = document.querySelector(".icon");
+            var target = event.target;
+        
+            // Check if the clicked element is not part of the navbar and not the icon
+            if (!navbar.contains(target) && !icon.contains(target)) {
+              navbar.className = "navbar";
+              document.getElementById("smart_earnings_name_responsive").style.display="none";
+              document.getElementById("avatar_image").style.display="none";
+              document.getElementById("useremail_mobile_view").style.display="none";
+              document.getElementById("username_mobile_view").style.display="none";
+              document.getElementById("main_content_order_details_page").style.opacity = 1;
+              // Remove the event listener since the navbar is closed
+              document.removeEventListener("click", closeNavbarOutsideClick);
+            }
+          }
+        </script>
+        <script>
+          // Get a reference to the dropdown content element
+          var dropdownContent = document.querySelector('.dropdown-content');
+        
+          // Get a reference to the dropdown button (the image)
+          var dropdownButton = document.getElementById('dropbtn');
+        
+          // Add a click event listener to the dropdown button
+          dropdownButton.addEventListener('click', function (event) {
+            // Prevent the default behavior of the click event
+            event.preventDefault();
+            document.getElementById("main_content_order_details_page").style.opacity ="0.1";
+        
+            // Toggle the display of the dropdown content
+            if (dropdownContent.style.display === 'block') {
+              dropdownContent.style.display = 'none';
+            } else {
+              dropdownContent.style.display = 'block';
+            }
+          });
+        
+          // Add a click event listener to the document to close the dropdown when clicking outside
+          document.addEventListener('click', function (event) {
+            var target = event.target;
+        
+            // Check if the clicked element is not part of the dropdown button or the dropdown content
+            if (!dropdownButton.contains(target) && !dropdownContent.contains(target)) {
+              document.getElementById("main_content_order_details_page").style.opacity ="1";
+              dropdownContent.style.display = 'none';
+            }
+          });
+        </script>
+
+         
+      
+      
+  
+    
+   
+   
+</body>
+</html>

@@ -1,4 +1,6 @@
+import json
 from django.shortcuts import render, HttpResponse,redirect
+from django.http import HttpResponseRedirect
 import pyrebase
 import os
 import PyPDF2
@@ -10,6 +12,7 @@ import datetime
 import uuid
 from django.conf import settings
 import re
+from django.http import JsonResponse
 
 #ritik_testing
 #remote
@@ -104,6 +107,9 @@ def admin_home(request):
                 user_data.update({
                         f'orders.{order_id}.order_accepted': True,
                     })
+                user_data.update({
+                        f'orders.{order_id}.order_accepted_date':datetime.datetime.now().strftime('%Y-%m-%d')
+                    })
             if delivery_date:
                 user_data.update({
                        f'orders.{order_id}.delivery_date': delivery_date,
@@ -163,6 +169,7 @@ def upload_pdf(request):
                 'order_type': order_type,
                 'pdf_files': [],
                 'order_placed': False,
+                'order_date': datetime.datetime.now().strftime('%Y-%m-%d'),
                 'cost': 0,
                 'order_accepted': False,
                 'delivery_date': "",
@@ -222,6 +229,7 @@ def home(request):
                         'order_type': order_type,
                         'pdf_files': [],
                         'order_placed': False,
+                        'order_accepted_date':"",
                         'cost': 0,
                         'order_accepted': False,
                         'delivery_date': "",
@@ -269,7 +277,9 @@ def orders(request):
         user_data = user_ref.get().to_dict()
         if user_data:
             current_orders = user_data.get('orders', {})
+            current_orders = dict(sorted(current_orders.items(), key=lambda x: x[1]['order_date'], reverse=True))
             return render(request,"orders.html",{'orders':current_orders})
+           
         else:
             return redirect('/')
     return redirect('/')
@@ -287,15 +297,36 @@ def logout(request):
     except:
         pass
     return redirect('/')
- 
+
+
+def order_detail(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        order_id = data.get('order_id')
+        uid = request.session.get('uid')
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        order= user_data.get('orders', {})
+        current_order=order[order_id]
+        print(current_order)
+        return JsonResponse(current_order, safe=False)
+        # return render(request,"index.html", {'order_data': current_order})
+    else:
+        return render(request, 'order_details.html')
+
 
 def signUp(request):
     if request.method=='POST':
+        print(request.POST)
         email = request.POST.get('email')
         passs = request.POST.get('pass')
         name = request.POST.get('name')
+        print("yes")
         try:
             user=authe.create_user_with_email_and_password(email,passs)
+            print(f"user is {user}")
+            v=firebase_admin.auth.generate_email_verification_link(email)
+            print(v)
             uid = user['localId']
             user_data = {
                 'uid': uid,
