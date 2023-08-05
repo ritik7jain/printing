@@ -195,6 +195,7 @@ def upload_pdf(request):
 
 
 def services(request):
+    print(request.session)
     if 'uid' in request.session:
         uid = request.session['uid']
         user_ref = db.collection('users').document(uid)
@@ -271,6 +272,7 @@ def home(request):
             return redirect('/')
 
 def orders(request):
+    print(request.session)
     if 'uid' in request.session:
         uid = request.session.get('uid')
         user_ref = db.collection('users').document(uid)
@@ -317,21 +319,19 @@ def order_detail(request):
 
 def signUp(request):
     if request.method=='POST':
-        print(request.POST)
         email = request.POST.get('email')
-        passs = request.POST.get('pass')
+        pasw = request.POST.get('pass')
         name = request.POST.get('name')
-        print("yes")
+        phone_number= request.POST.get('phone_number')
         try:
-            user=authe.create_user_with_email_and_password(email,passs)
-            print(f"user is {user}")
-            v=firebase_admin.auth.generate_email_verification_link(email)
-            print(v)
+            user=authe.create_user_with_email_and_password(email,pasw)
+            print(user)
             uid = user['localId']
             user_data = {
                 'uid': uid,
                 'username': name,
                 'email': email,
+                'phone_number':phone_number,
                 'orders': {
                     
                 }

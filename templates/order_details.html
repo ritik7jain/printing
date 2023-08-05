@@ -7,6 +7,8 @@
   <title>Smart Earnings</title>
   <link rel="stylesheet"  type="text/css" href="{% static 'css/style_order_details.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
   <!-- adding google fonts-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
  {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
@@ -44,7 +46,16 @@
             cardImage.src = "../static/Images/loose_paper.png";
         }
 
-
+     if(extractedOrderData.order_accepted==="True")
+     {
+      document.getElementById("progress_bar_1").style.background="#26a541"
+      document.getElementById("dot_two").style.background="#26a541";
+     }
+     if(extractedOrderData.delivered==="True")
+     {
+      document.getElementById("progress_bar_2").style.background="#26a541";
+      document.getElementById("dot_three").style.background="#26a541";
+     }
 
 
     // Now you can use the extractedOrderData object as needed
@@ -54,9 +65,9 @@
     document.getElementById("file_name").textContent=extractedOrderData.pdf_file_name;
     document.getElementById('print_type_diplay').textContent += extractedOrderData.order_type;
     document.getElementById('order_date').textContent="Order Date : "+extractedOrderData.order_date;
-    if(extractedOrderData.order_accepted)
-    document.getElementById("order_accepted_date").textContent="Order Accepted Date:";
-    if(extractedOrderData.delivered)
+    if(extractedOrderData.order_accepted==="True")
+    document.getElementById("order_accepted_date").textContent=" Accepted Date: "+ extractedOrderData.order_accepted_date;
+    if(extractedOrderData.delivered==="True")
     document.getElementById('delivery_date').textContent="Delivery Date : "+extractedOrderData.delivery_date; 
 
     });
@@ -81,9 +92,9 @@
                   <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
                   <hr>
                   
-                  <li><a class="nav-li current" id="current" href="">Home</a></li>
+                  <li><a class="nav-li current"  href="/index/">Home</a></li>
                   <li><a class="nav-li" href="/printout/">Services</a></li>
-                  <li><a class="nav-li" href="/order/">Your Orders</a></li>
+                  <li><a class="nav-li" id="current" href="/order/">Your Orders</a></li>
                   <li><a class="nav-li" href="/faqs/">FAQ's</a></li>
                   <li><a class="nav-li" href="/contact/">Contact</a></li>
               
@@ -138,29 +149,26 @@
                   
                     <div class="order_dates">
                       <h4 id="order_date"></h4>
-                      <h4 id="order_accepted_date">Order Accepted Date:</h4>
-                      <h4 id="delivery_date">Delivery Date:</h4>
-                     </div>
-
-                    <div class="wrapper">
-                        <div class="margin-area">
-                          <div class="dot one"><i class="fa fa-check" aria-hidden="true"></i></div>
-                          <div class="dot two"><i class="fa fa-check" aria-hidden="true"></i></div>
-                          <div class="dot three"><i class="fa fa-check" aria-hidden="true"></i></div>
-                          <div class="progress-bar first"></div>
-                          <div class="progress-bar second"></div>
-                          
-                          <div class="message message-1">
-                           Order Placed
-                          <div>
-                          <div class="message message-2">Order Accepted<div>
-                          <div class="message message-3"> Delivered<div>
-                          
-                          
+                      <h4 id="order_accepted_date"></h4>
+                      <h4 id="delivery_date"></h4>
                     </div>
-                    
-                            
-                     
+                    <div class="wrapper">
+                      <div class="margin-area">
+                        <div id="dot_one"class="dot one"><i class="fa fa-check" aria-hidden="true"></i></div>
+                        <div id="dot_two" class="dot two"><i class="fa fa-check" aria-hidden="true"></i></div>
+                        <div id="dot_three" class="dot three"><i class="fa fa-check" aria-hidden="true"></i></div>
+                        <div  id="progress_bar_1"class="progress-bar first"></div>
+                        <div  id="progress_bar_2" class="progress-bar second"></div>
+                        
+                        <div class="message message-1">
+                         Order Placed
+                        <div>
+                        <div class="message message-2">Order Accepted<div>
+                        <div class="message message-3"> Delivered<div>
+                        
+                        
+                  </div>
+
                  </div>
                  
              <div>
@@ -168,7 +176,8 @@
                     
 
 
-        
+       
+    
         
         <script>
           function myFunction() {
@@ -180,6 +189,8 @@
               document.getElementById("avatar_image").style.display="block";
               document.getElementById("useremail_mobile_view").style.display="block";
               document.getElementById("username_mobile_view").style.display="block";
+              document.getElementById("dot_one").style.display="none";
+              document.getElementById("dot_two").style.display="none";
         
               // Add an event listener to the document to close the navbar when clicking outside
               document.addEventListener("click", closeNavbarOutsideClick);
@@ -201,7 +212,8 @@
               document.getElementById("avatar_image").style.display="none";
               document.getElementById("useremail_mobile_view").style.display="none";
               document.getElementById("username_mobile_view").style.display="none";
-              
+              document.getElementById("dot_one").style.display="block";
+              document.getElementById("dot_two").style.display="block";
               x.className = "navbar";
             }
           }

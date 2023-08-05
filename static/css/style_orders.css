@@ -256,7 +256,25 @@ color: #124265;
 }
 
 
+@media screen and (max-width:1300px) {
+  .navbar {
+    width: 70%;
+    margin-right: 10%;
+  }
 
+  .logo-tag {
+    margin-left: 2%;
+  }
+
+  .nav-li {
+    padding: 10px;
+  }
+
+  .navbar-ul {
+    justify-content: unset;
+  }
+
+}
 
 
 

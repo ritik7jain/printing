@@ -183,12 +183,10 @@ const cost = orderDataString.substring(startIndexCost, endIndexCost);
 const startIndex = orderDataString.indexOf("url': ") + "'url': ".length;
 const endIndex = orderDataString.indexOf("'", startIndex) ;
 const pdf_file_url = orderDataString.substring(startIndex, endIndex);
+
 //extract 'pdf name'
 const startIndexfilename= orderDataString.indexOf("'name': '") + "'name': '".length;
-console.log(" start index is ",startIndexfilename);
 const endIndexfilename = orderDataString.indexOf("'", startIndexfilename);
-console.log(" end index is ",endIndexfilename);
-console.log("file name is ",orderDataString.substring(startIndexfilename, endIndexfilename));
 const filename = orderDataString.substring(startIndexfilename, endIndexfilename);
 
 // Extract 'order_placed' field
@@ -200,6 +198,11 @@ const orderPlaced = orderDataString.substring(startIndexOrderPlaced, endIndexOrd
 const startIndexOrderDate = orderDataString.indexOf("'order_date': '") + "'order_date': '".length;
 const endIndexOrderDate = orderDataString.indexOf("'", startIndexOrderDate);
 const orderDate = orderDataString.substring(startIndexOrderDate, endIndexOrderDate);
+
+//extract order_accepted date 
+const startIndexOrderAcceptedDate = orderDataString.indexOf("'order_accepted_date': '") + "'order_accepted_date': '".length;
+const endIndexOrderAcceptedDate = orderDataString.indexOf("'", startIndexOrderAcceptedDate);
+const orderAcceptedDate = orderDataString.substring(startIndexOrderAcceptedDate, endIndexOrderAcceptedDate);
 
 // Extract 'delivery_date' field
 const startIndexDeliveryDate = orderDataString.indexOf("'delivery_date': '") + "'delivery_date': '".length;
@@ -220,6 +223,7 @@ const extractedOrderData = {
     pdf_file_name:filename,
     order_placed: orderPlaced,
     order_date: orderDate,
+    order_accepted_date:orderAcceptedDate,
     delivery_date: deliveryDate,
     order_type: orderType
 };
