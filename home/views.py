@@ -65,9 +65,10 @@ def signIn(request):
         user_ref = db.collection('users').document(uid)
         user_data = user_ref.get().to_dict()
         return render(request,'index.html',{'user_data':user_data})  
-    message = "invalid credentials"
-    messages.warning(request, message)  
-    return redirect('/signin/')
+    else:
+        message = "invalid credentials"
+        messages.warning(request, message)  
+        return render(request,'login.html')
 
 
 def admin_login(request):
@@ -254,7 +255,7 @@ def logout(request):
     return redirect('/')
 
 
-def orders(request):
+def order_details(request):
     if 'uid' in request.session:
         uid = request.session.get('uid')
         user_ref = db.collection('users').document(uid)

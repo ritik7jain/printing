@@ -14,7 +14,7 @@ urlpatterns = [
     path('order/',views.orders),
     path('faqs/',views.faqs),
     path('contact/',views.contact),
-    path('order_details/', views.order_detail)
+    path('order_details/', views.order_details)
 ]
 # urlpatterns = [
 #     path('', views.signIn),
