@@ -89,8 +89,18 @@
                 <ul class="navbar-ul">
                   <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
                   <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
-                  <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> {{user_data.username}} </li>
-                  <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+                  {%if user_data.username and user_data.email%}
+                  
+                  <li  style="display:none;" id="username_mobile_view" class="username_mobile_view" >{{user_data.username}} </li>
+                  <li  style="display:none;" id="useremail_mobile_view" class="useremail_mobile_view">{{user_data.email}} </li>
+                  
+                  
+                  {%else%}
+                  <li id="welcome_message" style="display:none;" class="username_mobile_view">Hi, Welcome</li>
+                  <a id="sign_in_button" style="display:none;" href="/signin/" class="sign_in_button">Sign In</a>
+                  
+        
+                  {%endif%}
                   <hr>
                   
                   <li><a class="nav-li current"  href="/index/">Home</a></li>
@@ -98,6 +108,7 @@
                   <li><a class="nav-li" id="current" href="/order/">Your Orders</a></li>
                   <li><a class="nav-li" href="/faqs/">FAQ's</a></li>
                   <li><a class="nav-li" href="/contact/">Contact</a></li>
+                  <a id="logout_button_responsive" href="/logout/" class="logout_button_responsive" style="display:none">Logout</a>
               
                 </ul>
                 <div class="dropdown" id="dropdown">
@@ -236,8 +247,18 @@
               document.getElementById("main_content_order_details_page").style.display = "none";
               document.getElementById("smart_earnings_name_responsive").style.display="block";
               document.getElementById("avatar_image").style.display="block";
-              document.getElementById("useremail_mobile_view").style.display="block";
+              if( document.getElementById("useremail_mobile_view"))
+              {
+                document.getElementById("useremail_mobile_view").style.display="block";
+                document.getElementById("logout_button_responsive").style.display="block";
+              }
+              
+              if(document.getElementById("username_mobile_view"))
               document.getElementById("username_mobile_view").style.display="block";
+              if(document.getElementById("welcome_message"))
+              document.getElementById("welcome_message").style.display="block";
+              if(document.getElementById("sign_in_button"))
+              document.getElementById("sign_in_button").style.display="block";
               document.getElementById("dot_one").style.display="none";
               document.getElementById("dot_two").style.display="none";
         

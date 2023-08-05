@@ -263,7 +263,7 @@ def order_details(request):
         if user_data:
             current_orders = user_data.get('orders', {})
             current_orders = dict(sorted(current_orders.items(), key=lambda x: x[1]['order_date'], reverse=True))
-            return render(request,"orders.html",{'orders':current_orders, 'user_data':user_data})  
+            return render(request,"order_details.html",{'orders':current_orders, 'user_data':user_data})  
         else:
             return redirect('/signin/')
     return redirect('/signin')

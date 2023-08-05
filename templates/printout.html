@@ -27,8 +27,18 @@
         <ul class="navbar-ul">
           <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
           <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
-          <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> {{user_data.username}} </li>
-          <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> {{user_data.email}} </li>
+          {%if user_data.username and user_data.email%}
+          
+          <li  style="display:none;" id="username_mobile_view" class="username_mobile_view" >{{user_data.username}} </li>
+          <li  style="display:none;" id="useremail_mobile_view" class="useremail_mobile_view">{{user_data.email}} </li>
+          
+          
+          {%else%}
+          <li id="welcome_message" style="display:none;" class="username_mobile_view">Hi, Welcome</li>
+          <a id="sign_in_button" style="display:none;" href="/signin/" class="sign_in_button">Sign In</a>
+          
+
+          {%endif%}
           <hr>
           <li><a class="nav-li"  href="/">Home</a></li>
           <li><a class="nav-li"id="current" href="/printout/">Services</a></li>
@@ -156,9 +166,19 @@
         document.getElementById("main-content-printout-page").style.display="none";
         document.getElementById("smart_earnings_name_responsive").style.display="block";
       document.getElementById("avatar_image").style.display="block";
-      document.getElementById("useremail_mobile_view").style.display="block";
+      if( document.getElementById("useremail_mobile_view"))
+      {
+        document.getElementById("useremail_mobile_view").style.display="block";
+        document.getElementById("logout_button_responsive").style.display="block";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
       document.getElementById("username_mobile_view").style.display="block";
-      document.getElementById("logout_button_responsive").style.display="block";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="block";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="block";
+      
       // Add an event listener to the document to close the navbar when clicking outside
       document.addEventListener("click", closeNavbarOutsideClick);
       } else {
@@ -177,9 +197,18 @@
       } else {
         document.getElementById("smart_earnings_name_responsive").style.display="none";
       document.getElementById("avatar_image").style.display="none";
-      document.getElementById("useremail_mobile_view").style.display="none";
+      if( document.getElementById("useremail_mobile_view"))
+      {
+        document.getElementById("useremail_mobile_view").style.display="none";
+        document.getElementById("logout_button_responsive").style.display="none";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
       document.getElementById("username_mobile_view").style.display="none";
-      document.getElementById("logout_button_responsive").style.display="none";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="none";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="none";
         x.className = "navbar";
       }
     }
@@ -194,8 +223,18 @@
         document.getElementById("main-content-printout-page").style.display="block";
         document.getElementById("smart_earnings_name_responsive").style.display="none";
         document.getElementById("avatar_image").style.display="none";
+        if( document.getElementById("useremail_mobile_view"))
+      {
         document.getElementById("useremail_mobile_view").style.display="none";
-        document.getElementById("username_mobile_view").style.display="none";
+        document.getElementById("logout_button_responsive").style.display="none";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
+      document.getElementById("username_mobile_view").style.display="none";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="none";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="none";
         document.getElementById("main-content-printout-page").style.opacity=1;
         // Remove the event listener since the navbar is closed
         document.removeEventListener("click", closeNavbarOutsideClick);
