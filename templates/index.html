@@ -131,6 +131,7 @@
     // Check if the clicked element is not part of the navbar and not the icon
     if (!navbar.contains(target) && !icon.contains(target)) {
       navbar.className = "navbar";
+      document.getElementById("main-content").style.display = "block";
       document.getElementById("smart_earnings_name_responsive").style.display="none";
       document.getElementById("avatar_image").style.display="none";
       document.getElementById("useremail_mobile_view").style.display="none";

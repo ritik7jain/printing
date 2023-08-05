@@ -163,8 +163,8 @@ def upload_pdf(request):
             user_ref = db.collection('users').document(uid)
             user_data = user_ref.get().to_dict()
             current_orders = user_data.get('orders', {})
-            order_id = str(uuid.uuid4())[:18]
             order_id = re.sub(r'[^a-zA-Z0-9]', '', order_id)
+            order_id = str(uuid.uuid4())[:18]
             order = {
                 'order_type': order_type,
                 'pdf_files': [],

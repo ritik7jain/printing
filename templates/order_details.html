@@ -60,7 +60,7 @@
 
     // Now you can use the extractedOrderData object as needed
     
-    document.getElementById("order_id_p_tag").textContent=orderId ;   
+    document.getElementById("order_id_p_tag").textContent += orderId ;   
     document.getElementById("download_button").href=extractedOrderData.pdf_file_url;
     document.getElementById("file_name").textContent=extractedOrderData.pdf_file_name;
     document.getElementById('print_type_diplay').textContent += extractedOrderData.order_type;
@@ -90,7 +90,7 @@
                   <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
                   <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
                   <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> {{user_data.username}} </li>
-                  <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> {{user_data.email}}</li>
+                  <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
                   <hr>
                   
                   <li><a class="nav-li current"  href="/index/">Home</a></li>
@@ -129,32 +129,74 @@
                     <img class="card_image"id="card_image" src="..\static\Images\loose_paper.png">
                     <h4 id="print_type_diplay">Print Type  :  </h4>
                     <h4 id="cost_display">Cost : ₹</h4>
+                    <h4 id="order_id_p_tag">Order Id : </h4>
+                    
                    
                   </div>
-                  <div class="file_name_download_button">
+                  <div class="wrapper">
+                    <div class="margin-area">
+                      <div id="dot_one"class="dot one"><i class="fa fa-check" aria-hidden="true"></i></div>
+                      <div id="dot_two" class="dot two"><i class="fa fa-check" aria-hidden="true"></i></div>
+                      <div id="dot_three" class="dot three"><i class="fa fa-check" aria-hidden="true"></i></div>
+                      <div  id="progress_bar_1"class="progress-bar first"></div>
+                      <div  id="progress_bar_2" class="progress-bar second"></div>
+                      
+                      <div class="message message-1">
+                       Order Placed
+                      <div>
+                      <div class="message message-2">Order Accepted<div>
+                      <div class="message message-3"> Delivered<div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                      
+                </div>
+
+               </div>
+                  {% comment %} <div class="file_name_download_button">
                     <h3>File Name:</h3>
                     <p id="file_name"></p>
                     <a id="download_button">Download</a>
+                </div> {% endcomment %}
+                <div class="order_dates">
+                  <h4 id="order_date"></h4>
+                  <h4 id="order_accepted_date"></h4>
+                  <h4 id="delivery_date"></h4>
                 </div>
-                    <div class="delivery_address_and_contact_no ">
+                    {% comment %} <div class="delivery_address_and_contact_no ">
                       <h3>Delivery Address</h3>
                       <p>JECRC foundation,Shri Ram ki Nangal via RIICO, Tonk Rd, Sitapura, Jaipur, Rajasthan 302022 </p> 
                       <h3>Order Id </h3>
                       <p id="order_id_p_tag"></p>
                      
-                    </div>
+                    </div> {% endcomment %}
                    
                    
         
                  </div>
                  <div class="second_card">
+                    <div class="file_name_download_button">
+                    <h3>File Name:</h3>
+                    <p id="file_name"></p>
+                    <a id="download_button">Download</a>
+                    </div>
+                       <div class="delivery_address_and_contact_no ">
+                      <h3>Delivery Address</h3>
+                      <p>JECRC foundation,Shri Ram ki Nangal via RIICO, Tonk Rd, Sitapura, Jaipur, Rajasthan 302022 </p> 
+                    
+                     
+                     
+                    </div>
                   
-                    <div class="order_dates">
+                    {% comment %} <div class="order_dates">
                       <h4 id="order_date"></h4>
                       <h4 id="order_accepted_date"></h4>
                       <h4 id="delivery_date"></h4>
-                    </div>
-                    <div class="wrapper">
+                    </div> {% endcomment %}
+                    {% comment %} <div class="wrapper">
                       <div class="margin-area">
                         <div id="dot_one"class="dot one"><i class="fa fa-check" aria-hidden="true"></i></div>
                         <div id="dot_two" class="dot two"><i class="fa fa-check" aria-hidden="true"></i></div>
@@ -167,13 +209,18 @@
                         <div>
                         <div class="message message-2">Order Accepted<div>
                         <div class="message message-3"> Delivered<div>
-                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
                         
                   </div>
 
-                 </div>
+                 </div> {% endcomment %}
                  
-             <div>
+            
              </div>
                     
 
@@ -186,7 +233,7 @@
             var x = document.getElementById("mynavbar");
             if (x.className === "navbar") {
               x.className += " responsive";
-              document.getElementById("main_content_order_details_page").style.opacity = 0;
+              document.getElementById("main_content_order_details_page").style.display = "none";
               document.getElementById("smart_earnings_name_responsive").style.display="block";
               document.getElementById("avatar_image").style.display="block";
               document.getElementById("useremail_mobile_view").style.display="block";
@@ -210,6 +257,7 @@
               // Add an event listener to the document to close the navbar when clicking outside
               document.addEventListener("click", closeNavbarOutsideClick);
             } else {
+              document.getElementById("main_content_order_details_page").style.display = "block";
               document.getElementById("smart_earnings_name_responsive").style.display="none";
               document.getElementById("avatar_image").style.display="none";
               document.getElementById("useremail_mobile_view").style.display="none";
@@ -229,6 +277,7 @@
             // Check if the clicked element is not part of the navbar and not the icon
             if (!navbar.contains(target) && !icon.contains(target)) {
               navbar.className = "navbar";
+              document.getElementById("main_content_order_details_page").style.display = "block";
               document.getElementById("smart_earnings_name_responsive").style.display="none";
               document.getElementById("avatar_image").style.display="none";
               document.getElementById("useremail_mobile_view").style.display="none";
