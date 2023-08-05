@@ -504,9 +504,7 @@ body{
       width:280px;
       height: 100px;
     }
-    .order_dates{
-      margin-left: 14%;
-    }
+    
 
     .message{
       width: 50px;
@@ -524,8 +522,13 @@ body{
    .second_card{
     margin-left: unset;
     width: unset;
+    margin-top: unset;
    }
-  
+  .first_card{
+    box-shadow: unset;
+    margin-left: unset;
+  }
+ 
 
     
   
