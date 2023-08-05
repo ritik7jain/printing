@@ -1,9 +1,12 @@
 
-{% if message %}
-<script>
-	alert('{{ message }}');
-</script>
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
 {% endif %}
+
 
 <!DOCTYPE html>
 {% load static  %}

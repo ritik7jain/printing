@@ -1,6 +1,8 @@
+{{message}}
 <!DOCTYPE html>
 {% load static  %}
 <html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -28,7 +30,7 @@
                 <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
                 <hr>
                 
-              <li><a class="nav-li"href="/index/">Home</a></li>
+              <li><a class="nav-li"href="/">Home</a></li>
               <li><a class="nav-li" href="/printout/">Services</a></li>
               <li><a class="nav-li"  href="/order/" id="current">Your Orders</a></li>
               <li><a class="nav-li"  href="/faqs/">FAQ's</a></li>
@@ -39,7 +41,7 @@
                 </button>
                 
                 <div class="dropdown-content">
-                  <a href="#">Username</a>
+                  <a href="#">{{user_data.username}}</a>
                   <a href="#"> username_username@gmail.com</a>
                   <a href="/logout/" class="logout_button">Logout</a>
                 </div>
@@ -293,7 +295,7 @@ localStorage.setItem('selectedOrder', JSON.stringify(extractedOrderData));
         {
              if(selectedValue==='Accepted')
              {
-                {% for order_id, order_data in orders.items %}
+                {%for order_id, order_data in orders.items %}
                 var order = document.getElementById("order_{{ order_id }}");
                 var statusButton = order.querySelector('.status_display_button span');
                 var isVisible = statusButton.textContent == "Accepted";

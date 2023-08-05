@@ -3,7 +3,6 @@ from django.shortcuts import render, HttpResponse,redirect
 from django.http import HttpResponseRedirect
 import pyrebase
 import os
-import PyPDF2
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -13,6 +12,8 @@ import uuid
 from django.conf import settings
 import re
 from django.http import JsonResponse
+from django.contrib import messages
+
 
 #ritik_testing
 #remote
@@ -65,7 +66,9 @@ def signIn(request):
         user_data = user_ref.get().to_dict()
         return render(request,'index.html',{'user_data':user_data})
         # return render(request, "Home.html", {'user_data': user_data})    
-    return render(request,"login.html")
+    message = "invalid credentials"
+    messages.warning(request, message)  
+    return redirect('/signin/')
 
 
 def admin_login(request):
@@ -142,73 +145,17 @@ def index(request):
         user_data = user_ref.get().to_dict()
         if user_data:
             return render(request, "index.html", {'user_data': user_data})
-    return redirect('/')
+    else:
+        return render(request,"index.html")
+    # return redirect('/')
 
 def upload_pdf(request):
     if request.method == 'POST':
-        print("1")
-        if "pdf_file" in request.FILES:
-            order_type=request.POST.get('order_type')
-            pdf_file = request.FILES['pdf_file']
-            cost=request.POST.get('cost')
-            max_file_size = settings.MAX_FILE_SIZE
-            if pdf_file.size > max_file_size:
-                error_message = "File size exceeds the limit."
-                return render(request, "upload_pdf.html", {'message': error_message}) 
-            uid = request.session.get('uid')
-            file_name = f"user_{uid}/{pdf_file.name}"
-            blob = bucket.blob(file_name)
-            blob.upload_from_file(pdf_file)
-            file_url = blob.generate_signed_url(datetime.timedelta(days=7), method='GET')
-            user_ref = db.collection('users').document(uid)
-            user_data = user_ref.get().to_dict()
-            current_orders = user_data.get('orders', {})
-            order_id = str(uuid.uuid4())[:18]
-            order_id = re.sub(r'[^a-zA-Z0-9]', '', order_id)
-            order = {
-                'order_type': order_type,
-                'pdf_files': [],
-                'order_placed': False,
-                'order_date': datetime.datetime.now().strftime('%Y-%m-%d'),
-                'cost': 0,
-                'order_accepted': False,
-                'delivery_date': "",
-                'delivered': False
-            }
-            current_orders[order_id] = order
-            current_files = order.get('pdf_files', [])
-            current_files.append({'name': pdf_file.name, 'url': file_url})
-            order['pdf_files'] = current_files
-            order['order_placed'] = True
-            order['cost']=cost
-            user_ref.update({'orders': current_orders})
-        return render(request, "index.html",{'user_data': user_data})
-    else:    
-        print("2")
         if 'uid' in request.session:
-            uid = request.session['uid']
-            user_ref = db.collection('users').document(uid)
-            user_data = user_ref.get().to_dict()
-            if user_data:
-                return render(request, "upload_pdf.html", {'user_data': user_data})
-        return redirect('/')
-
-
-def services(request):
-    if 'uid' in request.session:
-        uid = request.session['uid']
-        user_ref = db.collection('users').document(uid)
-        user_data = user_ref.get().to_dict()
-        if user_data:
-            return render(request, "printout.html", {'user_data': user_data})
-    return redirect('/')
-
-
-def home(request):
-        if request.method == 'POST':
-            if 'pdf_file' in request.FILES:
+            if "pdf_file" in request.FILES:
                 order_type=request.POST.get('order_type')
                 pdf_file = request.FILES['pdf_file']
+                cost=request.POST.get('cost')
                 max_file_size = settings.MAX_FILE_SIZE
                 if pdf_file.size > max_file_size:
                     error_message = "File size exceeds the limit."
@@ -218,57 +165,61 @@ def home(request):
                 blob = bucket.blob(file_name)
                 blob.upload_from_file(pdf_file)
                 file_url = blob.generate_signed_url(datetime.timedelta(days=7), method='GET')
-                reader = PyPDF2.PdfReader(pdf_file)
-                number_of_pages = len(reader.pages)
-                if(not request.POST.get('cost')):
-                    user_ref = db.collection('users').document(uid)
-                    user_data = user_ref.get().to_dict()
-                    current_orders = user_data.get('orders', {})
-                    order_id = str(uuid.uuid4())
-                    order = {
-                        'order_type': order_type,
-                        'pdf_files': [],
-                        'order_placed': False,
-                        'order_accepted_date':"",
-                        'cost': 0,
-                        'order_accepted': False,
-                        'delivery_date': "",
-                        'delivered': False
-                    }
-                    current_orders[order_id] = order
-
-                    current_files = order.get('pdf_files', [])
-                    current_files.append({'name': pdf_file.name, 'url': file_url})
-                    order['pdf_files'] = current_files
-                    order['order_placed'] = True
-
-                    if order_type == 'spiral':
-                        order['cost'] = (number_of_pages * 1.5) + 30
-                    else:
-                        order['cost'] = (number_of_pages * 1.5) + 80
-
-                    user_ref.update({'orders': current_orders})
-
-                    return render(request, "Home.html", {'user_data': user_data})
-                else:
-                    if order_type == 'spiral':
-                       cost = (number_of_pages * 1.5) + 30
-                    else:
-                       cost = (number_of_pages * 1.5) + 80
-                    
-                    return render(request, "Home.html", {'cost': cost})
-                    
-            else:
-                error_message = "No file selected. Please choose a PDF file to upload."
-                return render(request, "Home.html", {'error_message': error_message})
-        else:
-            if 'uid' in request.session:
-                uid = request.session['uid']
                 user_ref = db.collection('users').document(uid)
                 user_data = user_ref.get().to_dict()
-                if user_data:
-                    return render(request, "Home.html", {'user_data': user_data})
-            return redirect('/')
+                current_orders = user_data.get('orders', {})
+                order_id = str(uuid.uuid4())[:18]
+                order_id = re.sub(r'[^a-zA-Z0-9]', '', order_id)
+                order = {
+                    'order_type': order_type,
+                    'pdf_files': [],
+                    'order_placed': False,
+                    'order_date': datetime.datetime.now().strftime('%Y-%m-%d'),
+                    'cost': 0,
+                    'order_accepted': False,
+                    'delivery_date': "",
+                    'delivered': False
+                }
+                current_orders[order_id] = order
+                current_files = order.get('pdf_files', [])
+                current_files.append({'name': pdf_file.name, 'url': file_url})
+                order['pdf_files'] = current_files
+                order['order_placed'] = True
+                order['cost']=cost
+                message="Order Placed Successfully"
+                user_ref.update({'orders': current_orders})
+                current_orders = user_data.get('orders', {})
+                current_orders = dict(sorted(current_orders.items(), key=lambda x: x[1]['order_date'], reverse=True))
+            return render(request, "orders.html",{'orders':current_orders,'user_data': user_data, 'message':message})
+        else:
+            message = "Please Login First"
+            messages.warning(request, message)  
+            return redirect('/signin/')
+    else:    
+        print("2")
+        if 'uid' in request.session:
+            uid = request.session['uid']
+            user_ref = db.collection('users').document(uid)
+            user_data = user_ref.get().to_dict()
+            if user_data:
+                return render(request, "upload_pdf.html", {'user_data': user_data})
+        return render(request,"upload_pdf.html")
+
+
+
+def services(request):
+    if 'uid' in request.session:
+        uid = request.session['uid']
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        if user_data:
+            return render(request, "printout.html", {'user_data': user_data})
+    else:
+        return render(request,"printout.html")
+    # return redirect('/')
+
+
+
 
 def orders(request):
     if 'uid' in request.session:
@@ -278,16 +229,24 @@ def orders(request):
         if user_data:
             current_orders = user_data.get('orders', {})
             current_orders = dict(sorted(current_orders.items(), key=lambda x: x[1]['order_date'], reverse=True))
-            return render(request,"orders.html",{'orders':current_orders})
+            return render(request,"orders.html",{'orders':current_orders,'user_data':user_data})
            
         else:
             return redirect('/')
+    else:
+        return render(request,"orders.html")
     return redirect('/')
 
 def faqs(request):
     if 'uid' in request.session:
+        uid = request.session['uid']
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        if user_data:
+            return render(request, "faqs.html", {'user_data': user_data})
+    else:
         return render(request,"faqs.html")
-    return redirect('/')
+    # return redirect('/')
  
 def logout(request):
     try:
@@ -358,8 +317,14 @@ def reset(request):
 
 def contact(request):
     if 'uid' in request.session:
+        uid = request.session['uid']
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        if user_data:
+            return render(request, "contact.html", {'user_data': user_data})
+    else:
         return render(request,"contact.html") 
-    return redirect('/') 
+    # return redirect('/') 
 
 
 
@@ -389,7 +354,71 @@ def contact(request):
 
 
 
+# def home(request):
+#         if request.method == 'POST':
+#             if 'pdf_file' in request.FILES:
+#                 order_type=request.POST.get('order_type')
+#                 pdf_file = request.FILES['pdf_file']
+#                 max_file_size = settings.MAX_FILE_SIZE
+#                 if pdf_file.size > max_file_size:
+#                     error_message = "File size exceeds the limit."
+#                     return render(request, "upload_pdf.html", {'message': error_message}) 
+#                 uid = request.session.get('uid')
+#                 file_name = f"user_{uid}/{pdf_file.name}"
+#                 blob = bucket.blob(file_name)
+#                 blob.upload_from_file(pdf_file)
+#                 file_url = blob.generate_signed_url(datetime.timedelta(days=7), method='GET')
+#                 reader = PyPDF2.PdfReader(pdf_file)
+#                 number_of_pages = len(reader.pages)
+#                 if(not request.POST.get('cost')):
+#                     user_ref = db.collection('users').document(uid)
+#                     user_data = user_ref.get().to_dict()
+#                     current_orders = user_data.get('orders', {})
+#                     order_id = str(uuid.uuid4())
+#                     order = {
+#                         'order_type': order_type,
+#                         'pdf_files': [],
+#                         'order_placed': False,
+#                         'order_accepted_date':"",
+#                         'cost': 0,
+#                         'order_accepted': False,
+#                         'delivery_date': "",
+#                         'delivered': False
+#                     }
+#                     current_orders[order_id] = order
 
+#                     current_files = order.get('pdf_files', [])
+#                     current_files.append({'name': pdf_file.name, 'url': file_url})
+#                     order['pdf_files'] = current_files
+#                     order['order_placed'] = True
+
+#                     if order_type == 'spiral':
+#                         order['cost'] = (number_of_pages * 1.5) + 30
+#                     else:
+#                         order['cost'] = (number_of_pages * 1.5) + 80
+
+#                     user_ref.update({'orders': current_orders})
+
+#                     return render(request, "Home.html", {'user_data': user_data})
+#                 else:
+#                     if order_type == 'spiral':
+#                        cost = (number_of_pages * 1.5) + 30
+#                     else:
+#                        cost = (number_of_pages * 1.5) + 80
+                    
+#                     return render(request, "Home.html", {'cost': cost})
+                    
+#             else:
+#                 error_message = "No file selected. Please choose a PDF file to upload."
+#                 return render(request, "Home.html", {'error_message': error_message})
+#         else:
+#             if 'uid' in request.session:
+#                 uid = request.session['uid']
+#                 user_ref = db.collection('users').document(uid)
+#                 user_data = user_ref.get().to_dict()
+#                 if user_data:
+#                     return render(request, "Home.html", {'user_data': user_data})
+#             return redirect('/')
 
 # def postReset(request):
 # 	email = request.POST.get('email')
