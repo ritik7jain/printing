@@ -90,19 +90,18 @@
                 {% if orders%}
                 {% for order_id, order_data in orders.items %}
                 {% if order_data.order_placed%}
-              
-                <div class="column order_card" data-order-id="{{ order_id }}" data-order-data="{{ order_data|safe }}">
+               
+                <div class="column order_card" id="{{ order_id }}"data-order-id="{{ order_id }}" data-order-data="{{ order_data|safe }}">
                     <div class="card">
                         <div class="image_and_order_type">
-                            
+                           
                             <button class="status_display_button" >
                                 {% if order_data.delivered %}
-                                    <span class="status_display_button_span">Delivered</span>
-                                {% elif order_data.order_accepted%}
-                                    <span  class="status_display_button_span">Accepted</span>
-                                {% else%}
-                                    <span  class="status_display_button_span">Order Placed</span>
-
+                                <span>Delivered</span>
+                            {% elif order_data.order_accepted%}
+                                <span>Accepted</span>
+                            {% elif order_data.order_placed%}
+                                <span>Order Placed</span>
 
                                 {% endif %}
                             </button>
@@ -152,10 +151,17 @@
              if(selectedValue==='Accepted')
              {
                 {% for order_id, order_data in orders.items %}
-                var order = document.getElementById("order_{{ order_id }}");
-                var statusButton = order.getElementsByClassName('.status_display_button_span');
+                //{{order_data}}
+                var order = document.getElementById("{{ order_id }}");
+                console.log("order is ",order);
+                var statusButton = order.querySelector('.status_display_button span');
                 var isVisible = statusButton.textContent == "Accepted";
                 order.style.display = isVisible ? 'block' : 'none';
+                //{%if order_data.order_accepted%}
+                //order.style.display =  'block' ;
+               // {%else%}
+               // order.style.display =  'none';
+               // {%endif%}
                 {% endfor %}
              }
              else
@@ -163,8 +169,8 @@
              {
                 console.log('selectedValue is ',selectedValue);
                 {% for order_id, order_data in orders.items %}
-                var order = document.getElementById("order_{{ order_id }}");
-                var statusButton = order.getElementsByClassName('.status_display_button_span');
+                var order = document.getElementById("{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
                 var isVisible = statusButton.textContent == "Order Placed";
                 order.style.display = isVisible ? 'block' : 'none';
                 {% endfor %}
@@ -173,8 +179,8 @@
              if(selectedValue==="delivered")
              {
                 {% for order_id, order_data in orders.items %}
-                var order = document.getElementById("order_{{ order_id }}");
-                var statusButton = order.getElementsByClassName('.status_display_button_span');
+                var order = document.getElementById("{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
                 var isVisible = statusButton.textContent == "Delivered";
                 order.style.display = isVisible ? 'block' : 'none';
                 {% endfor %}
