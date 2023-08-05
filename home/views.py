@@ -280,7 +280,7 @@ def orders(request):
         if user_data:
             current_orders = user_data.get('orders', {})
             current_orders = dict(sorted(current_orders.items(), key=lambda x: x[1]['order_date'], reverse=True))
-            return render(request,"orders.html",{'orders':current_orders})
+            return render(request,"orders.html",{'orders':current_orders, 'user_data':user_data})
            
         else:
             return redirect('/')
@@ -288,7 +288,10 @@ def orders(request):
 
 def faqs(request):
     if 'uid' in request.session:
-        return render(request,"faqs.html")
+        uid = request.session.get('uid')
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        return render(request,"faqs.html",{'user_data':user_data})
     return redirect('/')
  
 def logout(request):
@@ -302,20 +305,13 @@ def logout(request):
 
 
 def order_detail(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        order_id = data.get('order_id')
+    if 'uid' in request.session:
         uid = request.session.get('uid')
         user_ref = db.collection('users').document(uid)
         user_data = user_ref.get().to_dict()
-        order= user_data.get('orders', {})
-        current_order=order[order_id]
-        print(current_order)
-        return JsonResponse(current_order, safe=False)
-        # return render(request,"index.html", {'order_data': current_order})
+        return render(request, 'order_details.html',{'user_data':user_data})
     else:
-        return render(request, 'order_details.html')
-
+        return redirect('/')
 
 def signUp(request):
     if request.method=='POST':
@@ -358,8 +354,11 @@ def reset(request):
 
 def contact(request):
     if 'uid' in request.session:
-        return render(request,"contact.html") 
-    return redirect('/') 
+        uid = request.session.get('uid')
+        user_ref = db.collection('users').document(uid)
+        user_data = user_ref.get().to_dict()
+        return render(request,"contact.html",{'user_data':user_data}) 
+    return redirect('/')
 
 
 

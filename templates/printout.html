@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Smart Earnings</title>
   <link rel="stylesheet"  type="text/css" href="{% static 'css/style_printout.css' %}">
 
@@ -27,22 +27,23 @@
         <ul class="navbar-ul">
           <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
           <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
-          <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> Username </li>
-          <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+          <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> {{user_data.username}} </li>
+          <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> {{user_data.email}} </li>
           <hr>
           <li><a class="nav-li"  href="/index/">Home</a></li>
           <li><a class="nav-li"id="current" href="/printout/">Services</a></li>
           <li><a class="nav-li" href="/order/">Your Orders</a></li>
           <li><a class="nav-li" href="/faqs/">FAQ's</a></li>
           <li><a class="nav-li" href="/contact/">Contact</a></li>
+          <a id="logout_button_responsive" href="/logout/" class="logout_button_responsive" style="display:none">Logout</a>
         </ul>
         <div class="dropdown" id="dropdown">
           <button id="dropbtn"class="dropbtn"><img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg">
           </button>
           
           <div class="dropdown-content">
-            <a href="#">Username</a>
-            <a href="#"> username_username@gmail.com</a>
+            <a href="#">{{user_data.username}}</a>
+            <a href="#">{{user_data.email}}</a>
             <a href="/logout/" class="logout_button">Logout</a>
           </div>
         </div>
@@ -129,7 +130,7 @@
   <p class="icon-box-description">Price per page -    <a class="icon-box-description-price">Rs 30</a></p>
   <p class="icon-box-description"> Binding-    <a class="icon-box-description-price">Rs 50</a></p>
   <p class="icon-box-description">Delivery charges - <a class="icon-box-description-price">Rs 5</a></p> 
-  <button type="submit" class="upload-pdf-button" onclick="openuploadpage('scrap_book')">Upload Pdf</button>
+  <button type="submit" class="upload-pdf-button" id="last_button" onclick="openuploadpage('scrap_book')">Upload Pdf</button>
   
 </div>
       </div>
@@ -152,12 +153,12 @@
       var x = document.getElementById("mynavbar");
       if (x.className === "navbar") {
         x.className += " responsive";
-        document.getElementById("main-content-printout-page").style.opacity=0;
+        document.getElementById("main-content-printout-page").style.display="none";
         document.getElementById("smart_earnings_name_responsive").style.display="block";
       document.getElementById("avatar_image").style.display="block";
       document.getElementById("useremail_mobile_view").style.display="block";
       document.getElementById("username_mobile_view").style.display="block";
-
+      document.getElementById("logout_button_responsive").style.display="block";
       // Add an event listener to the document to close the navbar when clicking outside
       document.addEventListener("click", closeNavbarOutsideClick);
       } else {
@@ -167,7 +168,7 @@
     }
     function toggleNavbar()
     {
-      document.getElementById("main-content-printout-page").style.opacity=1;
+      document.getElementById("main-content-printout-page").style.display="block";
       var x = document.getElementById("mynavbar");
       if (x.className === "navbar") {
         x.className += " close";
@@ -178,7 +179,7 @@
       document.getElementById("avatar_image").style.display="none";
       document.getElementById("useremail_mobile_view").style.display="none";
       document.getElementById("username_mobile_view").style.display="none";
-      
+      document.getElementById("logout_button_responsive").style.display="none";
         x.className = "navbar";
       }
     }

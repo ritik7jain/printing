@@ -8,25 +8,25 @@
 <!DOCTYPE html>
 {% load static  %}
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Earnings</title>
-  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_login.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- adding google fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
- {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
- 
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Earnings</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- adding google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Other meta tags and links... -->
+  </head>
+  
 <body>
   <div class="main">
     <div class="container">
       <div class="signin_content">
-        <div class="signin-image">
+        {% comment %} <div class="signin-image">
           <figure><img src="..\static\Images\signin_image.jpg" alt="sing up image"></figure>
         
-          </div>
+          </div> {% endcomment %}
           <div class="sign_in_form">
             <h2 class="form_title">Sign In</h2>
             <p id="error_message" style="display:none;color:red">Please enter password and email!</p>
@@ -44,10 +44,7 @@
                 </label>
                 <input id="password_input" name="pass" type="password" placeholder="Password" >
              </div>
-             <div class="form-group">
-              <input type="checkbox" name="remember-me" id="remember-me" class="agree-term">
-              <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-              </div>
+             
               <div class="form-group form-button">
                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log In">
                 </div>

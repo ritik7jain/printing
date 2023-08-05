@@ -4,16 +4,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Smart Earnings</title>
     <link rel="stylesheet"  type="text/css" href="{% static 'css/style_orders.css' %}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- adding google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
    {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
-  
-       
-    
+ 
 </head>
 <body>
     <div class="whole_webpage">
@@ -24,23 +22,24 @@
             <ul class="navbar-ul">
                 <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
                 <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
-                <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> Username </li>
-                <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+                <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> {{user_data.username}} </li>
+                <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> {{user_data.email}} </li>
                 <hr>
                 
               <li><a class="nav-li"href="/index/">Home</a></li>
               <li><a class="nav-li" href="/printout/">Services</a></li>
               <li><a class="nav-li"  href="/order/" id="current">Your Orders</a></li>
               <li><a class="nav-li"  href="/faqs/">FAQ's</a></li>
-              <li><a class="nav-li"  href="/contact/">Contact</a></li>
+              <li><a class="nav-li"  href="/contact/" >Contact</a></li>
+              <a id="logout_button_responsive" href="/logout/" class="logout_button_responsive" style="display:none">Logout</a>
             </ul>
             <div class="dropdown" id="dropdown">
                 <button class="dropbtn" id="dropbtn"><img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg">
                 </button>
                 
                 <div class="dropdown-content">
-                  <a href="#">Username</a>
-                  <a href="#"> username_username@gmail.com</a>
+                  <a href="#">{{user_data.username}}</a>
+                  <a href="#">{{user_data.email}}</a>
                   <a href="/logout/" class="logout_button">Logout</a>
                 </div>
               </div>
@@ -50,7 +49,7 @@
             <a href="javascript:void(0);" class="icon_filter" id="icon_filter" onclick="open_responsive_filter()">
                 <i class="fa fa-filter"></i>
               </a>
-            <a href="javascript:void(0);" class="icon-exit-icon" onclick="toggleNavbar()">
+            <a href="javascript:void(0);" id="icon-exit-icon" class="icon-exit-icon" onclick="toggleNavbar()">
               <i class="fa fa-times"></i>
               <a href="javascript:void(0);" id ="icon_exit_filter" class="icon_exit_filter" onclick="Close_responsive_filter()" style="left: 85%;
               position: absolute;
@@ -90,21 +89,19 @@
             <div class="cards_order_page" id="cards_order_page">
                 {% if orders%}
                 {% for order_id, order_data in orders.items %}
-                <script type="application/json" id="order-data-{{ order_id }}">
-                    {{ order_data|safe }}
-                </script>
                 {% if order_data.order_placed%}
               
                 <div class="column order_card" data-order-id="{{ order_id }}" data-order-data="{{ order_data|safe }}">
                     <div class="card">
                         <div class="image_and_order_type">
-                            <button class="status_display_button">
+                            
+                            <button class="status_display_button" >
                                 {% if order_data.delivered %}
-                                    <span>Delivered</span>
+                                    <span class="status_display_button_span">Delivered</span>
                                 {% elif order_data.order_accepted%}
-                                    <span>Accepted</span>
-                                {% elif order_data.order_placed%}
-                                    <span>Order Placed</span>
+                                    <span  class="status_display_button_span">Accepted</span>
+                                {% else%}
+                                    <span  class="status_display_button_span">Order Placed</span>
 
 
                                 {% endif %}
@@ -113,7 +110,7 @@
                             <img class="card_image"id="card_image_{{ order_id }}" src="..\static\Images\loose_paper.png">
                             <p class="order_type_display" id="order_type_display">Order type:<span> {{ order_data.order_type|title }}</span></p>
                         </div>
-                        <div class="price_in_card">
+                        <div  class="price_in_card">
                             <p>₹ {{ order_data.cost|title }}</p>
                         </div>
                         <div class="order_file_and_id">
@@ -149,6 +146,153 @@
         </div>
 
     </div>
+    <script>
+        function filterfunctionality(selectedValue)
+        {
+             if(selectedValue==='Accepted')
+             {
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("order_{{ order_id }}");
+                var statusButton = order.getElementsByClassName('.status_display_button_span');
+                var isVisible = statusButton.textContent == "Accepted";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+             else
+             if(selectedValue==='placed')
+             {
+                console.log('selectedValue is ',selectedValue);
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("order_{{ order_id }}");
+                var statusButton = order.getElementsByClassName('.status_display_button_span');
+                var isVisible = statusButton.textContent == "Order Placed";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+             else
+             if(selectedValue==="delivered")
+             {
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("order_{{ order_id }}");
+                var statusButton = order.getElementsByClassName('.status_display_button_span');
+                var isVisible = statusButton.textContent == "Delivered";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+        }
+        function myFunction() {
+          var x = document.getElementById("mynavbar");
+          if (x.className === "navbar") {
+            x.className += " responsive";
+            document.getElementById("main_content_orders_page").style.display="none";
+            document.getElementById('icon_filter').style.display="none";
+            document.getElementById("smart_earnings_name_responsive").style.display="block";
+            document.getElementById("avatar_image").style.display="block";
+            document.getElementById("useremail_mobile_view").style.display="block";
+            document.getElementById("username_mobile_view").style.display="block";
+            document.getElementById("logout_button_responsive").style.display="block";
+            document.getElementById("icon-exit-icon").style.display="block";
+               // Add an event listener to the document to close the navbar when clicking outside
+               document.addEventListener("click", closeNavbarOutsideClick);
+          } else {
+     
+            x.className = "navbar";
+          }
+    
+        }
+        function open_responsive_filter()
+        {
+            var x=document.getElementById('filter_sidebar');
+            if(x.className== "filter_sidebar")
+            {
+                x.className += " responsive";
+                document.getElementById('icon_exit_filter').style.display='block';
+               
+                document.getElementById("cards_order_page").style.display="none";
+                document.getElementById('order_page_content').style.display="block";
+                document.getElementById("icon_filter").style.display="none";
+                document.getElementById("order_page_content").style.height="900px";
+               document.getElementById("order_page_content").style.overflowX ="clip";
+               document.getElementById("order_page_content").style.overflowY ="clip";
+               document.getElementById("order_page_content").style.marginRight ="-20px";
+             
+         
+            
+
+               var y=document.getElementById("cards_order_page");
+               y.className += "responsive";
+                
+            }
+            else
+            x.className="filter_sidebar";
+        }
+        function toggleNavbar()
+        {
+          document.getElementById("main_content_orders_page").style.display="block";
+          var x = document.getElementById("mynavbar");
+         
+          if (x.className === "navbar") {
+            x.className += " close";
+            document.getElementById('icon_filter').style.display="block";
+               // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
+            
+          } else {
+            document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+      document.getElementById("useremail_mobile_view").style.display="none";
+      document.getElementById("username_mobile_view").style.display="none";
+            document.getElementById('icon_filter').style.display="block";
+            document.getElementById("logout_button_responsive").style.display="none";
+            x.className = "navbar";
+          }
+         
+    
+        }
+        function closeNavbarOutsideClick(event) {
+            var navbar = document.getElementById("mynavbar");
+            var icon = document.querySelector(".icon");
+            var target = event.target;
+        
+            // Check if the clicked element is not part of the navbar and not the icon
+            if (!navbar.contains(target) && !icon.contains(target)) {
+              navbar.className = "navbar";
+              document.getElementById("main_content_orders_page").style.opacity=1;
+              document.getElementById("icon_filter").style.display="block";
+              document.getElementById("smart_earnings_name_responsive").style.display="none";
+              document.getElementById("avatar_image").style.display="none";
+              document.getElementById("useremail_mobile_view").style.display="none";
+              document.getElementById("username_mobile_view").style.display="none";
+              document.getElementById("main-content").style.opacity = 1;
+              // Remove the event listener since the navbar is closed
+              document.removeEventListener("click", closeNavbarOutsideClick);
+            }
+          }
+        function Close_responsive_filter()
+        {
+            document.getElementById("cards_order_page").style.display="block";
+            document.getElementById('icon_exit_filter').style.display="none"; 
+            var x = document.getElementById("filter_sidebar");
+            var y=document.getElementById('cards_order_page');
+            document.getElementById('order_page_content').style.display="flex";
+                document.getElementById("icon_filter").style.display="block";
+                document.getElementById("order_page_content").style.height="auto";
+               document.getElementById("order_page_content").style.overflowX ="auto";
+               document.getElementById("order_page_content").style.overflowY ="auto";
+            if (y.className.startsWith("cards_order_pageresponsive")) 
+            y.className="cards_order_page";
+    
+            if (x.className === "filter_sidebar") {
+              x.className += " close";
+      
+            } else {
+              x.className = "filter_sidebar";
+            }
+           
+      
+          }
+        
+        </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const orderCards = document.querySelectorAll('.order_card');
@@ -292,150 +436,7 @@ localStorage.setItem('selectedOrder', JSON.stringify(extractedOrderData));
             
         });
     </script>
-    <script>
-        function filterfunctionality(selectedValue)
-        {
-             if(selectedValue==='Accepted')
-             {
-                {% for order_id, order_data in orders.items %}
-                var order = document.getElementById("order_{{ order_id }}");
-                var statusButton = order.querySelector('.status_display_button span');
-                var isVisible = statusButton.textContent == "Accepted";
-                order.style.display = isVisible ? 'block' : 'none';
-                {% endfor %}
-             }
-             else
-             if(selectedValue==='placed')
-             {
-                console.log('selectedValue is ',selectedValue);
-                {% for order_id, order_data in orders.items %}
-                var order = document.getElementById("order_{{ order_id }}");
-                var statusButton = order.querySelector('.status_display_button span');
-                var isVisible = statusButton.textContent == "Order Placed";
-                order.style.display = isVisible ? 'block' : 'none';
-                {% endfor %}
-             }
-             else
-             if(selectedValue==="delivered")
-             {
-                {% for order_id, order_data in orders.items %}
-                var order = document.getElementById("order_{{ order_id }}");
-                var statusButton = order.querySelector('.status_display_button span');
-                var isVisible = statusButton.textContent == "Delivered";
-                order.style.display = isVisible ? 'block' : 'none';
-                {% endfor %}
-             }
-        }
-        function myFunction() {
-          var x = document.getElementById("mynavbar");
-          if (x.className === "navbar") {
-            x.className += " responsive";
-            document.getElementById("main_content_orders_page").style.opacity=0;
-            document.getElementById('icon_filter').style.display="none";
-            document.getElementById("smart_earnings_name_responsive").style.display="block";
-            document.getElementById("avatar_image").style.display="block";
-            document.getElementById("useremail_mobile_view").style.display="block";
-            document.getElementById("username_mobile_view").style.display="block";
-               // Add an event listener to the document to close the navbar when clicking outside
-               document.addEventListener("click", closeNavbarOutsideClick);
-          } else {
-     
-            x.className = "navbar";
-          }
     
-        }
-        function open_responsive_filter()
-        {
-            var x=document.getElementById('filter_sidebar');
-            if(x.className== "filter_sidebar")
-            {
-                x.className += " responsive";
-                document.getElementById('icon_exit_filter').style.display='block';
-               
-                document.getElementById("cards_order_page").style.opacity=0;
-                document.getElementById('order_page_content').style.display="block";
-                document.getElementById("icon_filter").style.display="none";
-                document.getElementById("order_page_content").style.height="900px";
-               document.getElementById("order_page_content").style.overflowX ="clip";
-               document.getElementById("order_page_content").style.overflowY ="clip";
-               document.getElementById("order_page_content").style.marginRight ="-20px";
-             
-         
-            
-
-               var y=document.getElementById("cards_order_page");
-               y.className += "responsive";
-                
-            }
-            else
-            x.className="filter_sidebar";
-        }
-        function toggleNavbar()
-        {
-          document.getElementById("main_content_orders_page").style.opacity=1;
-          var x = document.getElementById("mynavbar");
-         
-          if (x.className === "navbar") {
-            x.className += " close";
-            document.getElementById('icon_filter').style.display="block";
-               // Add an event listener to the document to close the navbar when clicking outside
-      document.addEventListener("click", closeNavbarOutsideClick);
-            
-          } else {
-            document.getElementById("smart_earnings_name_responsive").style.display="none";
-      document.getElementById("avatar_image").style.display="none";
-      document.getElementById("useremail_mobile_view").style.display="none";
-      document.getElementById("username_mobile_view").style.display="none";
-            document.getElementById('icon_filter').style.display="block";
-            x.className = "navbar";
-          }
-         
-    
-        }
-        function closeNavbarOutsideClick(event) {
-            var navbar = document.getElementById("mynavbar");
-            var icon = document.querySelector(".icon");
-            var target = event.target;
-        
-            // Check if the clicked element is not part of the navbar and not the icon
-            if (!navbar.contains(target) && !icon.contains(target)) {
-              navbar.className = "navbar";
-              document.getElementById("main_content_orders_page").style.opacity=1;
-              document.getElementById("icon_filter").style.display="block";
-              document.getElementById("smart_earnings_name_responsive").style.display="none";
-              document.getElementById("avatar_image").style.display="none";
-              document.getElementById("useremail_mobile_view").style.display="none";
-              document.getElementById("username_mobile_view").style.display="none";
-              document.getElementById("main-content").style.opacity = 1;
-              // Remove the event listener since the navbar is closed
-              document.removeEventListener("click", closeNavbarOutsideClick);
-            }
-          }
-        function Close_responsive_filter()
-        {
-            document.getElementById("cards_order_page").style.opacity=1;
-            document.getElementById('icon_exit_filter').style.display="none"; 
-            var x = document.getElementById("filter_sidebar");
-            var y=document.getElementById('cards_order_page');
-            document.getElementById('order_page_content').style.display="flex";
-                document.getElementById("icon_filter").style.display="block";
-                document.getElementById("order_page_content").style.height="auto";
-               document.getElementById("order_page_content").style.overflowX ="auto";
-               document.getElementById("order_page_content").style.overflowY ="auto";
-            if (y.className.startsWith("cards_order_pageresponsive")) 
-            y.className="cards_order_page";
-    
-            if (x.className === "filter_sidebar") {
-              x.className += " close";
-      
-            } else {
-              x.className = "filter_sidebar";
-            }
-           
-      
-          }
-        
-        </script>
         <script>
             // Get a reference to the dropdown content element
             var dropdownContent = document.querySelector('.dropdown-content');

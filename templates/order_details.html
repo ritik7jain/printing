@@ -64,6 +64,7 @@
     document.getElementById("download_button").href=extractedOrderData.pdf_file_url;
     document.getElementById("file_name").textContent=extractedOrderData.pdf_file_name;
     document.getElementById('print_type_diplay').textContent += extractedOrderData.order_type;
+    document.getElementById("cost_display").textContent += extractedOrderData.cost;
     document.getElementById('order_date').textContent="Order Date : "+extractedOrderData.order_date;
     if(extractedOrderData.order_accepted==="True")
     document.getElementById("order_accepted_date").textContent=" Accepted Date: "+ extractedOrderData.order_accepted_date;
@@ -88,8 +89,8 @@
                 <ul class="navbar-ul">
                   <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
                   <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
-                  <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> Username </li>
-                  <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> abc@gmail.com </li>
+                  <li id="username_mobile_view"class="username_mobile_view"style="display:none;"> {{user_data.username}} </li>
+                  <li id="useremail_mobile_view"class="useremail_mobile_view"style="display:none;"> {{user_data.email}}</li>
                   <hr>
                   
                   <li><a class="nav-li current"  href="/index/">Home</a></li>
@@ -127,6 +128,7 @@
                   <div class="image_and_order_type">
                     <img class="card_image"id="card_image" src="..\static\Images\loose_paper.png">
                     <h4 id="print_type_diplay">Print Type  :  </h4>
+                    <h4 id="cost_display">Cost : ₹</h4>
                    
                   </div>
                   <div class="file_name_download_button">

@@ -4,7 +4,7 @@ body {
     font-size: 13px;
     line-height: 1.8;
     color: #222;
-    background: #f8f8f8;
+    background: #fff;
     font-weight: 400;
     font-family: Poppins;
   }
@@ -12,11 +12,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #f8f8f8;
+    
+    background: #fff;
   }
   .container {
-     width: 950px;
+     /* width: 950px; */
     background-color: #fff;
     box-shadow: 0 15px 16.83px 0.17px rgba(0,0,0,.05);
     border: 1px solid white;
@@ -112,16 +112,39 @@ body {
 
 
   @media screen and (max-width:600px) {
+    .main{
+      height: 90vh;
+    }
+    .sign_in_form{
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .container{
+      width: 100%;
+      box-shadow: unset;
+    }
     .signin_content{
         flex-direction: column-reverse;
         display: flex;
-        padding: 67px 20px 87px 60px;
+        
     }
     .signin-image{
         width: 100%;
     }
     .form-button input{
         margin-left: 30%;
+      
     }
+    .form_group input {
+      font-size: 18px;
+    }
+    .form_group label {
+      font-size: 20px;
+    }
+    .form_group_forget_and_signup{
+      
+      gap: 90px;
+    }
+  
     
   }

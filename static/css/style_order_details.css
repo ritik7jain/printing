@@ -413,7 +413,7 @@ body{
       display: block;
       position: absolute;
       right: 22px;
-      top: 2%;
+      
       font-size: 20px;
       color: white;
     }
@@ -475,6 +475,7 @@ body{
       border: 1px solid #0f3857;
     }
     hr{
+      margin-left: -25px;
       width: 100%;
     }
     .smart_earnings_name_responsive{
@@ -501,9 +502,10 @@ body{
     }
     .wrapper{
       width:280px;
+      height: 100px;
     }
     .order_dates{
-      margin-left: 30px;
+      margin-left: 14%;
     }
 
     .message{
@@ -518,8 +520,13 @@ body{
         left: 100px;
       }
     }
-    
    
+   .second_card{
+    margin-left: unset;
+    width: unset;
+   }
+  
+
     
   
   

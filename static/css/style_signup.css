@@ -4,7 +4,7 @@ body {
     font-size: 13px;
     line-height: 1.8;
     color: #222;
-    background: #f8f8f8;
+    background-color: #fff;
     font-weight: 400;
     font-family: Poppins;
   }
@@ -12,11 +12,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #f8f8f8;
+    height: 90vh;
+    background-color: #fff;
   }
   .container {
-     width: 950px;
+     /* width: 950px; */
     background-color: #fff;
     box-shadow: 0 15px 16.83px 0.17px rgba(0,0,0,.05);
     border: 1px solid white;
@@ -114,6 +114,12 @@ body {
  }
 
   @media screen and (max-width:600px) {
+    .main{
+      height: 90vh;
+    }
+    .container{
+      box-shadow: unset;
+    }
     .signup_content{
         flex-direction: column;
         display: flex;
@@ -126,7 +132,9 @@ body {
         margin-left: 30%;
     }
     .signup_form{
-        margin-left: 0px;
+        margin-left: -40px;
+    }.container{
+      width: unset;
     }
     
   }
