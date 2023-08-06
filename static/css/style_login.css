@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #222;
+    background: #fff;
+    font-weight: 400;
+    font-family: Poppins;
+  }
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background: #fff;
+  }
+  .container {
+     /* width: 950px; */
+    background-color: #fff;
+    box-shadow: 0 15px 16.83px 0.17px rgba(0,0,0,.05);
+    border: 1px solid white;
+    border-radius: 10px;
+  }
+  .signin_content {
+    display: flex;
+    padding: 67px 20px 87px 20px;
+  }
+  .signin-image {
+    width: 50%;
+    overflow: hidden;
+  }
+  figure {
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  .signin-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  .signin-image a{
+   
+    color: #222;
+    display: block;
+    margin-left: 110px;
+  }
+  .sign_in_form{
+    margin-right: 90px;
+    margin-left: 80px;
+  }
+  .form_title{
+  
+    line-height: 1.66;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+    color: #222;
+    font-family: Poppins;
+    font-size: 36px;
+    margin-bottom: 33px;
+  }
+  .login_form{
+    width: 100%;
+  }
+  .form_group{
+    position: relative;
+    margin-bottom: 25px;
+    overflow: hidden;
+  }
+  .form_group label{
+    position: absolute;
+    left: 0;
+    top: 20%;
+    color: #222;  
+    margin-left: 10px; 
+  }
+  .form_group input{
+    width: 300px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 6px 30px;
+    font-family: Poppins;
+    box-sizing: border-box;
+    outline: none;
+  }
+  input[type=checkbox]
+  {
+    width: 3em;
+  }
+  .form-button input{
+    margin-top: 16px;
+    display: inline-block;
+    background: #6dabe4;
+    color: #fff;
+    border: none;
+    border:1px solid white;
+    border-radius: 5px;
+    width: auto;
+    padding: 15px 39px;
+  }
+  .form_group_forget_and_signup a{
+    font-size: 14px;
+    color: #222;
+    display: block;
+  }
+  .form_group_forget_and_signup{
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+  }
+
+
+  @media screen and (max-width:600px) {
+    .main{
+      height: 90vh;
+    }
+    .sign_in_form{
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .container{
+      width: 100%;
+      box-shadow: unset;
+    }
+    .signin_content{
+        flex-direction: column-reverse;
+        display: flex;
+        
+    }
+    .signin-image{
+        width: 100%;
+    }
+    .form-button input{
+        margin-left: 30%;
+      
+    }
+    .form_group input {
+      font-size: 18px;
+    }
+    .form_group label {
+      font-size: 20px;
+    }
+    .form_group_forget_and_signup{
+      
+      gap: 90px;
+    }
+  
+    
+  }

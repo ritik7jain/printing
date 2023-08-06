@@ -1,0 +1,485 @@
+.whole-webpage {
+    position: relative;
+    height: 100%;
+  }
+  
+  .navigation-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 100%;
+  }
+  .dropdown{
+    position: fixed;
+    right:5%;
+    top: 0.5%;
+  }
+  .dropbtn{
+    border: 1px solid white;
+    border-radius: 60%;
+  }
+  .avatar_image{
+    height: 50px;
+    width: 50px;
+    border: 1px solid white;
+    border-radius: 60%;
+   
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: fit-content;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    position: fixed;
+    right: 2%;
+    width: 270px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1);
+    text-align: left;
+    border-radius: 4px;
+    padding: 8px 0;
+  
+  }
+  
+  #username_desktop_view, #useremail_desktop_view,#userphone_number_desktop_view {
+    font-family: "Poppins",sans-serif;
+    float: none;
+    color:#0f3857;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-weight: 600;
+  }
+  .dropdown-content p{
+    font-family: "Poppins",sans-serif;
+    float: none;
+    color:#0f3857;
+    padding: 0px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    line-height: 0.5;
+  }
+  
+  
+  .dropdown-content a:hover {
+    background-color: #beddf4;
+  }
+  
+  
+  .logout_button,.sign_in_button{
+    border-radius: 5px;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    margin-left: 25%;
+    margin-top: 15px;
+    margin-bottom: 200px;
+    padding: 5px 15px;
+    margin-right: 30%;
+    text-align: center;
+    background-color: #2487ce;
+    font-family: "Poppins",sans-serif;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+  }
+  .sign_in_button{
+    margin-left: 30%;
+  }
+  
+  
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  #loose_printing_upload_button{
+    margin-top: 0px;
+  }
+  
+  .logo-tag {
+    color: #16507b;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    float: left;
+    margin-left: 7%;
+    letter-spacing: 1.5px;
+    width: 300px  ;
+    margin-top: 10px;
+  
+  }
+  
+  .navbar {
+    width: 40%;
+    margin-right: 45%;
+   
+    /* width: 700px;
+    margin-right: 20%; */
+  }
+  
+  .navbar-ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .nav-li {
+    margin-left: 13px;
+    text-decoration: none;
+    color: #16507b;
+    padding: 10px 0 10px 10px;
+    font-size: 12px;
+    font-family: "Open Sans", sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+  
+  
+  }
+  #current{
+ 
+    border-bottom: 3px solid #124265;
+  }
+  
+  .nav-li:hover {
+    color: #2487ce;
+  }
+ 
+  
+  .navbar .icon {
+    display: none;
+  }
+  
+  .navbar .icon-exit-icon {
+    display: none;
+  }
+  
+  .main-content-printout-page {
+    width: 90%;
+    height: 100%;
+    position: absolute;
+    margin-top: 60px;
+    left: 10%;
+  }
+  
+  .icon-box-printoutpage {
+    width: 25%;
+    float: left;
+    border-color: #fff;
+    text-align: center;
+    padding: 70px 20px 0px 20px;
+    transition: all ease-in-out 0.3s;
+    background: #fff;
+    box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
+    margin: 20px;
+  }
+  
+  .icon-box-printoutpage>.icon {
+    margin-bottom: 20px;
+  
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    font-size: 36px;
+    line-height: 1;
+    color: #16507b;
+  }
+  
+  .icon-box-printoutpage>.icon-box-title {
+    color: #124265;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  .icon-box-printoutpage>.icon-box-description {
+    font-size: 15px;
+    line-height: 28px;
+    margin-bottom: 0px;
+    font-family: "Open Sans", sans-serif;
+    color: rgb(68, 68, 68);
+  }
+  
+  .icon-box-description-price {
+    text-decoration: none;
+    font-size: 18px;
+    color: #124265;
+    font-weight: 800;
+  }
+  
+  .upload-pdf-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 5px;
+    color: #fff;
+    background-color: #124265;
+    border: 1px solid #fff;
+  }
+  
+  .icon-box-printoutpage>.icon {
+    position: relative;
+  }
+  
+  .icon-box-printoutpage>.icon i {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+  }
+
+  
+  @media screen and (max-width:1300px) {
+    .navbar {
+      width: 70%;
+      margin-right: 10%;
+    }
+  
+    .logo-tag {
+      margin-left: 2%;
+    }
+  
+    .nav-li {
+      padding: 10px;
+    }
+  
+    .navbar-ul {
+      justify-content: unset;
+    }
+  
+  }
+  
+ /* Add this CSS to your existing styles */
+@media screen and (max-width: 600px) {
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 70px;
+  }
+  #dropdown{
+    display: none;
+  }
+  .logo-tag {
+    position: absolute;
+    left: 20%;
+    font-size: 15px;
+    width: 80%;
+  }
+
+  .navbar-ul {
+    display: none;
+  }
+
+  .navbar a.icon {
+    float: left;
+    display: block;
+    color: #16507b;
+    font-size: 25px;
+    position: absolute;
+    top: 20px;
+    left: 5%;
+  }
+
+  .navigation-bar {
+    flex-direction: row-reverse;
+  }
+
+  .icon-exit-icon {
+    display: none;
+  }
+}
+
+  @media screen and (max-width: 600px) {
+    .whole-webpage {
+      overflow-y: auto;
+      display: contents;
+      /* Enable vertical scrolling in mobile view */
+    }
+    
+  
+    .navbar.responsive {
+      position: relative;
+    }
+  
+    .navbar.responsive .icon {
+      position: absolute;
+      display: none;
+      left: 0;
+      top: 0;
+    }
+  
+    /* .navbar.responsive .icon-exit-icon {
+      display: block;
+      position: absolute;
+      right: 50px;
+      top: 0;
+      color: #16507b;
+      font-size: 15px;
+    } */
+    .navbar.responsive .icon-exit-icon {
+      display: block;
+      position: absolute;
+      right: 17px;
+      top: 1.2%;
+      font-size: 20px;
+      color: white;
+    }
+  
+  
+    .navbar.responsive li {
+      margin: 15px;
+      margin-left: -15px;
+    }
+  
+    /* .navbar.responsive .navbar-ul {
+      top: 100px;
+      float: none;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      width: 80%;
+      height: 80%;
+      background-color: #16507b;
+      margin-left: 2%;
+  
+    }
+   */
+   .navbar.responsive .navbar-ul {
+    margin-top: 0px;
+    top: 100px;
+    float: none;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 80%;
+    height: 0%;
+    background-color: #16507b;
+    
+
+  }
+  .navbar.responsive .nav-li {
+    color: white;
+    font-family: "Raleway",sans-serif;
+    font-size: 18px;
+  }
+
+  .navbar.responsive {
+    margin-right: 0px;
+    width: 100%;
+    width: 70%;
+    max-width: 400px;
+    margin-right: 30%;;
+  height: 1100px;
+  background-color:  #0f3857;
+  display: flex;
+  align-items: start;
+  }
+    .logo-tag {
+      position: fixed;
+      top: 2%;
+      font-size: 16px;
+  
+    }
+  
+    .main-content-printout-page {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      top: 10%;
+      margin-top: 0px;
+    }
+  
+    .icon-box-printoutpage {
+   
+      width: 70%;
+      margin: unset;
+    margin-top: 20px;
+    margin-left: 5px;
+   
+    }
+    .username_mobile_view,.useremail_mobile_view{
+      color: white;
+      font-family: "Raleway",sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      margin:10px;
+      line-height: 0.5;
+  
+    }
+    #current{
+      border-bottom: 3px solid white;
+    }
+  
+    .avatar_image{
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 1px solid #0f3857;
+    }
+    hr{
+      margin-left: -25px;
+      width: 100%;
+    }
+    .smart_earnings_name_responsive{
+      color: white;
+      font-size: 20px;
+      font-family: "Raleway",sans-serif;
+      font-weight: 500;
+      margin-top: 23px;
+    }
+    #last_button{
+      margin-bottom: 50px;
+    }
+    .logout_button_responsive{
+      border-radius: 5px;
+      border: 1px solid white;
+      margin-bottom: 10px;
+      margin-left: 15%;
+      margin-top: 5px;
+      padding: 10px 30px;
+      margin-right: 30%;
+      text-align: center;
+      background-color: #2487ce;
+      font-family: "Poppins",sans-serif;
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+    }
+  
+    /* Add this to your existing CSS */
+    .sign_in_button{
+      border-radius: 5px;
+      border: 1px solid white;
+      margin-bottom: 10px;
+      margin-left: 10%;
+      margin-top: 5px;
+      padding: 10px 20px;
+      margin-right: 30%;
+      text-align: center;
+      background-color: #2487ce;
+      font-family: "Poppins",sans-serif;
+      font-size: 15px;
+      color: white;
+      text-decoration: none;
+  
+    }
+
+  
+  }

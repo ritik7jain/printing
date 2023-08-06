@@ -1,93 +1,613 @@
 <!DOCTYPE html>
-<html>
+{% load static  %}
+<html lang="en">
+
 <head>
-    <title>My Orders</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        
-        .orders-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .section {
-            margin: 20px;
-        }
-        
-        .section-header {
-            background-color: #ff9800;
-            color: #fff;
-            padding: 10px;
-            font-size: 20px;
-            border-radius: 5px 5px 0 0;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        
-        .order {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-            padding: 20px;
-            width: 300px;
-        }
-        
-        .order h2 {
-            color: #333;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        
-        .order p {
-            color: #666;
-            margin: 5px 0;
-        }
-        
-        .order ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        
-        .order li {
-            color: #666;
-            margin-bottom: 5px;
-        }
-        
-        .order li a {
-            color: #333;
-            text-decoration: none;
-        }
-        
-        .order li a:hover {
-            text-decoration: underline;
-        }
-        
-        .back-button {
-            display: block;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .back-button a {
-            color: #333;
-            text-decoration: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Earnings</title>
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style_orders.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- adding google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+   {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
 </head>
 <body>
-    <h1>My Orders</h1>
+    <div class="whole_webpage">
+        <div class="navigation-bar" id="navbar"> 
+            <h1 class="logo-tag">
+              <a>SMART EARNINGS</a></h1>
+          <div class="navbar" id="mynavbar">
+            <ul class="navbar-ul">
+                <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
+                <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
+                {%if user_data.username and user_data.email%}
+                
+                <li  style="display:none;" id="username_mobile_view" class="username_mobile_view" >{{user_data.username}} </li>
+                <li  style="display:none;" id="useremail_mobile_view" class="useremail_mobile_view">{{user_data.email}} </li>
+                
+                
+                {%else%}
+                <li id="welcome_message" style="display:none;" class="username_mobile_view">Hi, Welcome</li>
+                <a id="sign_in_button" style="display:none;" href="/signin/" class="sign_in_button">Sign In</a>
+                
+      
+                {%endif%}
+                <hr>
+                
+              <li><a class="nav-li"href="/">Home</a></li>
+              <li><a class="nav-li" href="/printout/">Services</a></li>
+              <li><a class="nav-li"  href="/order/" id="current">Orders</a></li>
+              <li><a class="nav-li"  href="/faqs/">FAQ's</a></li>
+              <li><a class="nav-li"  href="/contact/" >Contact</a></li>
+              <a id="logout_button_responsive" href="/logout/" class="logout_button_responsive" style="display:none">Logout</a>
+            </ul>
+            <div class="dropdown" id="dropdown">
+                <button class="dropbtn" id="dropbtn"><img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg">
+                </button>
+                
+                <div class="dropdown-content">
+                    {%if user_data.username and user_data.email%}
+                    <p>Hii, Welcome</p>
+                    <a id="username_desktop_view">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                      {{user_data.username}}</a>
+                    <a   id="useremail_desktop_view" >
+                      <i class="fa fa-envelope" aria-hidden="true"></i> {{user_data.email}}</a>
+                      <a   id="userphone_number_desktop_view" >
+                        <i class="fa fa-phone" aria-hidden="true"></i> +91 {{user_data.phone_number}}</a>
+                    <a href="/logout/" class="logout_button">Logout</a>
+                    {%else%}
+                    <p style="text-align:center;margin-bottom:30px">Hii, Welcome</p>
+                    <a id="sign_in_button"  href="/signin/" class="sign_in_button">Sign In</a>
+                    {%endif%}
+                </div>
+              </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+            {% if user_data.email%}
+            <a href="javascript:void(0);" class="icon_filter" id="icon_filter" onclick="open_responsive_filter()">
+                <i class="fa fa-filter"></i>
+              </a>  
+              {%endif%}
+            <a href="javascript:void(0);" id="icon-exit-icon" class="icon-exit-icon" onclick="toggleNavbar()">
+              <i class="fa fa-times"></i>
+              <a href="javascript:void(0);" id ="icon_exit_filter" class="icon_exit_filter" onclick="Close_responsive_filter()" style="left: 85%;
+              position: absolute;
+              margin-top:90px;
+              font-size: 20px;
+              color:white;
+              ">
+                <i class="fa fa-times"></i>
+              </a>
+            </a>
+          </div>
+          
+        </div>
+        <div class="main_content_orders_page" id="main_content_orders_page">
+           <div class="order_page_content" id="order_page_content">
+            <div class="filter_sidebar" id="filter_sidebar">
+                
+                <form class="filter_form" id="filter_form">
+                    <p class="order_status_p_tag">ORDER STATUS</p>
+                    <input type="radio" id="delivered" name="status" value="delivered">
+                    <label for="delivered">Delivered</label><br>
+                    <input type="radio" id="Accepted" name="status" value="Accepted">
+                    <label for="Accepted">Accepted</label><br>
+                    <input type="radio" id="placed" name="status" value="placed">
+                    <label for="placed">Placed</label><br>
+                    <input type="radio" id="reset" name="status" value="reset">
+                    <label for="reset">Reset</label><br>
+                    <br>  
+                   
+                    
+                    <br>
+                    <br>
+                      </form>
+
+                </div>
+                
+            
+             {%if user_data.email%}
+            <div class="cards_order_page" id="cards_order_page">
+                {% if orders%}
+                {% for order_id, order_data in orders.items %}
+                {% if order_data.order_placed%}
+               
+                <div class="column order_card" id="{{ order_id }}"data-order-id="{{ order_id }}" data-order-data="{{ order_data|safe }}">
+                    <div class="card">
+                        <div class="image_and_order_type">
+                           
+                            <button class="status_display_button" >
+                                {% if order_data.delivered %}
+                                <span>Delivered</span>
+                            {% elif order_data.order_accepted%}
+                                <span>Accepted</span>
+                            {% elif order_data.order_placed%}
+                                <span>Order Placed</span>
+
+                                {% endif %}
+                            </button>
+                            
+                            <img class="card_image"id="card_image_{{ order_id }}" src="..\static\Images\loose_paper.png">
+                            <p class="order_type_display" id="order_type_display">Order type:<span> {{ order_data.order_type|title }}</span></p>
+                        </div>
+                        <div  class="price_in_card">
+                            <p>₹ {{ order_data.cost|title }}</p>
+                        </div>
+                        <div class="order_file_and_id">
+                            {%if order_data.delivery_date%}
+                            <p class="p_order_file_and_id"><span class="span_in_p">Delivery Date:</span> {{ order_data.delivery_date }} </p>
+                            {%endif%}
+                            <p class="p_order_file_and_id"><span class="span_in_p">Selected File:</span>
+                                {% if order_data.pdf_files %}
+                                    {% for file in order_data.pdf_files %}
+                                        {% with file_name=file.name|slice:":18" %}
+                                            <span>{{ file_name }}{% if file.name|length > 18 %}...{% endif %} - <a href="{{ file.url }}">Download</a></span>
+                                        {% endwith %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No PDF files found for this order.</p>
+                                {% endif %}
+                            </p>
+                            <p class="p_order_file_and_id"><span class="span_in_p">Order id:</span> {{ order_id }}</p>
+                        </div>
+                        
+
+                       
+                      
+                    </div>
+                </div>
+           
+                {% endif %}
+                {% endfor %}
+                {%else%}
+                <h3 id="order_section_empty_message" >Your order section looks so empty, Please order something..</h3>
+                {% endif %}
+              
+            </div>
+            {%else%}
+            <h3 id="login_message" >Please Login to See Your orders</h3>
+             {%endif%}
+        </div>
+
+    </div>
+    <script>
+        function filterfunctionality(selectedValue)
+        {
+             if(selectedValue==='Accepted')
+             {
+                {% for order_id, order_data in orders.items %}
+                //{{order_data}}
+                var order = document.getElementById("{{ order_id }}");
+                console.log("order is ",order);
+                var statusButton = order.querySelector('.status_display_button span');
+                var isVisible = statusButton.textContent == "Accepted";
+                order.style.display = isVisible ? 'block' : 'none';
+                //{%if order_data.order_accepted%}
+                //order.style.display =  'block' ;
+               // {%else%}
+               // order.style.display =  'none';
+               // {%endif%}
+                {% endfor %}
+             }
+             else
+             if(selectedValue==='placed')
+             {
+                console.log('selectedValue is ',selectedValue);
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
+                var isVisible = statusButton.textContent == "Order Placed";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+             else
+             if(selectedValue==="delivered")
+             {
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("{{ order_id }}");
+                var statusButton = order.querySelector('.status_display_button span');
+                var isVisible = statusButton.textContent == "Delivered";
+                order.style.display = isVisible ? 'block' : 'none';
+                {% endfor %}
+             }
+             else
+             if(selectedValue==="reset")
+             {
+                {% for order_id, order_data in orders.items %}
+                var order = document.getElementById("{{ order_id }}");
+                order.style.display = 'block' ;
+                {% endfor %}
+             }
+        }
+        function myFunction() {
+          var x = document.getElementById("mynavbar");
+          if (x.className === "navbar") {
+            x.className += " responsive";
+            document.getElementById("main_content_orders_page").style.display="none";
+           
+            document.getElementById("smart_earnings_name_responsive").style.display="block";
+            document.getElementById("avatar_image").style.display="block";
+            if( document.getElementById("useremail_mobile_view"))
+            {
+              document.getElementById("useremail_mobile_view").style.display="block";
+              document.getElementById("logout_button_responsive").style.display="block";
+            }
+            
+            if(document.getElementById("username_mobile_view"))
+            document.getElementById("username_mobile_view").style.display="block";
+            if(document.getElementById("welcome_message"))
+            {
+                document.getElementById("welcome_message").style.display="block";
+            }
+           
+            if(document.getElementById("sign_in_button"))
+            document.getElementById("sign_in_button").style.display="block";
+            document.getElementById("icon-exit-icon").style.display="block";
+            if(document.getElementById('icon_filter'))
+            document.getElementById('icon_filter').style.display="none";
+               // Add an event listener to the document to close the navbar when clicking outside
+               document.addEventListener("click", closeNavbarOutsideClick);
+          } else {
+     
+            x.className = "navbar";
+          }
+    
+        }
+        function open_responsive_filter()
+        {
+            var x=document.getElementById('filter_sidebar');
+            if(x.className== "filter_sidebar")
+            {
+                x.className += " responsive";
+                document.getElementById('icon_exit_filter').style.display='block';
+               
+                document.getElementById("cards_order_page").style.display="none";
+                document.getElementById('order_page_content').style.display="block";
+                document.getElementById("icon_filter").style.display="none";
+                document.getElementById("order_page_content").style.height="900px";
+               document.getElementById("order_page_content").style.overflowX ="clip";
+               document.getElementById("order_page_content").style.overflowY ="clip";
+               document.getElementById("order_page_content").style.marginRight ="-20px";
+             
+         
+            
+
+               var y=document.getElementById("cards_order_page");
+               y.className += "responsive";
+                
+            }
+            else
+            x.className="filter_sidebar";
+        }
+        function toggleNavbar()
+        {
+          document.getElementById("main_content_orders_page").style.display="block";
+          var x = document.getElementById("mynavbar");
+         
+          if (x.className === "navbar") {
+            x.className += " close";
+           // document.getElementById('icon_filter').style.display="block";
+               // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
+            
+          } else {
+            document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+            document.getElementById("icon-exit-icon").style.display="none";
+            if( document.getElementById("useremail_mobile_view"))
+      {
+        document.getElementById("useremail_mobile_view").style.display="none";
+        document.getElementById("logout_button_responsive").style.display="none";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
+      document.getElementById("username_mobile_view").style.display="none";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="none";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="none";
+      if(document.getElementById('icon_filter'))
+      document.getElementById('icon_filter').style.display="block";
+            x.className = "navbar";
+          }
+         
+    
+        }
+        function closeNavbarOutsideClick(event) {
+            var navbar = document.getElementById("mynavbar");
+            var icon = document.querySelector(".icon");
+            var target = event.target;
+        
+            // Check if the clicked element is not part of the navbar and not the icon
+            if (!navbar.contains(target) && !icon.contains(target)) {
+              navbar.className = "navbar";
+              document.getElementById("main_content_orders_page").style.display="block";
+              document.getElementById("icon-exit-icon").style.display="none"
+             
+              document.getElementById("smart_earnings_name_responsive").style.display="none";
+              document.getElementById("avatar_image").style.display="none";
+              if( document.getElementById("useremail_mobile_view"))
+              {
+                document.getElementById("useremail_mobile_view").style.display="none";
+                document.getElementById("logout_button_responsive").style.display="none";
+              }
+              
+              if(document.getElementById("username_mobile_view"))
+              document.getElementById("username_mobile_view").style.display="none";
+              if(document.getElementById("welcome_message"))
+              document.getElementById("welcome_message").style.display="none";
+              if(document.getElementById("sign_in_button"))
+              document.getElementById("sign_in_button").style.display="none";
+              if(document.getElementById('icon_filter'))
+              document.getElementById("icon_filter").style.display="block";
+              document.getElementById("main-content").style.opacity = 1;
+              // Remove the event listener since the navbar is closed
+              document.removeEventListener("click", closeNavbarOutsideClick);
+            }
+          }
+        function Close_responsive_filter()
+        {
+            document.getElementById("cards_order_page").style.display="block";
+            document.getElementById('icon_exit_filter').style.display="none"; 
+            var x = document.getElementById("filter_sidebar");
+            var y=document.getElementById('cards_order_page');
+            document.getElementById('order_page_content').style.display="flex";
+                document.getElementById("icon_filter").style.display="block";
+                document.getElementById("order_page_content").style.height="auto";
+               document.getElementById("order_page_content").style.overflowX ="auto";
+               document.getElementById("order_page_content").style.overflowY ="auto";
+            if (y.className.startsWith("cards_order_pageresponsive")) 
+            y.className="cards_order_page";
+    
+            if (x.className === "filter_sidebar") {
+              x.className += " close";
+      
+            } else {
+              x.className = "filter_sidebar";
+            }
+           
+      
+          }
+        
+        </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderCards = document.querySelectorAll('.order_card');
+    
+            orderCards.forEach(function(orderCard) {
+                orderCard.addEventListener('click', function() {
+                    const orderId = orderCard.getAttribute('data-order-id');
+                    console.log("orderdata is",orderCard.getAttribute('data-order-data'));
+                    const orderDataString = orderCard.getAttribute('data-order-data');
+                    
+                    
+                    
+                    // Given orderDataString
+
+
+// Extract 'order_accepted' field
+const startIndexAccepted = orderDataString.indexOf("'order_accepted': ") + "'order_accepted': ".length;
+const endIndexAccepted = orderDataString.indexOf(",", startIndexAccepted);
+const orderAccepted = orderDataString.substring(startIndexAccepted, endIndexAccepted);
+
+// Extract 'delivered' field
+const startIndexDelivered = orderDataString.indexOf("'delivered': ") + "'delivered': ".length;
+const endIndexDelivered = orderDataString.indexOf(",", startIndexDelivered);
+const delivered = orderDataString.substring(startIndexDelivered, endIndexDelivered);
+
+// Extract 'cost' field
+const startIndexCost = orderDataString.indexOf("'cost': '") + "'cost': '".length;
+const endIndexCost = orderDataString.indexOf("'", startIndexCost);
+const cost = orderDataString.substring(startIndexCost, endIndexCost);
+
+// Extract 'pdf_files' url
+const startIndex = orderDataString.indexOf("url': ") + "'url': ".length;
+const endIndex = orderDataString.indexOf("'", startIndex) ;
+const pdf_file_url = orderDataString.substring(startIndex, endIndex);
+
+//extract 'pdf name'
+const startIndexfilename= orderDataString.indexOf("'name': '") + "'name': '".length;
+const endIndexfilename = orderDataString.indexOf("'", startIndexfilename);
+const filename = orderDataString.substring(startIndexfilename, endIndexfilename);
+
+// Extract 'order_placed' field
+const startIndexOrderPlaced = orderDataString.indexOf("'order_placed': ") + "'order_placed': ".length;
+const endIndexOrderPlaced = orderDataString.indexOf(",", startIndexOrderPlaced);
+const orderPlaced = orderDataString.substring(startIndexOrderPlaced, endIndexOrderPlaced);
+
+// Extract 'order_date' field
+const startIndexOrderDate = orderDataString.indexOf("'order_date': '") + "'order_date': '".length;
+const endIndexOrderDate = orderDataString.indexOf("'", startIndexOrderDate);
+const orderDate = orderDataString.substring(startIndexOrderDate, endIndexOrderDate);
+
+//extract order_accepted date 
+const startIndexOrderAcceptedDate = orderDataString.indexOf("'order_accepted_date': '") + "'order_accepted_date': '".length;
+const endIndexOrderAcceptedDate = orderDataString.indexOf("'", startIndexOrderAcceptedDate);
+const orderAcceptedDate = orderDataString.substring(startIndexOrderAcceptedDate, endIndexOrderAcceptedDate);
+
+// Extract 'delivery_date' field
+const startIndexDeliveryDate = orderDataString.indexOf("'delivery_date': '") + "'delivery_date': '".length;
+const endIndexDeliveryDate = orderDataString.indexOf("'", startIndexDeliveryDate);
+const deliveryDate = orderDataString.substring(startIndexDeliveryDate, endIndexDeliveryDate);
+
+// Extract 'order_type' field
+const startIndexOrderType = orderDataString.indexOf("'order_type': '") + "'order_type': '".length;
+const endIndexOrderType = orderDataString.indexOf("'", startIndexOrderType);
+const orderType = orderDataString.substring(startIndexOrderType, endIndexOrderType);
+
+// Create a JSON-like object with extracted fields
+const extractedOrderData = {
+    order_accepted: orderAccepted,
+    delivered: delivered,
+    cost: cost,
+    pdf_file_url: pdf_file_url,
+    pdf_file_name:filename,
+    order_placed: orderPlaced,
+    order_date: orderDate,
+    order_accepted_date:orderAcceptedDate,
+    delivery_date: deliveryDate,
+    order_type: orderType
+};
+
+console.log(extractedOrderData);
+
+
+localStorage.setItem('selectedOrder', JSON.stringify(extractedOrderData));
+ localStorage.setItem('orderId',orderId);   
+                     window.location.href = '/order_details/';
+                });
+            });
+        });
+    </script>
+    
+    
+
+    {% if orders %}
+    {% for order_id, order_data in orders.items %}
+    <script>
+        
+    
+        // Get the card image element by ID
+        var cardImage = document.getElementById("card_image_{{ order_id }}");
+        
+        // Update the image source based on the order_type
+        if ("{{ order_data.order_type }}" === "loose") {
+            cardImage.src = "../static/Images/loose.png";
+            document.getElementById(order_type_display).innerHtml += "printing";
+        } else if ("{{ order_data.order_type }}" === "color") {
+            cardImage.src = "../static/Images/color.jpg";
+        } 
+        else if ("{{ order_data.order_type }}" === "scrap_book") {
+            cardImage.src = "../static/Images/scrap_book.png";
+        } 
+        else if ("{{ order_data.order_type }}" === "photo") {
+            cardImage.src = "../static/Images/photo.png";
+        } 
+        else if ("{{ order_data.order_type }}" === "hard_binding") {
+            cardImage.src = "../static/Images/hard_binding.png";
+        } 
+        else if ("{{ order_data.order_type }}" === "spiral") {
+            cardImage.src = "../static/Images/spiral.png";
+        } 
+        else {
+            cardImage.src = "../static/Images/loose_paper.png";
+        }
+
+
+        
+    </script>
+    {% endfor %}
+    {% endif %}
+
+    
+    
+    
+    <script>
+        const form = document.getElementById('filter_form');
+    
+        form.addEventListener('change', () => {
+            const selectedValue = form.querySelector('input[name="status"]:checked').value;
+            console.log('Selected Status:', selectedValue);
+            filterfunctionality(selectedValue);
+            
+            
+        });
+    </script>
+    
+        <script>
+            // Get a reference to the dropdown content element
+            var dropdownContent = document.querySelector('.dropdown-content');
+          
+            // Get a reference to the dropdown button (the image)
+            var dropdownButton = document.getElementById('dropbtn');
+          
+            // Add a click event listener to the dropdown button
+            dropdownButton.addEventListener('click', function (event) {
+              // Prevent the default behavior of the click event
+              event.preventDefault();
+              document.getElementById("main_content_orders_page").style.opacity ="0.1";
+          
+              // Toggle the display of the dropdown content
+              if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+              } else {
+                dropdownContent.style.display = 'block';
+              }
+            });
+          
+            // Add a click event listener to the document to close the dropdown when clicking outside
+            document.addEventListener('click', function (event) {
+              var target = event.target;
+          
+              // Check if the clicked element is not part of the dropdown button or the dropdown content
+              if (!dropdownButton.contains(target) && !dropdownContent.contains(target)) {
+                document.getElementById("main_content_orders_page").style.opacity ="1";
+                dropdownContent.style.display = 'none';
+              }
+            });
+          </script>
+    
+    </body>
+    </html>   
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% comment %} <h1>My Orders</h1>
     <div class="orders-container">
         {% if orders%}
         {% for order_id, order_data in orders.items %}
@@ -144,4 +664,4 @@
         <a href="/home/">Back to Main Page</a>
     </div>
 </body>
-</html>
+</html> {% endcomment %}

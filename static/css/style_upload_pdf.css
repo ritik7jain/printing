@@ -1,0 +1,207 @@
+.upload_pdf {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.upload_pdf_section {
+  position: absolute;
+  top: 20%;
+}
+
+.upload_pdf_headline {
+  font-size: 35px;
+  font-weight: 600;
+  letter-spacing: 1.3;
+ 
+  padding-bottom: 0;
+  color: #124265;
+  font-family: "Raleway", sans-serif;
+  margin-bottom: 5px;
+  position: absolute;
+  left: 18%;
+  top: -100%;
+}
+.upload_pdf_sub_headline
+{
+  max-width: 800px;
+  font-size: 22px;
+  font-weight: 400;
+  color: #383e45;
+  letter-spacing: 0;
+  margin: 0 auto 8px;
+  
+  font-family: "Raleway",sans-serif; 
+  margin-bottom: 40px; 
+}
+
+form {
+  position: relative;
+}
+
+.select_Pdf_button {
+  box-sizing: border-box;
+  max-width: 257px;
+  padding: 24px 56px;
+  font-size: 19px;
+  font-family: "Raleway", sans-serif;
+  line-height: 32px;
+  font-weight: 800;
+  background-color: #2487ce;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-left: 90px;
+}
+
+.select_Pdf_button:hover {
+  background-color: #124265;
+
+}
+
+
+.placeorder {
+  position: absolute;
+  top: 280%;
+  left: 33%;
+  background-color: #124265;
+  color: white;
+  padding: 12px 10px;
+  font-size: 14px;
+  border: 1px solid white;
+  border-radius: 7px;
+  font-family: "Raleway", sans-serif;
+}
+
+button:hover {
+  background-color: #2487ce;
+}
+
+
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  height: 300px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  
+}
+
+.confirm_statement {
+  color: #124265;
+  font-family: "Raleway", sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+#file-name-display,#Type_of_print_display, #total_cost_display, #delivery_charges, #extra_charges_display, #printing_cost_display {
+  color: #2487ce;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Raleway", sans-serif;
+  line-height:1.5;
+}
+.confirm_button {
+  position: absolute;
+  margin-top: 4px;
+  
+  left: 45%;
+  background-color: #124265;
+  color: white;
+  padding: 12px 10px;
+  font-size: 14px;
+  border: 1px solid white;
+  border-radius: 7px;
+  font-family: "Raleway", sans-serif;
+}
+#file-name-display_upload_page{
+  position: absolute;
+  left:19%;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Raleway", sans-serif;
+  line-height:1.5;
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+.back-button{
+  position: absolute;
+  left: 5%;
+  font-size: 30px;
+  color: #16507b;
+  top:4%;
+}
+@media screen and (max-width: 600px) {
+  .back-button{
+    top:0%;
+  }
+  .upload_pdf_section{
+    top:25%
+  }
+  .upload_pdf_sub_headline{
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .select_Pdf_button{
+    padding: 24px 34px;
+    margin-left: 70px;
+  }
+  .placeorder{
+    left: 37%;
+  }
+  .modal-content{
+    width: 70%;
+    height: 350px;
+
+  }
+  .confirm_button{
+    left: 35%;
+    margin-top: 8px;
+  }
+}
+
+

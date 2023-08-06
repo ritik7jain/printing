@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_contact.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
+</head>
+<body>
+  <div class="whole-webpage">
+    <div class="navigation-bar" id="navbar">
+      <h1 class="logo-tag">
+        <a>SMART EARNINGS</a>
+      </h1>
+      <div class="navbar" id="mynavbar">
+        <ul class="navbar-ul">
+          <li id="smart_earnings_name_responsive"class="smart_earnings_name_responsive" style="display:none;">SMART EARNINGS</li>
+          <li id="avatar_image"style="display:none;"> <img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg"></li>
+          {%if user_data.username and user_data.email%}
+          
+          <li  style="display:none;" id="username_mobile_view" class="username_mobile_view" >{{user_data.username}} </li>
+          <li  style="display:none;" id="useremail_mobile_view" class="useremail_mobile_view">{{user_data.email}} </li>
+          
+          
+          {%else%}
+          <li id="welcome_message" style="display:none;" class="username_mobile_view">Hi, Welcome</li>
+          <a id="sign_in_button" style="display:none;" href="/signin/" class="sign_in_button">Sign In</a>
+          
+
+          {%endif%}
+          <hr>
+          
+          <li><a class="nav-li"  href="/">Home</a></li>
+          <li><a class="nav-li" href="/printout/">Services</a></li>
+          <li><a class="nav-li" href="/order/">Orders</a></li>
+          <li><a class="nav-li" href="/faqs/">FAQ's</a></li>
+          <li><a class="nav-li"id="current" href="/contact/">Contact</a></li>
+          <a id="logout_button_responsive" href="/logout/" class="logout_button_responsive" style="display:none">Logout</a>
+        </ul>
+        <div class="dropdown" id="dropdown">
+          <button class="dropbtn" id="dropbtn"><img  class="avatar_image" id="avatar_image" src="..\static\Images\avatar.jpg">
+          </button>
+          
+          <div class="dropdown-content">
+            {%if user_data.username and user_data.email%}
+            <p>Hii, Welcome</p>
+            <a id="username_desktop_view">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              {{user_data.username}}</a>
+            <a   id="useremail_desktop_view" >
+              <i class="fa fa-envelope" aria-hidden="true"></i> {{user_data.email}}</a>
+              <a   id="userphone_number_desktop_view" >
+                <i class="fa fa-phone" aria-hidden="true"></i> +91 {{user_data.phone_number}}</a>
+            <a href="/logout/" class="logout_button">Logout</a>
+            {%else%}
+            <p style="text-align:center;margin-bottom:30px">Hii, Welcome</p>
+            <a id="sign_in_button"  href="/signin/" class="sign_in_button">Sign In</a>
+            {%endif%}
+          </div>
+        </div>
+       
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="javascript:void(0);" class="icon-exit-icon" onclick="toggleNavbar()">
+          <i class="fa fa-times"></i>
+        </a>
+      </div>
+    </div>
+
+ <div id="main_content_contacts_page"class="main_content_contacts_page">
+    <div class="image_at_back"> 
+        <img src="..\static\Images\contact_page_back.jpg">
+        <div  class="p_tag_in_image" >
+            <p>Get In Touch</p>
+            <p class="p_tag_in_image_small">Want to get in touch? We'd love to hear from you. Here's how you can reach us...</p>
+        </div>
+        
+    </div>
+
+    <div class="two_cards">
+        <div class="card">
+            <div class="phone_icon">
+                <i class="fa fa-phone"></i>
+            </div>
+            <h1 class="heading_contact_card">Talk to delivery man </h1>
+            <p class="subheading_contact_card">Need to know about your delivery, just pick up your phone and contact our delivery person</p>
+            <p class="contact_info_contact_page">Call : +91 999999999999</p>
+        </div>
+        
+        <div class="card">
+            <div class="phone_icon">
+                <i class="fa fa-comments "></i>
+            </div>
+            <h1 class="heading_contact_card">Contact Us </h1>
+            <p class="subheading_contact_card">Need to know about your delivery, just pick up your phone and contact our delivery person</p>
+            <p class="contact_info_contact_page">Mail : jbhavesh324@gmail.com</p>
+
+        </div>
+    </div>
+</div>
+ </div>
+  <!-- Your HTML code with the navbar -->
+<!-- ... -->
+
+<script>
+  function myFunction() {
+    var x = document.getElementById("mynavbar");
+    if (x.className === "navbar") {
+      x.className += " responsive";
+      document.getElementById("main_content_contacts_page").style.display = "none";
+      document.getElementById("smart_earnings_name_responsive").style.display="block";
+      document.getElementById("avatar_image").style.display="block";
+      if( document.getElementById("useremail_mobile_view"))
+      {
+        document.getElementById("useremail_mobile_view").style.display="block";
+        document.getElementById("logout_button_responsive").style.display="block";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
+      document.getElementById("username_mobile_view").style.display="block";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="block";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="block";
+      // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
+    } else {
+      x.className = "navbar";
+    }
+  }
+
+  function toggleNavbar() {
+    document.getElementById("main_content_contacts_page").style.display = "block";
+    var x = document.getElementById("mynavbar");
+    if (x.className === "navbar") {
+      x.className += " close";
+   
+      // Add an event listener to the document to close the navbar when clicking outside
+      document.addEventListener("click", closeNavbarOutsideClick);
+    } else {
+      document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+      if( document.getElementById("useremail_mobile_view"))
+      {
+        document.getElementById("useremail_mobile_view").style.display="none";
+        document.getElementById("logout_button_responsive").style.display="none";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
+      document.getElementById("username_mobile_view").style.display="none";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="none";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="none";
+      x.className = "navbar";
+    }
+  }
+
+  // Function to close the navbar when clicking outside
+  function closeNavbarOutsideClick(event) {
+    var navbar = document.getElementById("mynavbar");
+    var icon = document.querySelector(".icon");
+    var target = event.target;
+
+    // Check if the clicked element is not part of the navbar and not the icon
+    if (!navbar.contains(target) && !icon.contains(target)) {
+      navbar.className = "navbar";
+      document.getElementById("smart_earnings_name_responsive").style.display="none";
+      document.getElementById("avatar_image").style.display="none";
+      if( document.getElementById("useremail_mobile_view"))
+      {
+        document.getElementById("useremail_mobile_view").style.display="none";
+        document.getElementById("logout_button_responsive").style.display="none";
+      }
+      
+      if(document.getElementById("username_mobile_view"))
+      document.getElementById("username_mobile_view").style.display="none";
+      if(document.getElementById("welcome_message"))
+      document.getElementById("welcome_message").style.display="none";
+      if(document.getElementById("sign_in_button"))
+      document.getElementById("sign_in_button").style.display="none";
+      document.getElementById("main_content_contacts_page").style.display = "block";
+      // Remove the event listener since the navbar is closed
+      document.removeEventListener("click", closeNavbarOutsideClick);
+    }
+  }
+</script>
+<script>
+  // Get a reference to the dropdown content element
+  var dropdownContent = document.querySelector('.dropdown-content');
+
+  // Get a reference to the dropdown button (the image)
+  var dropdownButton = document.getElementById('dropbtn');
+
+  // Add a click event listener to the dropdown button
+  dropdownButton.addEventListener('click', function (event) {
+    // Prevent the default behavior of the click event
+    event.preventDefault();
+    document.getElementById("main_content_contacts_page").style.opacity ="0.1";
+
+    // Toggle the display of the dropdown content
+    if (dropdownContent.style.display === 'block') {
+      dropdownContent.style.display = 'none';
+    } else {
+      dropdownContent.style.display = 'block';
+    }
+  });
+
+  // Add a click event listener to the document to close the dropdown when clicking outside
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+
+    // Check if the clicked element is not part of the dropdown button or the dropdown content
+    if (!dropdownButton.contains(target) && !dropdownContent.contains(target)) {
+      document.getElementById("main_content_contacts_page").style.opacity ="1";
+      dropdownContent.style.display = 'none';
+    }
+  });
+</script>
+
+
+ 
+  
+</body>
+</html>

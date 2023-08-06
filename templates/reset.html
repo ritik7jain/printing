@@ -6,62 +6,20 @@
 	</script>
 {% endif%}
 <html lang="en">
-    <head>
-        <title>Reset Password</title>
-        <style>
-          .container {
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-          }
-          
-          img {
-            max-width: 100px;
-            margin-bottom: 20px;
-          }
-          
-          h2 {
-            margin-top: 0;
-          }
-          
-          form {
-            margin-bottom: 20px;
-          }
-          
-          input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-          }
-          
-          button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-          }
-          
-          a {
-            color: #4CAF50;
-            text-decoration: none;
-          }
-          
-          a:hover {
-            text-decoration: underline;
-          }
-          
-        </style>
-      </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Earnings</title>
+  <link rel="stylesheet"  type="text/css" href="{% static 'css/style_reset.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- adding google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+ 
+</head>
       <body>
         <div class="back">
-              <a href="/"><i class='fas fa-arrow-left' style='font-size:22px'></i>Back</a>
+              <a href="/"><i class='fa fa-arrow-left' style='font-size:22px; border:1px solid white; border-radius:50%;color:#16507b; margin-left:30px' ></i></a>
           </div>
         <div class="container">
           {% comment %} <img src="your_logo.png" alt="Your Brand Logo"> {% endcomment %}
@@ -71,10 +29,10 @@
             <input type="email" name="email" placeholder="Enter your email" required>
             <button type="submit" value="Send Reset Link">Reset Password</button>
           </form>
-          <p>If you did not initiate this request, please ignore this email, and your password will remain unchanged.</p>
-          <p>For any assistance or queries, please contact our support team at <a href="mailto:jbhavesh3245@gmail.com">jbhavesh3245@gmail.com</a> or call us at <a href="tel:+9460987481">+9460987481</a>.</p>
-          <p>Thank you,</p>
-          <p>Matching Hearts</p>
+          <p class="p_tags">If you did not initiate this request, please ignore this email, and your password will remain unchanged.</p>
+          <p>For any assistance or queries, please contact our support team at <a href="mailto:jbhavesh3245@gmail.com">jbhavesh3245@gmail.com</a> or call us at <a href="tel:x9460987481">9460987481</a>.</p>
+          <p>Thank you</p>
+          <p id="smart_printers">Smart Printers</p>
         </div>
       </body>
       </html>
