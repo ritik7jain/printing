@@ -169,8 +169,9 @@ def upload_pdf(request):
                 user_ref = db.collection('users').document(uid)
                 user_data = user_ref.get().to_dict()
                 current_orders = user_data.get('orders', {})
-                order_id = re.sub(r'[^a-zA-Z0-9]', '', order_id)
                 order_id = str(uuid.uuid4())[:18]
+                order_id = re.sub(r'[^a-zA-Z0-9]', '', order_id)
+                
                 order = {
                     'order_type': order_type,
                     'pdf_files': [],
@@ -194,8 +195,7 @@ def upload_pdf(request):
             return render(request, "orders.html",{'orders':current_orders,'user_data': user_data, 'message':message})
         else:
             message = "Please Login First"
-            messages.warning(request, message)  
-            return redirect('/signin/')
+            return render(request,"upload_pdf.html",{'message':message})
     else:    
         print("2")
         if 'uid' in request.session:
@@ -249,10 +249,10 @@ def logout(request):
     try:
         del request.session['uid']
         print("yes")
-        return redirect('/')  
+        return redirect('/signin/')  
     except:
         pass
-    return redirect('/')
+    return redirect('/signin/')
 
 
 def order_details(request):
@@ -275,23 +275,23 @@ def signUp(request):
         email = request.POST.get('email')
         passs = request.POST.get('pass')
         name = request.POST.get('name')
+        phone_number=request.POST.get('phone_number')
         print("yes")
         try:
             user=authe.create_user_with_email_and_password(email,passs)
             print(f"user is {user}")
-            v=firebase_admin.auth.generate_email_verification_link(email)
-            print(v)
             uid = user['localId']
             user_data = {
                 'uid': uid,
                 'username': name,
                 'email': email,
+                'phone_number':phone_number,
                 'orders': {
                     
                 }
             }
             db.collection('users').document(uid).set(user_data)
-            return redirect('/')
+            return redirect('/signin/')
         except:
             return render(request, "Registration.html")
     return render(request,"Registration.html")

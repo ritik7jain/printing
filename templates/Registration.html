@@ -88,9 +88,17 @@
       if (emailInput.value.trim() === "" || passwordInput.value.trim() === ""||username_input.value.trim()===""||Phone_number_input.value.trim()===""||reenter_password_input.value.trim()==="") {
         event.preventDefault();
         errorMessage.style.display = "block";
-      } else {
-        errorMessage.style.display = "none";
+		errorMessage.textContent="Please Enter All Fields!";
       }
+	  else if (passwordInput.value !== reenter_password_input.value) {
+        event.preventDefault();
+        errorMessage.style.display = "block";
+        errorMessage.textContent = "Passwords do not match!";
+      } 
+	 
+	  else {
+        errorMessage.style.display = "none";
+      } 
     });
   });
 </script>

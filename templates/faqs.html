@@ -38,7 +38,7 @@
           
           <li><a class="nav-li current" href="/">Home</a></li>
           <li><a class="nav-li" href="/printout/">Services</a></li>
-          <li><a class="nav-li" href="/order/">Your Orders</a></li>
+          <li><a class="nav-li" href="/order/">Orders</a></li>
           <li><a class="nav-li" id="current" href="">FAQ's</a></li>
           <li><a class="nav-li" href="/contact/">Contact</a></li>
           <a id="logout_button_responsive" href="/logout/" class="logout_button_responsive" style="display:none">Logout</a>
@@ -48,9 +48,20 @@
             </button>
             
             <div class="dropdown-content">
-              <a href="#">{{user_data.username}}</a>
-              <a href="#"> {{user_data.email}}</a>
+              {%if user_data.username and user_data.email%}
+              <p>Hii, Welcome</p>
+              <a id="username_desktop_view">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                {{user_data.username}}</a>
+              <a   id="useremail_desktop_view" >
+                <i class="fa fa-envelope" aria-hidden="true"></i> {{user_data.email}}</a>
+                <a   id="userphone_number_desktop_view" >
+                  <i class="fa fa-phone" aria-hidden="true"></i> +91 {{user_data.phone_number}}</a>
               <a href="/logout/" class="logout_button">Logout</a>
+              {%else%}
+              <p style="text-align:center;margin-bottom:30px">Hii, Welcome</p>
+              <a id="sign_in_button"  href="/signin/" class="sign_in_button">Sign In</a>
+              {%endif%}
             </div>
           </div>
  

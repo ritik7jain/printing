@@ -1,7 +1,8 @@
 
 {% if message %}
 <script>
-	alert('{{ message }}');
+	var message="{{ message|safe }}";
+  console.log("message is ",message);
 </script>
 {% endif %}
 
@@ -73,6 +74,14 @@
       if (emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
         event.preventDefault();
         errorMessage.style.display = "block";
+      }
+      if(message)
+      {
+        event.preventDefault();
+        errorMessage.style.display = "block";
+       errorMessage.textContent=message;
+       
+
       } else {
         errorMessage.style.display = "none";
       }

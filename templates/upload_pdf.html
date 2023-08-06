@@ -1,3 +1,8 @@
+{% if message %}
+<script>
+	alert('{{ message }}');
+</script>
+{% endif %}
 <!-- upload_pdf.html -->
 <!DOCTYPE html>
 {% load static  %}
@@ -35,9 +40,10 @@
        <h3 class="upload_pdf_sub_headline">Upload Your Pdf file here and get it printed next day.</h3>
        <form id="order-form" action="../index.html" method="post" enctype="multipart/form-data">
         <label for="pdf-file" class="select_Pdf_button">Select PDF File</label>
-        <input type="file" name="pdf_file" accept=".pdf" id="pdf-file" class="select_Pdf_button" style="display:none;">
+        {% comment %} <input type="file" name="pdf_file" accept=".pdf" id="pdf-file" class="select_Pdf_button" style="display:none;"> {% endcomment %}
+        <input type="file" name="pdf_file" accept="application/pdf" id="pdf-file" class="select_Pdf_button" style="display:none;">
         <div id="file-name-display_upload_page"></div>
-        <button type="submit" class="placeorder" onclick="return placeOrderbutton()">Place Order</button>
+        <button type="submit" class="placeorder"  id="place_order_button"onclick="return placeOrderbutton()">Place Order</button>
         {% comment %} <button type="button" class="calculate_cost" onclick="getNumberOfPages()">Calculate Cost</button> {% endcomment %}
 
         {% comment %} <button type="submit" class="calculate_cost"onclick="return placeOrderbutton()" >Calculate Cost</button> {% endcomment %}
@@ -66,7 +72,7 @@
       <input type="file" name="pdf_file" accept=".pdf" id="pdf-file-copy" style="display:none;">
       <input type="number" id="cost_confirm_button_form" name="cost" style="display:none">
       <input type="text" name="pdf_file_name" id="pdf_file_name" style="display:none">
-      <button type="submit" class="confirm_button"onclick="submitForm()">Confirm</button>
+      <button type="submit" id="confirm_button" class="confirm_button"onclick="submitForm()">Confirm</button>
      </form>
     </div>
   </div>
@@ -113,6 +119,14 @@
 
   function placeOrderbutton() {
     var fileInput = document.querySelector('input[type="file"]');
+    const selectedFile = fileInput.files[0];
+    if (!(selectedFile.type === 'application/pdf')) 
+    {
+      alert('Selected file is not a PDF.');
+      return false;
+    }
+   
+  
     if (fileInput.files.length === 0) {
       alert("Please upload a PDF file.");
       return false; // Prevent form submission if no file is selected
@@ -133,7 +147,7 @@
     const typeofprint=localStorage.getItem('type_of_print');
    
     // Get the selected file name and display it in the 'file-name-display' div
-    const selectedFile = fileInput.files[0];
+    //const selectedFile = fileInput.files[0];
     const file_name_in_modal=selectedFile.name.substring(0,18);
     const fileNameDisplay = document.getElementById('file-name-display');
     fileNameDisplay.textContent = `Selected File: ${file_name_in_modal}`;
