@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -125,15 +126,15 @@ if not DEBUG:
     STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #added
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR,"static")
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static")
+]
 
 MAX_FILE_SIZE = 100 * 1024 * 1024  # 100mb
 
